@@ -101,7 +101,7 @@ export const getReactions = async (id) => {
 };
 
 /**
- *
+ * 리액션(이모지)을 등록합니다.
  * @param {String} recipientsId
  * @param {
  *  {"emoji": String,
