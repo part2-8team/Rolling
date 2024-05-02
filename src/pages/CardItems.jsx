@@ -1,11 +1,20 @@
+import styled from 'styled-components';
+import Card from './Card';
 import React from 'react';
 
-function CardItems() {
-  
+function CardItems({ data }) {
   return (
-    <div>
-      
-    </div>
+    <CardContainer>
+      <CardPlus>
+        <Plus>
+          <img src="" alt="+" />
+        </Plus>
+      </CardPlus>
+      {message &&
+        message.map((message) => {
+          <Card />;
+        })}
+    </CardContainer>
   );
 }
 
