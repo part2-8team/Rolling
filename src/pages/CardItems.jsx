@@ -2,6 +2,19 @@ import styled from 'styled-components';
 import Card from './Card';
 import React from 'react';
 
+const CardContainer = styled.div`
+
+`
+
+const CardPlus = styled.div`
+
+`
+
+const Plus = styled.div`
+
+`
+
+
 function CardItems({ data }) {
   return (
     <CardContainer>
