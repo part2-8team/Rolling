@@ -131,7 +131,7 @@ export const getReactions = async (recipientsId) => {
  * @param {String} recipientsId
  * @param {
  *  {"emoji": String,
- *    "type": String [increase, decrease]}
+ *    "type": String [increase | decrease]}
  * } formData
  * @returns 등록된 reaction 객체
  */
