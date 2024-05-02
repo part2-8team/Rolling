@@ -14,8 +14,8 @@ const messagePath = 'messages';
  * } param
  * @returns 메세지 객체들이 담긴 array
  */
-export const getMessageAll = async ({ limit, offset, id }) => {
-  const paramId = String(id);
+export const getMessageAll = async ({ limit, offset, recipientId }) => {
+  const paramId = String(recipientId);
   let response;
 
   if (limit !== null && offset !== null) {
@@ -88,8 +88,8 @@ export const createMessage = async (
  * @param {String} messageId
  * @returns 요청한 메세지 객체
  */
-export const getMessage = async (id) => {
-  const paramId = String(id);
+export const getMessage = async (messageId) => {
+  const paramId = String(messageId);
   const response = await fetch(`${messageBaseUrl}/${paramId}/`);
   if (!response.ok) {
     throw new Error('메세지를 불러오는데 실패했습니다');

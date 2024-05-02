@@ -81,8 +81,8 @@ export const createRecipient = async (
  * @param {String} recipientsId
  * @returns 요청한 수신자 객체
  */
-export const getRecipient = async (id) => {
-  const paramId = String(id);
+export const getRecipient = async (recipientsId) => {
+  const paramId = String(recipientsId);
   const response = await fetch(`${recipientsBaseUrl}/${paramId}`);
   if (!response.ok) {
     throw new Error('수신자를 불러오는데 실패했습니다');
@@ -96,8 +96,8 @@ export const getRecipient = async (id) => {
  * @param {String} recipientsId
  * @returns status code 204
  */
-export const deleteRecipient = async (id) => {
-  const paramId = String(id);
+export const deleteRecipient = async (recipientsId) => {
+  const paramId = String(recipientsId);
   const response = await fetch(`${recipientsBaseUrl}/${paramId}`, {
     method: 'DELETE',
   });
@@ -114,8 +114,8 @@ const reactionPath = 'reactions';
  * @param {String} recipientsId
  * @returns reaction객체 array
  */
-export const getReactions = async (id) => {
-  const paramId = String(id);
+export const getReactions = async (recipientsId) => {
+  const paramId = String(recipientsId);
   const response = await fetch(
     `${recipientsBaseUrl}/${paramId}/${reactionPath}/`,
   );
@@ -135,8 +135,8 @@ export const getReactions = async (id) => {
  * } formData
  * @returns 등록된 reaction 객체
  */
-export const createReaction = async (id, formData) => {
-  const paramId = String(id);
+export const createReaction = async (recipientsId, formData) => {
+  const paramId = String(recipientsId);
   const response = await fetch(
     `${recipientsBaseUrl}/${paramId}/${reactionPath}/`,
     {
