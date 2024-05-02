@@ -1,10 +1,10 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-
 import styled from "styled-components";
 import { bold16 } from "../styles/fontSize";
 
 import logo from "../assets/img-logo.svg";
+
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const nav = useNavigate();
@@ -47,6 +47,7 @@ const HeaderStyledContainer = styled.div`
     border-bottom: 1px solid var(--gray300);
     height: 64px;
     z-index: 10;
+    background-color: var(--white);
 
     .header__content {
       display: flex;

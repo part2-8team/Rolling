@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-// import "./reset.css";
+import { createGlobalStyle } from 'styled-components';
+// import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -47,7 +47,7 @@ const GlobalStyles = createGlobalStyle`
     --surface: #f6f8ff;
   }
 
-  
+// ${reset}  
 
   html {
     font-size: 62.5%;
