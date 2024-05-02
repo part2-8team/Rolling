@@ -17,10 +17,24 @@ export const getRecipientsCount = async () => {
 
 /**
  * 수신자(저장소) 리스트를 리턴합니다.
+ * @param {
+ *  {limit: string,
+ *   offset: string}
+ * }
  * @return 수신자 객체들이 담긴 array
  */
-export const getRecipientsAll = async () => {
-  const response = await fetch(recipientsBaseUrl);
+export const getRecipientsAll = async ({ limit, offset }) => {
+  let response;
+  if (limit !== null && offset !== null) {
+    response = await fetch(
+      `${recipientsBaseUrl}/?limit=${limit}&offset=${offset}`,
+    );
+  } else if (limit === null && offset !== null) {
+    response = await fetch(`${recipientsBaseUrl}/?offset=${offset}`);
+  } else if (offset === null && limit !== null) {
+    response = await fetch(`${recipientsBaseUrl}/?limit=${limit}`);
+  }
+
   if (!response.ok) {
     throw new Error('리스트를 불러오는데 실패했습니다');
   }
@@ -30,22 +44,34 @@ export const getRecipientsAll = async () => {
 
 /**
  * 수신자(저장소)를 등록합니다.
- * @param {
- *  {"team" : "6-8",
- *   "name" : string,
- *   "backgroundColor: string[선택1],
- *   "backgroundImageURL": string[선택2]}
- * } formData
+ * @param {String} name
+ * @param {String} backgroundColor
+ * @param {String} backgroundImageURL
  * @returns 등록에 성공한 객체
  */
-export const createRecipient = async (formData) => {
+export const createRecipient = async (
+  name,
+  backgroundColor,
+  backgroundImageURL,
+) => {
+  const formData = {
+    team: '6-8',
+    name,
+  };
+
+  backgroundColor
+    ? (formData[backgroundImageURL] = backgroundImageURL)
+    : (formData[backgroundColor] = backgroundColor);
+
   const response = await fetch(recipientsBaseUrl, {
     method: 'POST',
-    body: formData,
+    body: JSON.stringify(formData),
   });
+
   if (!response.ok) {
     throw new Error('수신자를 등록하는데 실패했습니다.');
   }
+
   const body = await response.json();
   return body;
 };
