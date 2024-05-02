@@ -17,14 +17,14 @@ export const getRecipientsCount = async () => {
 
 /**
  * 수신자(저장소) 리스트를 리턴합니다.
- * @return 수신자 객체 array
+ * @return 수신자 객체들이 담긴 array
  */
 export const getRecipientsAll = async () => {
   const response = await fetch(recipientsBaseUrl);
-  const body = await response.json();
   if (!response.ok) {
     throw new Error('리스트를 불러오는데 실패했습니다');
   }
+  const body = await response.json();
   return body['results'];
 };
 
