@@ -1,28 +1,28 @@
-import styled from "styled-components";
-import { bold16 } from "../styles/fontSize";
+import styled from 'styled-components';
+import { bold14, bold16 } from '../styles/fontSize';
 
-import logo from "../assets/img-logo.svg";
+import logo from '../assets/img-logo.svg';
 
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const nav = useNavigate();
   return (
     <HeaderStyledContainer>
       <div className="Header">
-        <div className="header__content">
+        <div className="headerContent">
           <img
             className="logo"
             src={logo}
             alt="Rolling_메인화면으로"
             onClick={() => {
-              nav("/");
+              nav('/');
             }}
           />
           <button
             onClick={() => {
-              nav("/post");
+              nav('/post');
             }}
           >
             롤링 페이퍼 만들기
@@ -49,7 +49,7 @@ const HeaderStyledContainer = styled.div`
     z-index: 10;
     background-color: var(--white);
 
-    .header__content {
+    .headerContent {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -71,6 +71,22 @@ const HeaderStyledContainer = styled.div`
       background-color: var(--white);
       padding: 7px 16px;
       cursor: pointer;
+    }
+
+    @media (max-width: 1200px) {
+      .headerContent {
+        width: 100%;
+        padding: 0 24px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .headerContent {
+        padding: 0 20px;
+      }
+      button {
+        ${bold14}
+      }
     }
   }
 `;

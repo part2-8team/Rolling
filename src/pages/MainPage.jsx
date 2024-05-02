@@ -17,7 +17,9 @@ function MainPage(props) {
         <div className="MainPage">
           <div className="sections">
             <section>
-              <img src={card01} alt="롤링 페이퍼 이미지 1" />
+              <div className="sectionImage">
+                <img src={card01} alt="롤링 페이퍼 이미지 1" />
+              </div>
               <div className="sectionTitle">
                 <div className="point">Point 01</div>
                 <h3 className="title">
@@ -27,7 +29,9 @@ function MainPage(props) {
               </div>
             </section>
             <section>
-              <img src={card02} alt="롤링 페이퍼 이미지 2" />
+              <div className="sectionImage">
+                <img src={card02} alt="롤링 페이퍼 이미지 2" />
+              </div>
               <div className="sectionTitle">
                 <div className="point">Point 02</div>
                 <h3 className="title">
@@ -77,16 +81,16 @@ const MainPageStyledComponent = styled.div`
         justify-content: flex-start;
         padding: 60px 0;
         flex-direction: row-reverse;
+        box-sizing: border-box;
 
         & > img {
-          background-color: red;
+          height: 204px;
         }
 
         & .sectionTitle {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-          background-color: blue;
 
           & .point {
             display: inline;
@@ -99,6 +103,7 @@ const MainPageStyledComponent = styled.div`
 
           & .title {
             ${bold24}
+            margin: 16px 0 8px;
           }
 
           & .desc {
@@ -116,60 +121,70 @@ const MainPageStyledComponent = styled.div`
         }
       }
     }
-    & .MainPageCard {
-      border-radius: 11.85px;
-      border: 1px solid #dbd9e9;
-      background-color: var(--white);
-      padding: 18px 12px 14px;
-
-      & .cardProfile {
-        display: flex;
-        gap: 7.75px;
-        align-items: center;
-        padding-bottom: 10.67px;
-        border-bottom: 1px solid #e1e1e1;
-
-        & .profileImage {
-          max-width: 31px;
-          height: 31px;
-          border-radius: 9999px;
-          background-color: purple;
-          flex-grow: 0;
-          position: relative;
-          flex-shrink: 0;
-          flex-grow: 1;
-
-          & img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-          }
-        }
-
-        & .profileName {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          flex: auto;
-
-          & > .name {
-            font-size: 11.85px;
-          }
-
-          & > .relation {
-          }
-        }
-      }
-      & .cardContent {
-        color: var(--gray500);
-        height: 53px;
-        font-size: 11.85px;
-        margin: 8px 0 9px;
-      }
-    }
     & > button {
       margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      padding: 0 20px;
+      gap: 72px;
+
+      & .sections {
+        & section {
+          width: 100%;
+          margin: 0;
+          flex-direction: column-reverse;
+          gap: 36px;
+          padding: 0;
+          margin: 16px 4px;
+
+          & .sectionImage {
+            width: 100%;
+            height: 161px;
+            display: flex;
+            overflow: hidden;
+            margin: 0 auto 40px;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+
+            img {
+              display: inline-block;
+              width: 100%;
+              min-width: 434.51px;
+            }
+          }
+
+          & .sectionTitle {
+            margin: 40px 40px 0;
+            & br {
+              display: inline-block;
+              content: ' ';
+            }
+          }
+        }
+
+        & section:nth-child(2) {
+          flex-direction: column-reverse;
+          gap: 0;
+          gap: 36px;
+          & .sectionImage {
+            width: 100%;
+            height: auto;
+          }
+        }
+      }
+      & > button {
+        width: 100%;
+        margin-bottom: 24px;
+      }
+    }
+    @media (max-width: 360px) {
+      gap: 61px;
+
+      .sections section .sectionTitle br {
+        display: initial;
+        content: initial;
+      }
     }
   }
 `;
