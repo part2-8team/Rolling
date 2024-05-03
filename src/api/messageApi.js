@@ -158,7 +158,7 @@ export const patchMessage = async (messageId, recipientId, dataObj) => {
   }
 
   const response = await fetch(`${messageBaseUrl}/${paramId}/`, {
-    method: 'PUT',
+    method: 'PATCH',
     body: JSON.stringify(formData),
   });
   if (!response.ok) {
