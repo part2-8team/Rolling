@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { bold14, bold16 } from '../styles/fontSize';
-
-import logo from '../assets/img-logo.svg';
-
+import logo from '../assets/logo.svg';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 

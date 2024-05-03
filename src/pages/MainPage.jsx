@@ -3,9 +3,15 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { bold14, bold24, regular18 } from '../styles/fontSize';
-import card01 from '../assets/img-mainPageCard01.png';
-import card02 from '../assets/img-mainPageCard02.png';
+import {
+  bold14,
+  bold18,
+  bold24,
+  regular15,
+  regular18,
+} from '../styles/fontSize';
+import card01 from '../assets/IMG-LENDING1.png';
+import card02 from '../assets/IMG-LENDING2.png';
 
 function MainPage(props) {
   const nav = useNavigate();
@@ -83,8 +89,9 @@ const MainPageStyledComponent = styled.div`
         flex-direction: row-reverse;
         box-sizing: border-box;
 
-        & > img {
-          height: 204px;
+        & .sectionImage {
+          width: 720px;
+          text-align: center;
         }
 
         & .sectionTitle {
@@ -124,17 +131,46 @@ const MainPageStyledComponent = styled.div`
     & > button {
       margin: 0 auto;
     }
+    @media (max-width: 1200px) {
+      & .sections {
+        & section {
+          width: 95%;
+          flex-direction: column-reverse;
+          padding: 0;
+          gap: 36px;
+          align-items: center;
+
+          & .sectionTitle {
+            margin: 40px 40px 0;
+            align-items: center;
+
+            & br {
+              display: inline-block;
+              content: ' ';
+            }
+          }
+        }
+
+        & section:nth-child(2) {
+          flex-direction: column-reverse;
+          gap: 36px;
+
+          & .sectionImage {
+            > img {
+              width: auto;
+            }
+          }
+        }
+      }
+    }
     @media (max-width: 768px) {
       padding: 0 20px;
-      gap: 72px;
 
       & .sections {
         & section {
           width: 100%;
           margin: 0;
-          flex-direction: column-reverse;
           gap: 36px;
-          padding: 0;
           margin: 16px 4px;
 
           & .sectionImage {
@@ -147,18 +183,10 @@ const MainPageStyledComponent = styled.div`
             text-align: center;
             justify-content: center;
 
-            img {
+            > img {
               display: inline-block;
               width: 100%;
               min-width: 434.51px;
-            }
-          }
-
-          & .sectionTitle {
-            margin: 40px 40px 0;
-            & br {
-              display: inline-block;
-              content: ' ';
             }
           }
         }
@@ -170,6 +198,10 @@ const MainPageStyledComponent = styled.div`
           & .sectionImage {
             width: 100%;
             height: auto;
+            > img {
+              width: 100%;
+              min-width: initial;
+            }
           }
         }
       }
@@ -181,9 +213,26 @@ const MainPageStyledComponent = styled.div`
     @media (max-width: 360px) {
       gap: 61px;
 
-      .sections section .sectionTitle br {
-        display: initial;
-        content: initial;
+      & .sections {
+        & section {
+          margin: 0;
+          & .sectionTitle {
+            align-items: flex-start;
+
+            & .title {
+              ${bold18}
+            }
+
+            & .desc {
+              ${regular15}
+            }
+
+            & br {
+              display: initial;
+              content: initial;
+            }
+          }
+        }
       }
     }
   }
