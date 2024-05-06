@@ -22,3 +22,5 @@ const ButtonStyledComponent = styled.button`
   ${bold18}
   width: 280px;
 `;
+  
+

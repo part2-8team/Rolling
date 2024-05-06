@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
-import React from "react";
-import MainPage from "./pages/MainPage";
-import PostPage from "./pages/PostPage";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './App.css';
+import React from 'react';
+import MainPage from './pages/MainPage';
+import PostPage from './pages/PostId';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <Route path="/">
           <Route index element={<MainPage />} />
           <Route path="list">
-            <Route index element={<List />} />
+            <Route index element={<ListPage />} />
           </Route>
           <Route path="post">
             <Route index element={<PostPage />} />
@@ -20,7 +20,6 @@ function App() {
               <Route path="message" element={<PostIdMessage />} />
               <Route path="edit">
                 <Route index element={<PostIdEdit />} />
-                <Route path=":messageid" element={<MessageEdit />} />
               </Route>
             </Route>
           </Route>

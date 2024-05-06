@@ -57,7 +57,7 @@ const DeleteCard = styled.div`
 //   }
 // `;
 
-function PostPage({ data }) {
+function PostId({ data }) {
   return (
     <PostIdWrapper color={data.backgroundColor} image={data.backgroundImageURL}>
       <HeaderWrapper>
@@ -76,4 +76,4 @@ function PostPage({ data }) {
   );
 }
 
-export default PostPage;
+export default PostId;
