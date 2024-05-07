@@ -1,8 +1,10 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
-import React from 'react';
-import MainPage from './pages/MainPage';
-import PostPage from './pages/PostId';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import React from "react";
+import MainPage from "./pages/MainPage";
+import ListPage from './pages/ListPage';
+import Post from './pages/Post';
+import PostId from './pages/PostId';
 
 function App() {
   return (
@@ -14,7 +16,7 @@ function App() {
             <Route index element={<ListPage />} />
           </Route>
           <Route path="post">
-            <Route index element={<PostPage />} />
+            <Route index element={<Post />} />
             <Route path=":id">
               <Route index element={<PostId />} />
               <Route path="message" element={<PostIdMessage />} />
