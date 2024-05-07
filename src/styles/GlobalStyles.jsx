@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from './reset';
 
+
 const GlobalStyles = createGlobalStyle`
   :root {
     --purple100: #f8f0ff;
@@ -47,7 +48,7 @@ const GlobalStyles = createGlobalStyle`
     --surface: #f6f8ff;
   }
 
-  ${reset}
+
 
   html {
     font-size: 62.5%;
