@@ -1,9 +1,10 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
-import React from 'react';
-import MainPage from './pages/MainPage';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import React from "react";
+import MainPage from "./pages/MainPage";
 import ListPage from './pages/ListPage';
-import UserFormPage from './pages/UserFormPage';
+import Post from './pages/Post';
+import PostId from './pages/PostId';
 
 function App() {
   return (
@@ -11,12 +12,24 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<MainPage />} />
-          <Route path="list" element={<ListPage />} />
+          <Route path="list">
+            <Route index element={<ListPage />} />
+          </Route>
+          <Route path="post">
+            <Route index element={<Post />} />
+            <Route path=":id">
+              <Route index element={<PostId />} />
+              <Route path="message" element={<PostIdMessage />} />
+              <Route path="edit">
+                <Route index element={<PostIdEdit />} />
+              </Route>
+            </Route>
+          </Route>
         </Route>
-        <Route path="/post" element={<UserFormPage />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
+;

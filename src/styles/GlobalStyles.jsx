@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-// import reset from './reset.css';
+import reset from './reset';
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -46,6 +46,8 @@ const GlobalStyles = createGlobalStyle`
     --error: #dc3a3a;
     --surface: #f6f8ff;
   }
+
+${reset}
 
 
   html {

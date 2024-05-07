@@ -4,13 +4,7 @@ import { useRef, useEffect, useState } from 'react';
 // import DeleteButton from './DeleteButton';
 // import Modal from './Modal';
 // import CardModal from './CardModal';
-import {
-  regular12,
-  regular14,
-  regular18,
-  regular20,
-} from '../styles/fontSize';
-
+import { regular12, regular14, regular18, regular20 } from '../styles/fontSize';
 
 const USER_STATE = {
   가족: { background: 'var(--green100)', color: 'var(--green500)' },
@@ -18,8 +12,6 @@ const USER_STATE = {
   지인: { background: 'var(--orange100)', color: 'var(--orange500)' },
   친구: { background: 'var(--blue100)', color: 'var(--blue500)' },
 };
-
-
 
 const CardContentWrapper = styled.div`
   position: relative;
@@ -122,14 +114,20 @@ function Card({
   id,
   src,
   name,
+  cardFont,
   userState = '친구',
   cardContent = '코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두 조심 또 조심하세요!',
   cardCreatedAt = '2023.07.08',
   onDelete,
 }) {
-  const [isCardOnClick, setIsCardOnClick] = useState(false)
-  const Ref = useRef(second)
+  const [isCardOnClick, setIsCardOnClick] = useState(false);
+  const Ref = useRef(second);
 
+  const OutsideClick = (e) => {
+    if (isCardOpen && (!ref.current || !ref.current.contains(e.target))) {
+      setIsCardOnClick(false);
+    }
+  };
 
   useEffect(() => {
     window.addEventListener('click', onClickOutside);
@@ -144,18 +142,28 @@ function Card({
   };
 
   const createdDate = new Date(cardCreatedAt);
+
+  const fontClass = {
+    'Noto Sans': 'noto-sans',
+    Pretendard: 'pretendard',
+    나눔명조: 'nanum-gothic',
+    '나눔손글씨 손편지체': 'nanum-myeongjo',
+  };
+
+  const font = fontClass[cardFont] || '';
+
   return (
     <CardContentWrapper Ref={Ref} onClick={onClickCard}>
       <CardContent>
-        <UserInfo>
-          <UserImg src={src} />
+        <UserInfo >
+          <UserImg src={src} alt="프로필" />
           <UserNameText>
             Form.<UserName>${name}</UserName>
-            <UserState>{userState}</UserState>
-            <DeleteButton id={id} onDelete={onDelete} />
+            <UserState $state={userState}>{userState}</UserState>
           </UserNameText>
+          <DeleteButton id={id} onDelete={onDelete} />
         </UserInfo>
-        <CardContentText>{cardContent}</CardContentText>
+        <CardContentText className={font}>{cardContent}</CardContentText>
         <CardDate>
           {`${createdDate.getFullYear()}. ${
             createdDate.getMonth() + 1
@@ -164,7 +172,16 @@ function Card({
       </CardContent>
       {isCardOnClick && (
         <Modal>
-          <CardModal onClick={(e) => onClick(e)} />
+          <CardModal
+            onClick={(e) => OutsideClick(e)}
+            id={id}
+            src={src}
+            name={name}
+            cardFont={cardFont}
+            userState={userState}
+            cardContent={cardContent}
+            cardCreatedAt={cardCreatedAt}
+          />
         </Modal>
       )}
     </CardContentWrapper>
