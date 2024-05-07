@@ -4,7 +4,7 @@
 <img width="100%" alt="part2 8팀 로고" src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fff83e550-3b79-4bf0-8b34-8cb1064ebe3d%2F083562b8-8ccd-4166-b977-56df9bb10d3e%2F8%25ED%258C%2580_-1.png?table=block&id=349e3697-1d49-473e-8d2f-44ab9137f6ed&spaceId=ff83e550-3b79-4bf0-8b34-8cb1064ebe3d&width=2000&userId=d92cb7b0-8f33-494c-a6dc-3371f9c1f01f&cache=v2">
 </div>
 
-## power12team 팀원 소개
+## 8team 팀원 소개
 
 <div align="center">
 <table>
