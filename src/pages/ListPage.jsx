@@ -7,7 +7,7 @@ import SliderButton from '../components/SliderButton';
 import arrowRight from '../assets/arrow-right.svg';
 import arrowLeft from '../assets/arrow-left.svg';
 
-// mock 데이터
+// mock 데이터 요소 추가, 삭제 가능
 const sliderCards = [1, 2, 3, 4, 5];
 // 슬라이더 클릭 한번당 움직일 px
 const SLIDE = 295;
