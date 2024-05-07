@@ -26,7 +26,7 @@ const MainToContainer = styled.div`
   width: 720px;
   height: 104px;
   margin: 0 auto;
-  margin-top: 57px;
+  margin-top: 114px;
   /* border: 1px solid red; */
 `;
 

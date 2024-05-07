@@ -9,6 +9,10 @@ import colorYellow from '../../assets/colorYellow.png';
 import colorPink from '../../assets/colorPink.png';
 import colorBlue from '../../assets/colorBlue.png';
 import colorGreen from '../../assets/colorGreen.png';
+import background_img1 from '../../assets/background-img1.jpg';
+import background_img2 from '../../assets/background-img2.jpg';
+import background_img3 from '../../assets/background-img3.jpg';
+import background_img4 from '../../assets/background-img4.jpg';
 
 //스타일
 import styled, { createGlobalStyle } from 'styled-components';
@@ -44,13 +48,17 @@ const ColorCardGroup = styled.div`
 const ColorCard = styled.img`
   width: 168px;
   height: 168px;
+  ${({ withBorderRadius }) => withBorderRadius && 'border-radius: 20px;'}
 `;
+
 
 const ToggleButton = () => {
   const [isColorActive, setIsColorActive] = useState(true);
+  const [isImageActive, setIsImageActive] = useState(false);
 
   const handleButtonClick = () => {
     setIsColorActive(!isColorActive);
+    setIsImageActive(!isImageActive);
   };
 
   return (
@@ -71,7 +79,7 @@ const ToggleButton = () => {
           />
         </ToggleImgButton>
       </ChooseImgGroup>
-      {isColorActive && (
+      {isColorActive && !isImageActive && (
         <ColorCardGroup>
           <ColorCard src={colorYellow} alt="노란색 배경화면" />
           <ColorCard src={colorPink} alt="분홍색 배경화면" />
@@ -79,8 +87,17 @@ const ToggleButton = () => {
           <ColorCard src={colorGreen} alt="초록색 배경화면" />
         </ColorCardGroup>
       )}
+      {!isColorActive && isImageActive && (
+        <ColorCardGroup>
+          <ColorCard src={background_img1} alt="암벽이 보이는 도로를 달리는 자동차 배경화면" withBorderRadius />
+          <ColorCard src={background_img2} alt="드넓은 대지가 보이는 도로를 달리는 자동차 배경화면" withBorderRadius />
+          <ColorCard src={background_img3} alt="노을진 바다 배경화면" withBorderRadius />
+          <ColorCard src={background_img4} alt="식물이 있는 카페 배경화면" withBorderRadius />
+        </ColorCardGroup>
+      )}
     </>
   );
 };
+
 
 export default ToggleButton;
