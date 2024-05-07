@@ -1,114 +1,69 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import SliderTitle from '../components/SliderTitle';
 import Button from '../components/Button';
-import SliderButton from '../components/SliderButton';
-import arrowRight from '../assets/arrow-right.svg';
-import arrowLeft from '../assets/arrow-left.svg';
+import ListSlider from '../components/ListSlider';
 
-// mock 데이터 요소 추가, 삭제 가능
-const sliderCards = [1, 2, 3, 4, 5];
 // 슬라이더 클릭 한번당 움직일 px
 const SLIDE = 295;
 
 function ListPage() {
   const [movePopularSlider, setMovePopularSlider] = useState(0);
   const [moveRecentSlider, setMoveRecentSlider] = useState(0);
-  const nav = useNavigate();
   const popularSlider = useRef(null);
   const recentSlider = useRef(null);
-
-  const sliderWidth = SLIDE * sliderCards.length - 20;
-  const sliderEnd = (sliderCards.length - 4) * -SLIDE;
-
-  const isPopularPrev = movePopularSlider >= 0 ? false : true;
-  const isPopularNext =
-    sliderEnd >= 1 ? false : movePopularSlider === sliderEnd ? false : true;
-
-  const isRecentPrev = moveRecentSlider >= 0 ? false : true;
-  const isRecentNext =
-    sliderEnd >= 1 ? false : moveRecentSlider === sliderEnd ? false : true;
+  const popularSliderValue = 'popular';
+  const recentSliderValue = 'recent';
+  const nav = useNavigate();
 
   const moveToPost = () => {
     nav('/post');
   };
 
-  const onClickPopularNext = () => {
-    setMovePopularSlider(movePopularSlider - SLIDE);
+  // 슬라이더 버튼 구분을 위한 함수
+  const handleClickNext = (state, value) => {
+    if (value === 'popular') {
+      const moveNext = state - SLIDE;
+      setMovePopularSlider(moveNext);
+    }
+
+    if (value === 'recent') {
+      const moveNext = state - SLIDE;
+      setMoveRecentSlider(moveNext);
+    }
   };
 
-  const onClickPopularPrev = () => {
-    setMovePopularSlider(movePopularSlider + SLIDE);
-  };
+  // 슬라이더 버튼 구분을 위한 함수
+  const handleClickPrev = (state, value) => {
+    if (value === 'popular') {
+      const movePrev = state + SLIDE;
+      setMovePopularSlider(movePrev);
+    }
 
-  const onClickRecentNext = () => {
-    setMoveRecentSlider(moveRecentSlider - SLIDE);
+    if (value === 'recent') {
+      const movePrev = state + SLIDE;
+      setMoveRecentSlider(movePrev);
+    }
   };
-
-  const onClickRecentPrev = () => {
-    setMoveRecentSlider(moveRecentSlider + SLIDE);
-  };
-
-  useEffect(() => {
-    popularSlider.current.style.transform = `translateX(${movePopularSlider}px)`;
-    recentSlider.current.style.transform = `translateX(${moveRecentSlider}px)`;
-  }, [movePopularSlider, moveRecentSlider]);
 
   return (
     <StyleContainer>
-      <StyleSection>
-        <SliderTitle title="인기 롤링 페이퍼 🔥" />
-        {isPopularPrev && (
-          <SliderButton
-            className="prev-button"
-            src={arrowLeft}
-            alt="이전 버튼"
-            onClick={onClickPopularPrev}
-          />
-        )}
-        <StyleSliderWrap>
-          <StyleSlider ref={popularSlider} width={sliderWidth}>
-            {sliderCards.map((card) => (
-              <StyleSliderCard key={card}>{card}</StyleSliderCard>
-            ))}
-          </StyleSlider>
-        </StyleSliderWrap>
-        {isPopularNext && (
-          <SliderButton
-            className="next-button"
-            src={arrowRight}
-            alt="다음 버튼"
-            onClick={onClickPopularNext}
-          />
-        )}
-      </StyleSection>
-      <StyleSection>
-        <SliderTitle title="최근에 만든 롤링 페이퍼 ⭐️️" />
-        {isRecentPrev && (
-          <SliderButton
-            className="prev-button"
-            src={arrowLeft}
-            alt="이전 버튼"
-            onClick={onClickRecentPrev}
-          />
-        )}
-        <StyleSliderWrap>
-          <StyleSlider ref={recentSlider} width={sliderWidth}>
-            {sliderCards.map((card) => (
-              <StyleSliderCard key={card}>{card}</StyleSliderCard>
-            ))}
-          </StyleSlider>
-        </StyleSliderWrap>
-        {isRecentNext && (
-          <SliderButton
-            className="next-button"
-            src={arrowRight}
-            alt="다음 버튼"
-            onClick={onClickRecentNext}
-          />
-        )}
-      </StyleSection>
+      <ListSlider
+        title="인기 롤링 페이퍼 🔥"
+        moveSlider={movePopularSlider}
+        sliderRef={popularSlider}
+        clickNext={handleClickNext}
+        clickPrev={handleClickPrev}
+        value={popularSliderValue}
+      />
+      <ListSlider
+        title="최근에 만든 롤링 페이퍼 ⭐️"
+        moveSlider={moveRecentSlider}
+        sliderRef={recentSlider}
+        clickNext={handleClickNext}
+        clickPrev={handleClickPrev}
+        value={recentSliderValue}
+      />
       <StyleSection className="button-section">
         <Button text="나도 만들어보기" onClick={moveToPost} />
       </StyleSection>
@@ -148,54 +103,4 @@ const StyleSection = styled.section`
   flex-direction: column;
   align-items: flex-start;
   gap: 15px;
-
-  position: relative;
-
-  .prev-button {
-    top: 50%;
-    left: -20px;
-  }
-
-  .next-button {
-    top: 50%;
-    right: 20px;
-  }
-`;
-
-const StyleSliderWrap = styled.div`
-  width: 1160px;
-  height: 262px;
-
-  position: relative;
-  overflow: hidden;
-`;
-
-const StyleSlider = styled.ul`
-  width: ${({ width }) => width}px;
-  height: 260px;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  display: flex;
-  transition: all 0.5s ease-in;
-`;
-
-const StyleSliderCard = styled.li`
-  width: 275px;
-  height: 260px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border: 1px solid #0000001a;
-  border-radius: 16px;
-  box-shadow: 0px 2px 12px 0px #00000014;
-  transition: 0.5 ease-out;
-
-  &:not(:first-child) {
-    margin-left: 20px;
-  }
 `;
