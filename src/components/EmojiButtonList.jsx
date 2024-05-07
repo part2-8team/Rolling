@@ -19,4 +19,6 @@ export default EmojiButtonList;
 const StyledEmojiButtonList = styled.ul`
   list-style-type: none;
   display: flex;
+  margin: 0;
+  padding: 0;
 `;
