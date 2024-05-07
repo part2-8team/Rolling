@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { bold18 } from "../styles/fontSize";
+import { bold18 } from "../../styles/fontSize";
 
 function Button({ text, onClick }) {
   return (

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SliderTitle from '../components/SliderTitle';
-import Button from '../components/Button';
+import Button from '../components/Button/Button';
 import SliderButton from '../components/SliderButton';
 import arrowRight from '../assets/arrow-right.svg';
 import arrowLeft from '../assets/arrow-left.svg';
