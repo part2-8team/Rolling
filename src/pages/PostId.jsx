@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import Nav from '../components/Nav';
 import { useEffect, useState } from 'react';
+import {getRecipientData} from '../api/recipientApi';
+import Header from '../components/Header';
+import CardItems from './CardItems';
+
 
 const HeaderWrapper = styled.div`
   position: sticky;
@@ -58,6 +62,27 @@ const DeleteCard = styled.div`
 // `;
 
 function PostId({ data }) {
+  const { id } = useParams();
+  const [data, setData] = useState({});
+
+  const handleIdData = async () => {
+    try {
+      const result = await getRecipientData(id);
+      setData(result);
+    } catch (error) {
+      throw new Error('데이터를 불러오지 못했습니다.', error);
+    }
+  };
+
+  useEffect(() => {
+    handleIdData();
+  }, []);
+
+  let profileUrl = [];
+
+  if (data && data.recentMessages?.length > 0) {
+    profileUrl = data.recentMessages.map((message) => message.profileImageURL);
+  }
   return (
     <PostIdWrapper color={data.backgroundColor} image={data.backgroundImageURL}>
       <HeaderWrapper>
@@ -77,3 +102,6 @@ function PostId({ data }) {
 }
 
 export default PostId;
+
+
+

@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import Card from './Card';
 import React, { useEffect, useState } from 'react';
-import {  } from '../api/etcApi';
-import {  } from '../api/recipientApi';
-
+import {} from '../api/etcApi';
+import {} from '../api/recipientApi';
+import Card, { CardContentWrapper } from './Card';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const CardContainer = styled.div`
   display: flex;
@@ -22,7 +23,7 @@ const CardContainer = styled.div`
   }
 `;
 
-const CardPlus = styled.div`
+const CardPlus = styled(CardContentWrapper)`
   display: ${({ $isDisplay }) => ($isDisplay ? ' none' : 'block')};
   justify-content: center;
   position: relative;
@@ -54,6 +55,61 @@ const Plus = styled.div`
 `;
 
 function CardItems({ data }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isEditRoute = location.pathname.includes('/edit');
+
+  const [messages, setMessages] = useState([]);
+  const [target, setTarget] = useState(null);
+  const [offset, setOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+
+  const Messages = async () => {
+    try {
+      if (!hasMore) {
+        return;
+      }
+      const result = await getMessagesAll(id, offset);
+      const counts = result.count;
+      if (counts < offset || result.next === null) {
+        setHasMore(false);
+      }
+      setOffset((prev) => prev + 8);
+      setMessages((prev) => [...prev, ...result.results]);
+    } catch (error) {
+      throw new Error('데이터를 불러오지 못했습니다.', error);
+    }
+  };
+
+  const DeleteMessage = async (messageId) => {
+    try {
+      await deleteMessages(messageId);
+      const deletedId = messageId;
+      const newMessageList = messages.filter(
+        (message) => message.id !== deletedId,
+      );
+      setMessages(newMessageList);
+    } catch (error) {
+      throw new Error('메세지 삭제에 실패했습니다.', error);
+    }
+  };
+
+  useEffect(() => {
+    let observer;
+    if (target) {
+      const onIntersect = async ([entry]) => {
+        if (entry.isIntersecting) {
+          observer.unobserve(entry.target);
+          await Messages(id, offset);
+          observer.observe(entry.target);
+        }
+      };
+      observer = new IntersectionObserver(onIntersect, { threshold: 0.1 });
+      observer.observe(target);
+    }
+    return () => observer && observer.disconnect();
+  }, [offset, target]);
 
   return (
     <CardContainer>
@@ -66,7 +122,7 @@ function CardItems({ data }) {
         </Plus>
       </CardPlus>
       {message &&
-        message.map((message) => {
+        message.map((message) => (
           <Card
             key={message.id}
             id={message.id}
@@ -77,8 +133,9 @@ function CardItems({ data }) {
             cardContent={message.content}
             cardCreatedAt={message.createdAt}
             onDelete={DeleteMessage}
-          />;
-        })}
+          />
+        ))}
+      <div ref={setTarget} styled={{ width: '100%', height: '1rem' }} />
     </CardContainer>
   );
 }

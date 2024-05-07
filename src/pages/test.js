@@ -1,19 +1,18 @@
-import React from 'react';
 import styled from 'styled-components';
 import { useRef, useEffect, useState } from 'react';
-// import DeleteButton from './DeleteButton';
-// import Modal from './Modal';
-// import CardModal from './CardModal';
-import { regular12, regular14, regular18, regular20 } from '../styles/fontSize';
+import DeleteMessageButton from '../../button/DeleteMessageButton';
+import ModalPortal from '../../modal/ModalPortal';
+import CardModal from '../../modal/CardModal';
+import {
+  regular12,
+  regular14,
+  regular18,
+  regular20,
+} from '../../../styles/FontStyle';
+import { DISPLAY_SIZE } from '../../../constants/SIZE_SET';
+import { USER_STATE } from '../../../constants/COLOR_SET';
 
-const USER_STATE = {
-  가족: { background: 'var(--green100)', color: 'var(--green500)' },
-  동료: { background: 'var(--purple100)', color: 'var(--purple600)' },
-  지인: { background: 'var(--orange100)', color: 'var(--orange500)' },
-  친구: { background: 'var(--blue100)', color: 'var(--blue500)' },
-};
-
-const CardContentWrapper = styled.div`
+export const CardContentWrapper = styled.div`
   position: relative;
   max-width: 38.4rem;
   width: 32%;
@@ -30,6 +29,16 @@ const CardContentWrapper = styled.div`
   &:hover {
     transform: translateY(-1.2rem);
   }
+
+  @media (min-width: ${DISPLAY_SIZE.MIN_TABLET}px) and (max-width: ${DISPLAY_SIZE.MAX_TABLET}px) {
+    max-width: ${DISPLAY_SIZE.MAX_TABLET}px;
+    width: 49%;
+  }
+  @media (max-width: ${DISPLAY_SIZE.MIN_TABLET}px) {
+    max-width: ${DISPLAY_SIZE.MIN_TABLET}px;
+    min-width: 32rem;
+    width: 100%;
+  }
 `;
 
 const CardContent = styled.div`
@@ -41,7 +50,7 @@ const UserInfo = styled.div`
   gap: 1.4rem;
 `;
 
-const UserImg = styled.img`
+const UserPicture = styled.img`
   display: flex;
   width: 5.6rem;
   height: 5.6rem;
@@ -52,7 +61,7 @@ const UserImg = styled.img`
   background: var(--white);
 `;
 
-const UserNameText = styled.div`
+const UserText = styled.div`
   display: block;
   position: relative;
   color: var(--black);
@@ -85,9 +94,19 @@ const UserState = styled.div`
   ${regular14}
 `;
 
-const CardContentText = styled.div`
+const SplitHorizontal = styled.div`
+  width: 100%;
+  height: 0.1rem;
+  background: var(--gray200);
+  margin: 1.5rem auto;
+`;
+
+const CardContentTextContainer = styled.div`
   height: 100%;
   width: 100%;
+`;
+
+const CardContentText = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
@@ -95,13 +114,14 @@ const CardContentText = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--gray600);
+  width: 100%;
 
   ${regular18}
 
   flex-wrap: wrap;
 `;
 
-const CardDate = styled.div`
+const CardCreatedAt = styled.div`
   position: absolute;
   left: 2.4rem;
   bottom: 2.4rem;
@@ -120,28 +140,28 @@ function Card({
   cardCreatedAt = '2023.07.08',
   onDelete,
 }) {
-  const [isCardOnClick, setIsCardOnClick] = useState(false);
-  const Ref = useRef(second);
+  const [isCardOpen, setIsCardOpen] = useState(false);
+  const ref = useRef();
 
-  const OutsideClick = (e) => {
+  const handleOutsideClick = (e) => {
     if (isCardOpen && (!ref.current || !ref.current.contains(e.target))) {
-      setIsCardOnClick(false);
+      setIsCardOpen(false);
     }
   };
 
   useEffect(() => {
-    window.addEventListener('click', onClickOutside);
+    window.addEventListener('click', handleOutsideClick);
     return () => {
-      window.removeEventListener('click', onClickOutside);
+      window.removeEventListener('click', handleOutsideClick);
     };
-  }, [isCardOnClick]);
+  }, [isCardOpen]);
 
-  const onClickCard = (e) => {
+  const handleClickCard = (e) => {
     e.preventDefault();
-    setIsCardOnClick(!isCardOnClick);
+    setIsCardOpen(!isCardOpen);
   };
 
-  const createdDate = new Date(cardCreatedAt);
+  const createdDays = new Date(cardCreatedAt);
 
   const fontClass = {
     'Noto Sans': 'noto-sans',
@@ -153,27 +173,34 @@ function Card({
   const font = fontClass[cardFont] || '';
 
   return (
-    <CardContentWrapper Ref={Ref} onClick={onClickCard}>
+    <CardContentWrapper ref={ref} onClick={handleClickCard}>
       <CardContent>
         <UserInfo>
-          <UserImg src={src} alt="프로필" />
-          <UserNameText>
-            Form.<UserName>${name}</UserName>
+          <UserPicture src={src} alt="프로필" />
+          <UserText>
+            From. <UserName>{name}</UserName>
             <UserState $state={userState}>{userState}</UserState>
-          </UserNameText>
-          <DeleteButton id={id} onDelete={onDelete} />
+          </UserText>
+          <DeleteMessageButton id={id} onDelete={onDelete} />
         </UserInfo>
-        <CardContentText className={font}>{cardContent}</CardContentText>
-        <CardDate>
-          {`${createdDate.getFullYear()}. ${
-            createdDate.getMonth() + 1
-          }. ${createdDate.getDate()}`}
-        </CardDate>
+        <SplitHorizontal />
+        <CardContentTextContainer>
+          <CardContentText
+            dangerouslySetInnerHTML={{ __html: cardContent }}
+            className={font}
+          />
+        </CardContentTextContainer>
+
+        <CardCreatedAt>
+          {`${createdDays.getFullYear()}. ${
+            createdDays.getMonth() + 1
+          }. ${createdDays.getDate()}`}
+        </CardCreatedAt>
       </CardContent>
-      {isCardOnClick && (
-        <Modal>
+      {isCardOpen && (
+        <ModalPortal>
           <CardModal
-            onClick={(e) => OutsideClick(e)}
+            onClick={(e) => handleOutsideClick(e)}
             id={id}
             src={src}
             name={name}
@@ -182,7 +209,7 @@ function Card({
             cardContent={cardContent}
             cardCreatedAt={cardCreatedAt}
           />
-        </Modal>
+        </ModalPortal>
       )}
     </CardContentWrapper>
   );
