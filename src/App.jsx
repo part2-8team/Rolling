@@ -1,8 +1,7 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
-import React from 'react';
-import MainPage from './pages/MainPage';
-import ListPage from './pages/ListPage';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import React from "react";
+import MainPage from "./pages/MainPage";
 
 function App() {
   return (
@@ -10,7 +9,6 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<MainPage />} />
-          <Route path="list" element={<ListPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
