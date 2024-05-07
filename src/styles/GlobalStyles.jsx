@@ -47,7 +47,7 @@ const GlobalStyles = createGlobalStyle`
     --surface: #f6f8ff;
   }
 
-
+${reset}
 
   html {
     font-size: 62.5%;

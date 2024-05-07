@@ -155,7 +155,7 @@ function Card({
   return (
     <CardContentWrapper Ref={Ref} onClick={onClickCard}>
       <CardContent>
-        <UserInfo>
+        <UserInfo >
           <UserImg src={src} alt="프로필" />
           <UserNameText>
             Form.<UserName>${name}</UserName>

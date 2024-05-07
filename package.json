@@ -12,6 +12,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@babel/core": "^7.24.5",
+    "@testing-library/dom": "^10.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
