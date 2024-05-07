@@ -49,6 +49,7 @@ const GlobalStyles = createGlobalStyle`
 
 ${reset}
 
+
   html {
     font-size: 62.5%;
   }
