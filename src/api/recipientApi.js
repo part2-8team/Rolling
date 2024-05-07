@@ -1,13 +1,13 @@
 import { BASE_URL, TEAM_NUM } from './requestBase';
 
-const recipientsBaseUrl = `${BASE_URL}/${TEAM_NUM}/recipients/`;
+const recipientsBaseUrl = `${BASE_URL}/${TEAM_NUM}/recipients`;
 
 /**
  * 수신자(저장소) 총 갯수를 리턴합니다.
  * @return number
  */
 export const getRecipientsCount = async () => {
-  const response = await fetch(recipientsBaseUrl);
+  const response = await fetch(`${recipientsBaseUrl}/`);
   if (!response.ok) {
     throw new Error('갯수를 불러오는데 실패했습니다');
   }
@@ -44,28 +44,19 @@ export const getRecipientsAll = async ({ limit, offset }) => {
 
 /**
  * 수신자(저장소)를 등록합니다.
- * @param {String} name
- * @param {String} backgroundColor
- * @param {String} backgroundImageURL
+ * @param {Object} data
  * @returns 등록에 성공한 객체
  */
-export const createRecipient = async (
-  name,
-  backgroundColor,
-  backgroundImageURL,
-) => {
-  const formData = {
-    team: '6-8',
-    name,
-  };
-
-  backgroundColor
-    ? (formData[backgroundImageURL] = backgroundImageURL)
-    : (formData[backgroundColor] = backgroundColor);
-
-  const response = await fetch(recipientsBaseUrl, {
+export const createRecipient = async (data) => {
+  const response = await fetch(`${recipientsBaseUrl}/`, {
     method: 'POST',
-    body: JSON.stringify(formData),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      team: '6-8',
+      ...data,
+    }),
   });
 
   if (!response.ok) {
@@ -82,8 +73,7 @@ export const createRecipient = async (
  * @returns 요청한 수신자 객체
  */
 export const getRecipient = async (recipientsId) => {
-  const paramId = String(recipientsId);
-  const response = await fetch(`${recipientsBaseUrl}/${paramId}`);
+  const response = await fetch(`${recipientsBaseUrl}/${recipientsId}/`);
   if (!response.ok) {
     throw new Error('수신자를 불러오는데 실패했습니다');
   }
@@ -97,8 +87,7 @@ export const getRecipient = async (recipientsId) => {
  * @returns status code 204
  */
 export const deleteRecipient = async (recipientsId) => {
-  const paramId = String(recipientsId);
-  const response = await fetch(`${recipientsBaseUrl}/${paramId}`, {
+  const response = await fetch(`${recipientsBaseUrl}/${recipientsId}/`, {
     method: 'DELETE',
   });
   if (!response.ok) {
@@ -115,9 +104,8 @@ const reactionPath = 'reactions';
  * @returns reaction객체 array
  */
 export const getReactions = async (recipientsId) => {
-  const paramId = String(recipientsId);
   const response = await fetch(
-    `${recipientsBaseUrl}/${paramId}/${reactionPath}/`,
+    `${recipientsBaseUrl}/${recipientsId}/${reactionPath}/`,
   );
   if (!response.ok) {
     throw new Error('반응 리스트를 불러오는데 실패했습니다');
@@ -129,19 +117,18 @@ export const getReactions = async (recipientsId) => {
 /**
  * 리액션(이모지)을 등록합니다.
  * @param {String} recipientsId
- * @param {
- *  {"emoji": String,
- *    "type": String [increase | decrease]}
- * } formData
+ * @param {Object} data
  * @returns 등록된 reaction 객체
  */
-export const createReaction = async (recipientsId, formData) => {
-  const paramId = String(recipientsId);
+export const createReaction = async (recipientsId, data) => {
   const response = await fetch(
-    `${recipientsBaseUrl}/${paramId}/${reactionPath}/`,
+    `${recipientsBaseUrl}/${recipientsId}/${reactionPath}/`,
     {
       method: 'POST',
-      body: formData,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
     },
   );
   if (!response.ok) {
