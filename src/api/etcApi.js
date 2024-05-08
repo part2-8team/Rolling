@@ -7,11 +7,10 @@ import { BASE_URL } from './requestBase';
 export const getBackgroundImages = async () => {
   const response = await fetch(`${BASE_URL}/background-images/`);
   if (!response.ok) {
-      throw new Error("배경이미지를 가져오는데 실패했습니다.");
+    throw new Error('배경이미지를 가져오는데 실패했습니다.');
   }
   const body = await response.json();
-  const result = body["imageUrls"];
-  return result;
+  return body['imageUrls'];
 };
 
 /**
@@ -21,9 +20,8 @@ export const getBackgroundImages = async () => {
 export const getProfileImages = async () => {
   const response = await fetch(`${BASE_URL}/profile-images/`);
   if (!response.ok) {
-      throw new Error("프로필이미지를 가져오는데 실패했습니다.");
+    throw new Error('프로필이미지를 가져오는데 실패했습니다.');
   }
   const body = await response.json();
-  const result = body["imageUrls"];
-  return result;
+  return body['imageUrls'];
 };

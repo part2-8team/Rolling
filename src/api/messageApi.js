@@ -1,79 +1,47 @@
 import { BASE_URL, TEAM_NUM } from './requestBase';
 
-const recipientsBaseUrl = `${BASE_URL}/${TEAM_NUM}/recipients/`;
-const messageBaseUrl = `${BASE_URL}/${TEAM_NUM}/message`;
+const recipientsBaseUrl = `${BASE_URL}/${TEAM_NUM}/recipients`;
+const messageBaseUrl = `${BASE_URL}/${TEAM_NUM}/messages`;
 const messagePath = 'messages';
 
 /**
  * 수신자(저장소)에 저장된 메세지들을 배열로 리턴합니다.
- * @param {
- *  { limit: string,
- *    offset: string,
- *    id: recipientId
- *  }
- * } param
- * @returns 메세지 객체들이 담긴 array
+ * @param {Number} recipientId
+ * @param {Number} offset
+ * @param {Number} limit
+ * @returns 메세지가 담긴 객체
  */
-export const getMessageAll = async ({ limit, offset, recipientId }) => {
-  const paramId = String(recipientId);
-  let response;
-
-  if (limit !== null && offset !== null) {
-    response = await fetch(
-      `${recipientsBaseUrl}/${paramId}/${messagePath}/?limit=${limit}&offset=${offset}`,
-    );
-  } else if (limit === null && offset !== null) {
-    response = await fetch(
-      `${recipientsBaseUrl}/${paramId}/${messagePath}/?offset=${offset}`,
-    );
-  } else if (offset === null && limit !== null) {
-    response = await fetch(
-      `${recipientsBaseUrl}/${paramId}/${messagePath}/?limit=${limit}`,
-    );
-  }
+export const getMessageAll = async (recipientId, offset = 0, limit = 0) => {
+  const response = await fetch(
+    `${recipientsBaseUrl}/${recipientId}/${messagePath}/?limit=${limit}&offset=${offset}`,
+  );
 
   if (!response.ok) {
     throw new Error('리스트를 불러오는데 실패했습니다');
   }
 
   const body = response.json();
-  return body['results'];
+  return body;
 };
 
 /**
  * 메세지를 등록합니다.
- * @param {Number} recipientId
- * @param {String} sender
- * @param {String} profileImageURL
- * @param {String} relationship
- * @param {String} content
- * @param {String} font
+ * @param {String} recipientId
+ * @param {Object} data
  * @returns 등록된 메세지 객체 반환
  */
-export const createMessage = async (
-  recipientId,
-  sender,
-  profileImageURL,
-  relationship,
-  content,
-  font,
-) => {
-  const paramId = String(id);
-  const formData = {
-    team: '6-8',
-    recipientId,
-    sender,
-    profileImageURL,
-    relationship,
-    content,
-    font,
-  };
-
+export const createMessage = async (recipientId, data) => {
   const response = await fetch(
-    `${recipientsBaseUrl}/${paramId}/${messagePath}/`,
+    `${recipientsBaseUrl}/${recipientId}/${messagePath}/`,
     {
       method: 'POST',
-      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        team: '6-8',
+        ...data,
+      }),
     },
   );
   if (!response.ok) {
@@ -89,8 +57,7 @@ export const createMessage = async (
  * @returns 요청한 메세지 객체
  */
 export const getMessage = async (messageId) => {
-  const paramId = String(messageId);
-  const response = await fetch(`${messageBaseUrl}/${paramId}/`);
+  const response = await fetch(`${messageBaseUrl}/${messageId}/`);
   if (!response.ok) {
     throw new Error('메세지를 불러오는데 실패했습니다');
   }
@@ -101,30 +68,19 @@ export const getMessage = async (messageId) => {
 /**
  * PUT 메소드를 사용하여 메세지를 수정합니다.
  * @param {Number} messageId
- * @param {Number} recipientId
- * @param {
- * {sender : String,
- *  profileImageURL : String,
- *  relationship : String,
- *  content : String,
- *  font : String}
- * } dataObj
+ * @param {Object} data
  * @returns 수정에 성공한 메세지 객체
  */
-export const putMessage = async (messageId, recipientId, dataObj) => {
-  const paramId = String(messageId);
-  const formData = {
-    team: '6-8',
-    recipientId,
-  };
-
-  for (let key in dataObj) {
-    formData[key] = dataObj[key];
-  }
-
-  const response = await fetch(`${messageBaseUrl}/${paramId}/`, {
+export const putMessage = async (messageId, data) => {
+  const response = await fetch(`${messageBaseUrl}/${messageId}/`, {
     method: 'PUT',
-    body: JSON.stringify(formData),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      team: '6-8',
+      ...data,
+    }),
   });
   if (!response.ok) {
     throw new Error('메세지를 수정하는데 실패했습니다');
@@ -136,30 +92,19 @@ export const putMessage = async (messageId, recipientId, dataObj) => {
 /**
  * PATCH 메소드를 사용하여 메세지를 수정합니다.
  * @param {Number} messageId
- * @param {Number} recipientId
- * @param {
- * {sender : String,
- *  profileImageURL : String,
- *  relationship : String,
- *  content : String,
- *  font : String}
- * } dataObj
+ * @param {Object} data
  * @returns 수정에 성공한 메세지 객체
  */
-export const patchMessage = async (messageId, recipientId, dataObj) => {
-  const paramId = String(messageId);
-  const formData = {
-    team: '6-8',
-    recipientId,
-  };
-
-  for (let key in dataObj) {
-    formData[key] = dataObj[key];
-  }
-
-  const response = await fetch(`${messageBaseUrl}/${paramId}/`, {
+export const patchMessage = async (messageId, data) => {
+  const response = await fetch(`${messageBaseUrl}/${messageId}/`, {
     method: 'PATCH',
-    body: JSON.stringify(formData),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      team: '6-8',
+      ...data,
+    }),
   });
   if (!response.ok) {
     throw new Error('메세지를 수정하는데 실패했습니다');
@@ -173,13 +118,12 @@ export const patchMessage = async (messageId, recipientId, dataObj) => {
  * @param {String} messageId
  * @returns status code 204
  */
-export const deleteRecipient = async (messageId) => {
-  const paramId = String(messageId);
-  const response = await fetch(`${messageBaseUrl}/${paramId}/`, {
+export const deleteMessage = async (messageId) => {
+  const response = await fetch(`${messageBaseUrl}/${messageId}/`, {
     method: 'DELETE',
   });
   if (!response.ok) {
-    throw new Error('수신자를 삭제하는데 실패했습니다');
+    throw new Error('메세지를 삭제하는데 실패했습니다');
   }
   return response.status;
 };
