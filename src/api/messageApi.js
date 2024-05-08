@@ -1,7 +1,7 @@
 import { BASE_URL, TEAM_NUM } from './requestBase';
 
 const recipientsBaseUrl = `${BASE_URL}/${TEAM_NUM}/recipients`;
-const messageBaseUrl = `${BASE_URL}/${TEAM_NUM}/message`;
+const messageBaseUrl = `${BASE_URL}/${TEAM_NUM}/messages`;
 const messagePath = 'messages';
 
 /**
@@ -57,9 +57,7 @@ export const createMessage = async (recipientId, data) => {
  * @returns 요청한 메세지 객체
  */
 export const getMessage = async (messageId) => {
-  const response = await fetch(
-    `${BASE_URL}/${TEAM_NUM}/${messagePath}/${messageId}/`,
-  );
+  const response = await fetch(`${messageBaseUrl}/${messageId}/`);
   if (!response.ok) {
     throw new Error('메세지를 불러오는데 실패했습니다');
   }
@@ -74,19 +72,16 @@ export const getMessage = async (messageId) => {
  * @returns 수정에 성공한 메세지 객체
  */
 export const putMessage = async (messageId, data) => {
-  const response = await fetch(
-    `${BASE_URL}/${TEAM_NUM}/${messagePath}/${messageId}/`,
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        team: '6-8',
-        ...data,
-      }),
+  const response = await fetch(`${messageBaseUrl}/${messageId}/`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    body: JSON.stringify({
+      team: '6-8',
+      ...data,
+    }),
+  });
   if (!response.ok) {
     throw new Error('메세지를 수정하는데 실패했습니다');
   }
@@ -101,19 +96,16 @@ export const putMessage = async (messageId, data) => {
  * @returns 수정에 성공한 메세지 객체
  */
 export const patchMessage = async (messageId, data) => {
-  const response = await fetch(
-    `${BASE_URL}/${TEAM_NUM}/${messagePath}/${messageId}/`,
-    {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        team: '6-8',
-        ...data,
-      }),
+  const response = await fetch(`${messageBaseUrl}/${messageId}/`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    body: JSON.stringify({
+      team: '6-8',
+      ...data,
+    }),
+  });
   if (!response.ok) {
     throw new Error('메세지를 수정하는데 실패했습니다');
   }
@@ -127,12 +119,9 @@ export const patchMessage = async (messageId, data) => {
  * @returns status code 204
  */
 export const deleteMessage = async (messageId) => {
-  const response = await fetch(
-    `${BASE_URL}/${TEAM_NUM}/${messagePath}/${messageId}/`,
-    {
-      method: 'DELETE',
-    },
-  );
+  const response = await fetch(`${messageBaseUrl}/${messageId}/`, {
+    method: 'DELETE',
+  });
   if (!response.ok) {
     throw new Error('메세지를 삭제하는데 실패했습니다');
   }
