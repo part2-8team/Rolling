@@ -12,7 +12,7 @@ import {
 } from '../styles/fontSize';
 import card01 from '../assets/IMG-LENDING1.png';
 import card02 from '../assets/IMG-LENDING2.png';
-import Nav from '../components/Nav';
+import Nav from '../components/PostId/Nav';
 
 function MainPage(props) {
   const nav = useNavigate();

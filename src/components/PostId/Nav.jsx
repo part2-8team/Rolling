@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { regular16, bold18, bold28 } from '../styles/fontSize';
-import { DISPLAY_SIZE } from '../utils/PAGE_SIZE';
-import Frame2356 from '../assets/Frame2356.png';
-import Group27 from '../assets/Group27.png';
-import share24 from '../assets/share24.svg';
-import add24 from '../assets/add24.svg';
+import { regular16, bold18, bold28 } from '../../styles/fontSize';
+import { DISPLAY_SIZE } from '../../utils/PAGE_SIZE';
+import Frame2356 from '../../assets/Frame2356.png';
+import Group27 from '../../assets/Group27.png';
+import share24 from '../../assets/share24.svg';
+import add24 from '../../assets/add24.svg';
 
 const NavWapper = styled.div`
 width: 100%;

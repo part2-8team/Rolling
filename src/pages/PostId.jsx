@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import Nav from '../components/Nav';
+import Nav from '../components/PostId/Nav';
 import { useEffect, useState } from 'react';
 import {getRecipientData} from '../api/recipientApi';
 import Header from '../components/Header';
-import CardItems from './CardItems';
+import CardItems from '../components/PostId/CardItems';
 
 
 const HeaderWrapper = styled.div`
