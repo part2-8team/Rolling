@@ -1,10 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import { bold18 } from "../../styles/fontSize";
+import React from 'react';
+import styled from 'styled-components';
+import { bold18 } from '../../styles/fontSize';
 
-function Button({ text, onClick }) {
+function Button({ text, onClick, width }) {
   return (
-    <ButtonStyledComponent onClick={onClick}>{text}</ButtonStyledComponent>
+    <ButtonStyledComponent onClick={onClick} width={width}>
+      {text}
+    </ButtonStyledComponent>
   );
 }
 
@@ -20,7 +22,5 @@ const ButtonStyledComponent = styled.button`
   height: 56px;
 
   ${bold18}
-  width: 280px;
+  width: ${(props) => (props.width ? props.width : '280px')};
 `;
-  
-

@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import Nav from '../components/Nav';
 import { useEffect, useState } from 'react';
-import {getRecipientData} from '../api/recipientApi';
+import { getRecipientData } from '../api/recipientApi';
 import Header from '../components/Header';
 import CardItems from './CardItems';
-
 
 const HeaderWrapper = styled.div`
   position: sticky;
@@ -61,7 +60,7 @@ const DeleteCard = styled.div`
 //   }
 // `;
 
-function PostId({ data }) {
+function PostId({ prop }) {
   const { id } = useParams();
   const [data, setData] = useState({});
 
@@ -102,6 +101,3 @@ function PostId({ data }) {
 }
 
 export default PostId;
-
-
-

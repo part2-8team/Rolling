@@ -8,6 +8,6 @@ function SliderTitle({ title }) {
 export default SliderTitle;
 
 // Styled-Components
-const StyleSliderTitle = styled.h1`
+const StyleSliderTitle = styled.h2`
   ${bold24}
 `;
