@@ -5,6 +5,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   bold14,
+  bold16,
   bold18,
   bold24,
   regular15,
@@ -13,14 +14,23 @@ import {
 import card01 from '../assets/IMG-LENDING1.png';
 import card02 from '../assets/IMG-LENDING2.png';
 import Nav from '../components/PostId/Nav';
+import CreateButton from '../components/Button/CreateButton';
+
 
 function MainPage(props) {
   const nav = useNavigate();
 
   return (
     <>
-      <Header />
-      <Nav/>
+      <Header
+        event={
+          <CreateButton
+            onClick={() => nav('/post')}
+            text={'롤링 페이퍼 만들기'}
+          />
+        }
+      />
+      <Nav />
       <MainPageStyledComponent>
         <div className="MainPage">
           <div className="sections">
@@ -65,6 +75,7 @@ function MainPage(props) {
 }
 
 export default MainPage;
+
 
 const MainPageStyledComponent = styled.div`
   .MainPage {
