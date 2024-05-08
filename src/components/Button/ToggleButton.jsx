@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getBackgroundImages } from '../../api/etcApi';
 
 //이미지
 import colorToggle from '../../assets/colorToggle.svg';
@@ -10,10 +11,7 @@ import colorYellow from '../../assets/colorYellow.png';
 import colorPink from '../../assets/colorPink.png';
 import colorBlue from '../../assets/colorBlue.png';
 import colorGreen from '../../assets/colorGreen.png';
-import background_img1 from '../../assets/background-img1.jpg';
-import background_img2 from '../../assets/background-img2.jpg';
-import background_img3 from '../../assets/background-img3.jpg';
-import background_img4 from '../../assets/background-img4.jpg';
+
 
 //스타일
 import styled from 'styled-components';
@@ -49,10 +47,9 @@ const ColorCardGroup = styled.div`
 const ColorCard = styled.div`
   width: 168px;
   height: 168px;
-  background-image: url(${props => props.src});
+  background-image: url(${(props) => props.src});
   background-size: cover;
   background-position: center;
-  ${({ withBorderRadius }) => withBorderRadius && 'border-radius: 20px;'}
   position: relative;
   cursor: pointer;
 `;
@@ -64,10 +61,27 @@ const CheckIcon = styled.img`
   transform: translate(-50%, -50%);
 `;
 
+//함수 구현 부분
+
 const ToggleButton = () => {
   const [isColorActive, setIsColorActive] = useState(true);
   const [isImageActive, setIsImageActive] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [backgroundImages, setBackgroundImages] = useState([]);
+
+  // 배경 이미지 가져오기
+  useEffect(() => {
+    const fetchBackgroundImages = async () => {
+      try {
+        const images = await getBackgroundImages();
+        setBackgroundImages(images);
+      } catch (error) {
+        console.error('Error fetching background images:', error);
+      }
+    };
+
+    fetchBackgroundImages();
+  }, []);
 
   const handleColorButtonClick = () => {
     setIsColorActive(true);
@@ -85,7 +99,6 @@ const ToggleButton = () => {
 
   const handleConfirmButtonClick = () => {
     console.log(selectedImage);
-    // 이후 필요한 처리를 수행
   };
 
   return (
@@ -94,48 +107,70 @@ const ToggleButton = () => {
         <ToggleImgButton onClick={handleColorButtonClick}>
           <ToggleImg
             src={isColorActive ? colorToggle : switchColorToggle}
-            alt="컬러 선택 버튼"
+            alt="컬러 선택"
             isActive={isColorActive}
           />
         </ToggleImgButton>
         <ToggleImgButton onClick={handleImageButtonClick}>
           <ToggleImg
             src={isColorActive ? ImgToggle : switchImgToggle}
-            alt="이미지 선택 버튼"
+            alt="이미지 선택"
             isActive={!isColorActive}
           />
         </ToggleImgButton>
       </ChooseImgGroup>
       {isColorActive && !isImageActive && (
         <ColorCardGroup>
-          <ColorCard src={colorYellow} alt="노란색 배경화면" onClick={() => handleImageSelect(colorYellow)}>
+          {/* 컬러 이미지 카드들 */}
+          <ColorCard
+            src={colorYellow}
+            alt="노란색 배경화면"
+            onClick={() => handleImageSelect(colorYellow)}
+            style={{ borderRadius: '20px' }}
+          >
             {selectedImage === colorYellow && <CheckIcon src={checkIcon} alt="선택됨" />}
           </ColorCard>
-          <ColorCard src={colorPink} alt="분홍색 배경화면" onClick={() => handleImageSelect(colorPink)}>
+          <ColorCard
+            src={colorPink}
+            alt="분홍색 배경화면"
+            onClick={() => handleImageSelect(colorPink)}
+            style={{ borderRadius: '20px' }}
+          >
             {selectedImage === colorPink && <CheckIcon src={checkIcon} alt="선택됨" />}
           </ColorCard>
-          <ColorCard src={colorBlue} alt="파란색 배경화면" onClick={() => handleImageSelect(colorBlue)}>
+          <ColorCard
+            src={colorBlue}
+            alt="파란색 배경화면"
+            onClick={() => handleImageSelect(colorBlue)}
+            style={{ borderRadius: '20px' }}
+          >
             {selectedImage === colorBlue && <CheckIcon src={checkIcon} alt="선택됨" />}
           </ColorCard>
-          <ColorCard src={colorGreen} alt="초록색 배경화면" onClick={() => handleImageSelect(colorGreen)}>
+          <ColorCard
+            src={colorGreen}
+            alt="초록색 배경화면"
+            onClick={() => handleImageSelect(colorGreen)}
+            style={{ borderRadius: '20px' }}
+          >
             {selectedImage === colorGreen && <CheckIcon src={checkIcon} alt="선택됨" />}
           </ColorCard>
         </ColorCardGroup>
       )}
       {!isColorActive && isImageActive && (
         <ColorCardGroup>
-          <ColorCard src={background_img1} alt="암벽이 보이는 도로를 달리는 자동차 배경화면" withBorderRadius onClick={() => handleImageSelect(background_img1)}>
-            {selectedImage === background_img1 && <CheckIcon src={checkIcon} alt="선택됨" />}
-          </ColorCard>
-          <ColorCard src={background_img2} alt="드넓은 대지가 보이는 도로를 달리는 자동차 배경화면" withBorderRadius onClick={() => handleImageSelect(background_img2)}>
-            {selectedImage === background_img2 && <CheckIcon src={checkIcon} alt="선택됨" />}
-          </ColorCard>
-          <ColorCard src={background_img3} alt="노을진 바다 배경화면" withBorderRadius onClick={() => handleImageSelect(background_img3)}>
-            {selectedImage === background_img3 && <CheckIcon src={checkIcon} alt="선택됨" />}
-          </ColorCard>
-          <ColorCard src={background_img4} alt="식물이 있는 카페 배경화면" withBorderRadius onClick={() => handleImageSelect(background_img4)}>
-            {selectedImage === background_img4 && <CheckIcon src={checkIcon} alt="선택됨" />}
-          </ColorCard>
+          {backgroundImages.map((imageUrl, index) => (
+            <ColorCard
+              key={index}
+              src={imageUrl}
+              alt={`배경화면 ${index + 1}`}
+              onClick={() => handleImageSelect(imageUrl)}
+              style={{ borderRadius: '20px' }}
+            >
+              {selectedImage === imageUrl && (
+                <CheckIcon src={checkIcon} alt="선택됨" />
+              )}
+            </ColorCard>
+          ))}
         </ColorCardGroup>
       )}
     </>
