@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import Container from '../components/Container';
 
-function UserFormPage(props) {
+function Post(props) {
   return (
     <>
       <Header />
@@ -11,4 +11,4 @@ function UserFormPage(props) {
   );
 }
 
-export default UserFormPage;
+export default Post;

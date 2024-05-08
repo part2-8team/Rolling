@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
 //이미지
-import colorToggle from '../assets/colorToggle.svg';
-import ImgToggle from '../assets/imgToggle.svg';
-import switchImgToggle from '../assets/switchImgToggle.svg';
-import switchColorToggle from '../assets/switchcolorToggle.svg';
-import colorYellow from '../assets/colorYellow.png';
-import colorPink from '../assets/colorPink.png';
-import colorBlue from '../assets/colorBlue.png';
-import colorGreen from '../assets/colorGreen.png';
+import colorToggle from '../../assets/colorToggle.svg';
+import ImgToggle from '../../assets/imgToggle.svg';
+import switchImgToggle from '../../assets/switchImgToggle.svg';
+import switchColorToggle from '../../assets/switchcolorToggle.svg';
+import colorYellow from '../../assets/colorYellow.png';
+import colorPink from '../../assets/colorPink.png';
+import colorBlue from '../../assets/colorBlue.png';
+import colorGreen from '../../assets/colorGreen.png';
 
 //스타일
 import styled, { createGlobalStyle } from 'styled-components';

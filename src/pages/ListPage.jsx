@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from '../components/Button';
+import Button from '../components/Button/Button';
 import ListSlider from '../components/ListSlider';
 
 // 슬라이더 클릭 한번당 움직일 px

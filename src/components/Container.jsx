@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 //컴포넌트
-import ToggleButton from './ToggleButton';
+import ToggleButton from './Button/ToggleButton';
 
 //이미지
 import colorToggle from '../assets/colorToggle.svg';
-import ImgToggle from '../assets/imgToggle.svg';
+ import ImgToggle from '../assets/imgToggle.svg';
 
 //스타일
 import styled, { createGlobalStyle } from 'styled-components';
