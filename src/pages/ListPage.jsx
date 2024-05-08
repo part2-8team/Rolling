@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../components/Button/Button';
 import ListSlider from '../components/ListSlider';
+import Header from '../components/Header';
+import CreateButton from '../components/Button/CreateButton';
 
 // 슬라이더 클릭 한번당 움직일 px
 const SLIDE = 295;
@@ -47,6 +49,15 @@ function ListPage() {
   };
 
   return (
+    <>
+    <Header
+    event={
+      <CreateButton
+        onClick={() => nav('/post')}
+        text={'롤링 페이퍼 만들기'}
+      />
+    }
+  />
     <StyleContainer>
       <ListSlider
         title="인기 롤링 페이퍼 🔥"
@@ -68,6 +79,7 @@ function ListPage() {
         <Button text="나도 만들어보기" onClick={moveToPost} />
       </StyleSection>
     </StyleContainer>
+    </>
   );
 }
 

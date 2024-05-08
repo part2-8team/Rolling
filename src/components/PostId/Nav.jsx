@@ -173,7 +173,30 @@ padding: 0.6rem 1.6rem;
     padding: 0.5rem;
   }`;
 
-function Nav() {
+function Nav({ name, peopleNum, profileUrl }) {
+  const [shareToggle, setShareToggle] = useState(false);
+  const [isKakaoOpen, setIsKakaoOpen] = useState(false);
+  const [isUrlCopy, setIsUrlCopy] = useState(false);
+  const ref = useRef();
+
+  const OutsideClick = (e) => {
+    if (shareToggle && (!ref.current || !ref.current.contains(e.target))) {
+      setShareToggle(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('click', OutsideClick);
+    return () => {
+      window.removeEventListener('click', OutsideClick);
+    };
+  }, [shareToggle]);
+
+  const ClickShare = (e) => {
+    e.preventDefault();
+    setShareToggle(!shareToggle);
+  };
+
   return (
     <NavWapper>
       <NavContainer>
@@ -189,9 +212,28 @@ function Nav() {
           <img src={add24} alt="이모지 추가 버튼" />추가
           </EmojiButton>
           <Vertical2 />
-          <ShareButton>
+          <ShareButton ref={ref} onClick={ClickShare}>
             <img src={share24} alt="공유하기버튼" />
           </ShareButton>
+          {shareToggle && (
+            <ShareWrapper>
+              <ShareToggle
+                setIsKakaoOpen={setIsKakaoOpen}
+                setIsUrlCopy={setIsUrlCopy}
+              />
+            </ShareWrapper>
+          )}
+          {isKakaoOpen && (
+            <ModalPortal>
+              <KakaoModal />
+            </ModalPortal>
+          )}
+          {isUrlCopy && (
+            <ModalPortal>
+              <Container limit={1} />
+              <Toast />
+            </ModalPortal>
+          )}
         </PostIdData>
       </NavContainer>
     </NavWapper>
