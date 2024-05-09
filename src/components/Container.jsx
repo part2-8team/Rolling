@@ -113,7 +113,7 @@ const Container = () => {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState(false);
   const [selectedImage, setSelectedImage] = useState(colorToggle);
-  const [recipientId, setRecipientId] = useState(''); // 사용자의 ID 상태 추가
+  const [recipientId, setRecipientId] = useState(''); 
 
   const handleBlur = () => {
     setError(!inputValue);
@@ -133,15 +133,14 @@ const Container = () => {
   
     try {
       const data = {
-        team: '6-8', // team 속성 추가
-        name: inputValue, // name 속성 추가
+        team: '6-8', 
+        name: inputValue, 
         backgroundColor: selectedImage,
         backgroundImageURL: selectedImage 
       };
-      const response = await createRecipient(data); // createRecipient 함수에 data 전달
+      const response = await createRecipient(data); 
   
-      setRecipientId(response.id); // 생성된 수신자의 ID 설정
-  
+      setRecipientId(response.id); 
       console.log('메세지가 생성되었습니다:', data);
   
       setInputValue('');

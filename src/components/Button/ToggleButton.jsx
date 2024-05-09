@@ -97,7 +97,6 @@ const ToggleButton = ({ onSubmit }) => {
     setSelectedImage(image);
     onSubmit(image); // 선택된 이미지를 부모 컴포넌트로 전달
   };
-
   return (
     <>
       <ChooseImgGroup>
