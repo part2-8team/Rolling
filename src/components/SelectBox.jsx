@@ -63,6 +63,7 @@ const SelectOptions = styled.ul`
   position: absolute;
   top: 58px;
   left: 0;
+  z-index: 1;
   width: 320px;
   border-radius: 8px;
   border: 1px solid var(--gray300);

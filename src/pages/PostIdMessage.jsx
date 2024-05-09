@@ -5,6 +5,7 @@ import SectionTitle from '../components/SectionTitle';
 import Button from '../components/Button/Button';
 import InputBox from '../components/InputBox';
 import SelectBox from '../components/SelectBox';
+import QuillEditor from '../components/QuillEditor';
 import { createMessage } from '../api/messageApi';
 
 function PostIdMessage() {
@@ -33,6 +34,7 @@ function PostIdMessage() {
         </Section>
         <Section>
           <SectionTitle title="내용을 입력해 주세요" />
+          <QuillEditor />
         </Section>
         <Section>
           <SectionTitle title="폰트 선택" />
