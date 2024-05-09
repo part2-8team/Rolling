@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createMessage } from '../api/messageApi';
+import { createRecipient } from '../api/recipientApi';
 import { bold18 } from '../styles/fontSize';
 
 //컴포넌트
@@ -130,22 +130,27 @@ const Container = () => {
       setError(true);
       return;
     }
-
+  
     try {
       const data = {
-        messageContent: inputValue,
-        backgroundImage: selectedImage,
+        team: '6-8', // team 속성 추가
+        name: inputValue, // name 속성 추가
+        backgroundColor: selectedImage,
+        backgroundImageURL: selectedImage 
       };
-      await createMessage(recipientId, data);
-
+      const response = await createRecipient(data); // createRecipient 함수에 data 전달
+  
+      setRecipientId(response.id); // 생성된 수신자의 ID 설정
+  
       console.log('메세지가 생성되었습니다:', data);
-
+  
       setInputValue('');
     } catch (error) {
       console.error('메세지를 생성하는데 오류 발생:', error.message);
       setError(true);
     }
   };
+
 
   return (
     <MainContainer>

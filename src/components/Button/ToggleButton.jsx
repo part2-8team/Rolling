@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { getBackgroundImages } from '../../api/etcApi'; 
 import { createRecipient } from '../../api/recipientApi';
 
-
 //이미지
 import colorToggle from '../../assets/colorToggle.svg';
 import ImgToggle from '../../assets/imgToggle.svg';
@@ -62,8 +61,6 @@ const CheckIcon = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-
-
 const ToggleButton = ({ onSubmit }) => {
   const [isColorActive, setIsColorActive] = useState(true);
   const [isImageActive, setIsImageActive] = useState(false);
@@ -84,23 +81,7 @@ const ToggleButton = ({ onSubmit }) => {
     fetchBackgroundImages();
   }, []);
 
-  // 데이터 등록
-  const handleSubmit = async () => {
-    if (!selectedImage) {
-      console.error("이미지를 선택해주세요.");
-      return;
-    }
-  
-    try {
-      const responseData = await createRecipient("recipientName", selectedImage, selectedImage);
-      console.log("이미지가 성공적으로 전송되었습니다.");
-      onSubmit(selectedImage); // 선택된 이미지를 부모 컴포넌트로 전달
-    } catch (error) {
-      console.error("이미지 전송 중 오류 발생:", error);
-    }
-  };
-
-
+  // 컬러, 이미지 버튼 클릭 핸들러
   const handleColorButtonClick = () => {
     setIsColorActive(true);
     setIsImageActive(false);
@@ -111,10 +92,11 @@ const ToggleButton = ({ onSubmit }) => {
     setIsImageActive(true);
   };
 
+  // 이미지 선택 핸들러
   const handleImageSelect = (image) => {
     setSelectedImage(image);
+    onSubmit(image); // 선택된 이미지를 부모 컴포넌트로 전달
   };
-
 
   return (
     <>
@@ -188,7 +170,6 @@ const ToggleButton = ({ onSubmit }) => {
           ))}
         </ColorCardGroup>
       )}  
-
     </>
   );
 };
