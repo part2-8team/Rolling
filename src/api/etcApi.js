@@ -10,7 +10,12 @@ export const getBackgroundImages = async () => {
     throw new Error('배경이미지를 가져오는데 실패했습니다.');
   }
   const body = await response.json();
+<<<<<<< HEAD
   return body['imageUrls'];
+=======
+  const result = body['imageUrls'];
+  return result;
+>>>>>>> 2c5e32b (feat: #38 profile image ui 완성)
 };
 
 /**
@@ -23,5 +28,10 @@ export const getProfileImages = async () => {
     throw new Error('프로필이미지를 가져오는데 실패했습니다.');
   }
   const body = await response.json();
+<<<<<<< HEAD
   return body['imageUrls'];
+=======
+  const result = body['imageUrls'];
+  return result;
+>>>>>>> 2c5e32b (feat: #38 profile image ui 완성)
 };

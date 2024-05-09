@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
 import SectionTitle from '../components/SectionTitle';
@@ -7,15 +7,28 @@ import InputBox from '../components/InputBox';
 import SelectBox from '../components/SelectBox';
 import QuillEditor from '../components/QuillEditor';
 import { createMessage } from '../api/messageApi';
+import ProfileImage from '../components/ProfileImage';
+import { getProfileImages } from '../api/etcApi';
+import { regular16 } from '../styles/fontSize';
 
 function PostIdMessage() {
+  const [profileImgArr, setProfileImgArr] = useState([]);
   const relationship = ['친구', '지인', '동료', '가족'];
   const fonts = ['Noto Sans', 'Pretendard', '나눔명조', '나눔손글씨 손편지체'];
-  const formData = {};
 
   const handleSubmit = () => {
     createMessage();
   };
+
+  useEffect(() => {
+    async function fetchItemData() {
+      const arr = await getProfileImages();
+      setProfileImgArr(arr);
+    }
+    fetchItemData();
+  }, []);
+
+  console.log(profileImgArr);
 
   return (
     <>
@@ -27,6 +40,21 @@ function PostIdMessage() {
         </Section>
         <Section>
           <SectionTitle title="프로필 이미지" />
+          <ImgContainer>
+            <ProfileImage imgUrl={profileImgArr[0]} size="80" />
+            <div>
+              <SectionDesc>프로필 이미지를 선택해주세요!</SectionDesc>
+              <ImgWrapper>
+                {profileImgArr.map((url, i) => {
+                  return (
+                    <li key={i}>
+                      <ProfileImage imgUrl={url} size="56" />
+                    </li>
+                  );
+                })}
+              </ImgWrapper>
+            </div>
+          </ImgContainer>
         </Section>
         <Section>
           <SectionTitle title="상대와의 관계" />
@@ -66,4 +94,22 @@ const Section = styled.fieldset`
   &:last-child {
     margin-bottom: 38px;
   }
+`;
+
+const ImgContainer = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: 32px;
+`;
+
+const SectionDesc = styled.p`
+  color: var(--gray500);
+  ${regular16}
+  line-height: 26px;
+`;
+
+const ImgWrapper = styled.ul`
+  display: flex;
+  gap: 4px;
+  margin-top: 12px;
 `;
