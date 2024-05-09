@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
+import { useMediaQuery } from 'react-responsive';
 import Header from '../components/Header';
 import SectionTitle from '../components/SectionTitle';
 import Button from '../components/Button/Button';
 import InputBox from '../components/InputBox';
 import SelectBox from '../components/SelectBox';
 import QuillEditor from '../components/QuillEditor';
-import { createMessage } from '../api/messageApi';
 import ProfileImage from '../components/ProfileImage';
-import { getProfileImages } from '../api/etcApi';
 import { regular16 } from '../styles/fontSize';
+import { createMessage } from '../api/messageApi';
+import { getProfileImages } from '../api/etcApi';
 
 function PostIdMessage() {
   const [profileImgArr, setProfileImgArr] = useState([]);
   const isMobile = useMediaQuery({ maxWidth: 360 });
 
-  const relationship = ['친구', '지인', '동료', '가족'];
+  const relationship = ['지인', '친구', '동료', '가족'];
   const fonts = ['Noto Sans', 'Pretendard', '나눔명조', '나눔손글씨 손편지체'];
 
   const handleSubmit = () => {

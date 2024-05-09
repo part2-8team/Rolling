@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import SectionTitle from '../components/SliderTitle';
+import SectionTitle from '../components/SectionTitle';
 import SliderButton from '../components/SliderButton';
 import arrowRight from '../assets/arrow-right.svg';
 import arrowLeft from '../assets/arrow-left.svg';
