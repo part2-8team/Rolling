@@ -4,7 +4,7 @@ import { regular16 } from '../styles/fontSize';
 import arrowTop from '../assets/arrow-top.svg';
 import arrowDown from '../assets/arrow-down.svg';
 
-function SelectBox({ options = [] }) {
+function SelectBox({ options = [], width }) {
   const [selected, setSelected] = useState(options[0]);
   const [isOpen, setOpen] = useState(false);
 
@@ -16,6 +16,7 @@ function SelectBox({ options = [] }) {
     <Select
       className={isOpen ? 'open' : ''}
       onClick={() => setOpen((isOpen) => !isOpen)}
+      width={width}
     >
       <Label>{selected}</Label>
       {isOpen && (
@@ -36,7 +37,7 @@ export default SelectBox;
 const Select = styled.div`
   position: relative;
   box-sizing: border-box;
-  width: 320px;
+  width: ${({ width }) => width};
   height: 50px;
   padding-left: 16px;
   border-radius: 8px;
@@ -64,7 +65,7 @@ const SelectOptions = styled.ul`
   top: 58px;
   left: 0;
   z-index: 1;
-  width: 320px;
+  width: 100%;
   border-radius: 8px;
   border: 1px solid var(--gray300);
   box-sizing: border-box;

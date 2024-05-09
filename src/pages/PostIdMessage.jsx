@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 import Header from '../components/Header';
 import SectionTitle from '../components/SectionTitle';
@@ -13,6 +14,8 @@ import { regular16 } from '../styles/fontSize';
 
 function PostIdMessage() {
   const [profileImgArr, setProfileImgArr] = useState([]);
+  const isMobile = useMediaQuery({ maxWidth: 360 });
+
   const relationship = ['친구', '지인', '동료', '가족'];
   const fonts = ['Noto Sans', 'Pretendard', '나눔명조', '나눔손글씨 손편지체'];
 
@@ -28,8 +31,6 @@ function PostIdMessage() {
     fetchItemData();
   }, []);
 
-  console.log(profileImgArr);
-
   return (
     <>
       <Header />
@@ -41,14 +42,19 @@ function PostIdMessage() {
         <Section>
           <SectionTitle title="프로필 이미지" />
           <ImgContainer>
-            <ProfileImage imgUrl={profileImgArr[0]} size="80" />
+            <SelectedImg>
+              <ProfileImage imgUrl={profileImgArr[0]} size="80" />
+            </SelectedImg>
             <div>
               <SectionDesc>프로필 이미지를 선택해주세요!</SectionDesc>
               <ImgWrapper>
                 {profileImgArr.map((url, i) => {
                   return (
                     <li key={i}>
-                      <ProfileImage imgUrl={url} size="56" />
+                      <ProfileImage
+                        imgUrl={url}
+                        size={isMobile ? '40' : '56'}
+                      />
                     </li>
                   );
                 })}
@@ -58,7 +64,10 @@ function PostIdMessage() {
         </Section>
         <Section>
           <SectionTitle title="상대와의 관계" />
-          <SelectBox options={relationship} />
+          <SelectBox
+            options={relationship}
+            width={isMobile ? '100%' : '320px'}
+          />
         </Section>
         <Section>
           <SectionTitle title="내용을 입력해 주세요" />
@@ -66,7 +75,7 @@ function PostIdMessage() {
         </Section>
         <Section>
           <SectionTitle title="폰트 선택" />
-          <SelectBox options={fonts} />
+          <SelectBox options={fonts} width={isMobile ? '100%' : '320px'} />
         </Section>
 
         <Button text="생성하기" width="100%" onClick={handleSubmit} />
@@ -81,6 +90,11 @@ const Container = styled.form.attrs()`
   width: 720px;
   margin: 112px auto 24px auto;
   box-sizing: border-box;
+
+  @media (max-width: 730px) {
+    width: 100vw;
+    padding: 0 20px;
+  }
 `;
 
 const Section = styled.fieldset`
@@ -100,6 +114,14 @@ const ImgContainer = styled.div`
   display: flex;
   align-items: flex-end;
   gap: 32px;
+
+  @media (max-width: 730px) {
+    align-items: center;
+  }
+`;
+
+const SelectedImg = styled.div`
+  flex: 1;
 `;
 
 const SectionDesc = styled.p`
@@ -110,6 +132,7 @@ const SectionDesc = styled.p`
 
 const ImgWrapper = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   gap: 4px;
   margin-top: 12px;
 `;
