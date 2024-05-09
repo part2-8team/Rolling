@@ -113,16 +113,13 @@ const Container = () => {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState(false);
   const [selectedImage, setSelectedImage] = useState(colorToggle);
-  const [recipientId, setRecipientId] = useState(''); // 사용자의 ID 상태 추가
 
   const handleBlur = () => {
     setError(!inputValue);
   };
 
   const toggleImage = () => {
-    setSelectedImage((prevImage) =>
-      prevImage === colorToggle ? colorToggle : ImgToggle
-    );
+    setSelectedImage((prevImage) => (prevImage === colorToggle ? colorToggle : ImgToggle));
   };
 
   const handleSubmit = async () => {
@@ -136,7 +133,8 @@ const Container = () => {
         messageContent: inputValue,
         backgroundImage: selectedImage,
       };
-      await createMessage(recipientId, data);
+
+      await createMessage(data);
 
       console.log('메세지가 생성되었습니다:', data);
 

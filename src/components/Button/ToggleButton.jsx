@@ -112,7 +112,14 @@ const ToggleButton = ({ onSubmit }) => {
   };
 
   const handleImageSelect = (image) => {
-    setSelectedImage(image);
+    setSelectedImage(prevSelectedImage => {
+      // 선택 이미지 취소하기
+      if (prevSelectedImage === image) {
+        return null;
+      } else {
+        return image;
+      }
+    });
   };
 
 
