@@ -8,10 +8,10 @@ import ImgToggle from '../../assets/imgToggle.svg';
 import switchImgToggle from '../../assets/switchImgToggle.svg';
 import switchColorToggle from '../../assets/switchcolorToggle.svg';
 import checkIcon from '../../assets/checkIcon.svg'; 
-import colorYellow from '../../assets/colorYellow.png';
-import colorPink from '../../assets/colorPink.png';
-import colorBlue from '../../assets/colorBlue.png';
-import colorGreen from '../../assets/colorGreen.png';
+import beige from '../../assets/beige.png';
+import purple from '../../assets/purple.png';
+import blue from '../../assets/blue.png';
+import green from '../../assets/green.png';
 
 //스타일
 import styled from 'styled-components';
@@ -61,9 +61,12 @@ const CheckIcon = styled.img`
   transform: translate(-50%, -50%);
 `;
 
+
+
 const ToggleButton = ({ onSubmit }) => {
   const [isColorActive, setIsColorActive] = useState(true);
   const [isImageActive, setIsImageActive] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(null); // 변경된 부분: 선택된 색상 상태 추가
   const [selectedImage, setSelectedImage] = useState(null);
   const [backgroundImages, setBackgroundImages] = useState([]);
 
@@ -95,8 +98,25 @@ const ToggleButton = ({ onSubmit }) => {
   // 이미지 선택 핸들러
   const handleImageSelect = (image) => {
     setSelectedImage(image);
-    onSubmit(image); // 선택된 이미지를 부모 컴포넌트로 전달
+    onSubmit({ backgroundColor: null, backgroundImageURL: image }); // 선택된 이미지를 부모 컴포넌트로 전달
   };
+
+  // 컬러값 배열
+  const colors = [
+    { color: 'beige', image: beige },
+    { color: 'purple', image: purple },
+    { color: 'blue', image: blue },
+    { color: 'green', image: green },
+  ];
+
+  // 컬러 선택 핸들러
+  const handleColorSelect = (color) => {
+    const selectedColor = colors.find((item) => item.color === color);
+    setSelectedColor(selectedColor); // 선택된 색상을 상태에 설정
+    setSelectedImage(null); // 이미지 선택 초기화
+    onSubmit({ backgroundColor: selectedColor.color, backgroundImageURL: null }); // 선택된 색상을 부모 컴포넌트로 전달
+  };
+
   return (
     <>
       <ChooseImgGroup>
@@ -117,39 +137,17 @@ const ToggleButton = ({ onSubmit }) => {
       </ChooseImgGroup>
       {isColorActive && !isImageActive && (
         <ColorCardGroup>
-          {/* 컬러 이미지 카드들 */}
-          <ColorCard
-            src={colorYellow}
-            alt="노란색 배경화면"
-            onClick={() => handleImageSelect(colorYellow)}
-            style={{ borderRadius: '20px' }}
-          >
-            {selectedImage === colorYellow && <CheckIcon src={checkIcon} alt="선택됨" />}
-          </ColorCard>
-          <ColorCard
-            src={colorPink}
-            alt="분홍색 배경화면"
-            onClick={() => handleImageSelect(colorPink)}
-            style={{ borderRadius: '20px' }}
-          >
-            {selectedImage === colorPink && <CheckIcon src={checkIcon} alt="선택됨" />}
-          </ColorCard>
-          <ColorCard
-            src={colorBlue}
-            alt="파란색 배경화면"
-            onClick={() => handleImageSelect(colorBlue)}
-            style={{ borderRadius: '20px' }}
-          >
-            {selectedImage === colorBlue && <CheckIcon src={checkIcon} alt="선택됨" />}
-          </ColorCard>
-          <ColorCard
-            src={colorGreen}
-            alt="초록색 배경화면"
-            onClick={() => handleImageSelect(colorGreen)}
-            style={{ borderRadius: '20px' }}
-          >
-            {selectedImage === colorGreen && <CheckIcon src={checkIcon} alt="선택됨" />}
-          </ColorCard>
+          {colors.map((color) => (
+            <ColorCard
+              key={color.color}
+              src={color.image}
+              alt={`${color.color} 배경화면`}
+              onClick={() => handleColorSelect(color.color)}
+              style={{ borderRadius: '20px' }}
+            >
+              {selectedColor && selectedColor.color === color.color && <CheckIcon src={checkIcon} alt="선택됨" />}
+            </ColorCard>
+          ))}
         </ColorCardGroup>
       )}
       {!isColorActive && isImageActive && (

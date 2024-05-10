@@ -112,17 +112,10 @@ const CreateButton = styled.button`
 const Container = () => {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(colorToggle);
-  const [recipientId, setRecipientId] = useState(''); 
+  const [selectedImage, setSelectedImage] = useState({});
 
   const handleBlur = () => {
     setError(!inputValue);
-  };
-
-  const toggleImage = () => {
-    setSelectedImage((prevImage) =>
-      prevImage === colorToggle ? colorToggle : ImgToggle
-    );
   };
 
   const handleSubmit = async () => {
@@ -132,15 +125,17 @@ const Container = () => {
     }
   
     try {
+      const selectedColor = 'beige'; // 기본 색상 설정
+      const selectedBackgroundImageURL = 'https://picsum.photos/id/683/3840/2160'; // 기본 배경 이미지 URL 설정
+      
       const data = {
-        team: '6-8', 
-        name: inputValue, 
-        backgroundColor: selectedImage,
-        backgroundImageURL: selectedImage 
+        name: inputValue,
+        backgroundColor: selectedImage?.backgroundColor || selectedColor,
+        backgroundImageURL: selectedImage?.backgroundImageURL || selectedBackgroundImageURL
       };
-      const response = await createRecipient(data); 
   
-      setRecipientId(response.id); 
+      const response = await createRecipient(data);
+  
       console.log('메세지가 생성되었습니다:', data);
   
       setInputValue('');
@@ -173,7 +168,7 @@ const Container = () => {
             컬러를 선택하거나, 이미지를 선택할 수 있습니다.
           </BackgroundChooseSubText>
         </BackgroundChooseContainer>
-        <ToggleButton onSubmit={(selectedImage) => setSelectedImage(selectedImage)} />
+        <ToggleButton onSubmit={({ backgroundColor, backgroundImageURL }) => setSelectedImage({ backgroundColor, backgroundImageURL })} />
         <ButtonGroup>
           <CreateButton disabled={!inputValue || !selectedImage} onClick={handleSubmit}>
             생성하기
@@ -185,3 +180,5 @@ const Container = () => {
 }
 
 export default Container;
+
+
