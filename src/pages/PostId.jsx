@@ -109,6 +109,3 @@ function PostId() {
 }
 
 export default PostId;
-
-
-
