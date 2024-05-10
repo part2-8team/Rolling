@@ -22,6 +22,7 @@ const Container = styled.div`
   height: ${({ size }) => size}px;
   border: 1px solid var(--gray200);
   border-radius: 100%;
+  cursor: pointer;
 `;
 
 const Image = styled.img.attrs({ alt: '프로필 이미지' })`

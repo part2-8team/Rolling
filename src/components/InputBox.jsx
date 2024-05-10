@@ -2,30 +2,39 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { regular16, regular14 } from '../styles/fontSize';
 
-function InputBox({ placeholder }) {
-  const [inputValue, setInputValue] = useState('');
-  const [error, setError] = useState(false);
+function InputBox({
+  name,
+  value,
+  onChange,
+  placeholder,
+  onBlur,
+  isError = false,
+}) {
+  const [error, setError] = useState(isError);
 
-  const handleBlur = () => {
-    if (!inputValue) {
+  const handleBlur = (e) => {
+    if (!e.target.value) {
       setError(true);
     } else {
       setError(false);
     }
   };
 
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
   return (
     <div>
       <Input
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onBlur={handleBlur}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onBlur={(e) => handleBlur(e)}
         placeholder={placeholder}
         isError={error}
       />
-      {error && !inputValue && (
-        <ErrorMessage> 값을 입력해 주세요.</ErrorMessage>
-      )}
+      {error && <ErrorMessage> 값을 입력해 주세요.</ErrorMessage>}
     </div>
   );
 }
@@ -38,8 +47,7 @@ const Input = styled.input`
   height: 50px;
   padding: 12px 16px;
   border-radius: 8px;
-  border: 1px solid
-    ${({ isError, value }) => (isError && !value ? 'var(--error)' : '#cccccc')}; // value가 빈 문자열일 때 error 색상 적용
+  border: 1px solid ${({ isError }) => (isError ? 'var(--error)' : '#cccccc')}; // value가 빈 문자열일 때 error 색상 적용
 
   &:focus {
     outline: none;

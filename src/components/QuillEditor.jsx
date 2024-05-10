@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ReactQuill, { Quill } from 'react-quill';
 import 'quill/dist/quill.snow.css';
 
-function QuillEditor() {
+function QuillEditor({ onChange }) {
   let bold = Quill.import('formats/bold');
   bold.tagName = 'b';
   Quill.register(bold, true);
@@ -41,6 +41,7 @@ function QuillEditor() {
         theme="snow"
         modules={modules}
         formats={formats}
+        onChange={onChange}
       />
     </Container>
   );

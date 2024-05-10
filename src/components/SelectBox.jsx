@@ -4,7 +4,7 @@ import { regular16 } from '../styles/fontSize';
 import arrowTop from '../assets/arrow-top.svg';
 import arrowDown from '../assets/arrow-down.svg';
 
-function SelectBox({ options = [], width }) {
+function SelectBox({ options = [], width, onClick }) {
   const [selected, setSelected] = useState(options[0]);
   const [isOpen, setOpen] = useState(false);
 
@@ -20,7 +20,7 @@ function SelectBox({ options = [], width }) {
     >
       <Label>{selected}</Label>
       {isOpen && (
-        <SelectOptions>
+        <SelectOptions onClick={onClick}>
           {options.map((option, i) => (
             <Option key={i} value={option} onClick={handleSelected}>
               {option}

@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { bold18 } from '../../styles/fontSize';
 
-function Button({ text, onClick, width }) {
+function Button({ type = 'text', text, onClick, width }) {
   return (
-    <ButtonStyledComponent onClick={onClick} width={width}>
+    <ButtonStyledComponent type={type} onClick={onClick} width={width}>
       {text}
     </ButtonStyledComponent>
   );
