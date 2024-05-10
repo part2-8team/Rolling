@@ -7,11 +7,13 @@ import ToggleButton from './Button/ToggleButton';
 
 //이미지
 import colorToggle from '../assets/colorToggle.svg';
- import ImgToggle from '../assets/imgToggle.svg';
+import ImgToggle from '../assets/imgToggle.svg';
 
 //스타일
+
 import styled, { createGlobalStyle } from 'styled-components';
 import { regular16, regular12, bold24 } from '../styles/fontSize';
+
 
 const MainContainer = styled.main`
   box-sizing: border-box;
