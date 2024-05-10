@@ -101,6 +101,9 @@ const ToggleButton = ({ onSubmit }) => {
     onSubmit({ backgroundColor: null, backgroundImageURL: image }); // 선택된 이미지를 부모 컴포넌트로 전달
   };
 
+  
+
+
   // 컬러값 배열
   const colors = [
     { color: 'beige', image: beige },
@@ -109,13 +112,22 @@ const ToggleButton = ({ onSubmit }) => {
     { color: 'green', image: green },
   ];
 
-  // 컬러 선택 핸들러
-  const handleColorSelect = (color) => {
-    const selectedColor = colors.find((item) => item.color === color);
-    setSelectedColor(selectedColor); // 선택된 색상을 상태에 설정
-    setSelectedImage(null); // 이미지 선택 초기화
-    onSubmit({ backgroundColor: selectedColor.color, backgroundImageURL: null }); // 선택된 색상을 부모 컴포넌트로 전달
-  };
+// 컬러 선택 핸들러
+const handleColorSelect = (color) => {
+  const selectedColor = colors.find((item) => item.color === color);
+  setSelectedColor(selectedColor); // 선택된 색상을 상태에 설정
+  setSelectedImage(null); // 이미지 선택 초기화
+  onSubmit({ backgroundColor: selectedColor.color, backgroundImageURL: null }); // 선택된 색상을 부모 컴포넌트로 전달
+};
+
+// 컬러 이미지의 기본 선택값을 beige로 설정하고 부모 컴포넌트에 전달
+useEffect(() => {
+  if (!selectedColor) {
+    const defaultColor = colors.find(color => color.color === 'beige');
+    setSelectedColor(defaultColor);
+    onSubmit({ backgroundColor: defaultColor.color, backgroundImageURL: null });
+  }
+}, [selectedColor, colors, onSubmit]);
 
   return (
     <>
