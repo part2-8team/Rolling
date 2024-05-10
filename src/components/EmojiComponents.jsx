@@ -1,16 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EmojiContainer from './EmojiContainer';
 import EmojiButtonList from './EmojiButtonList';
-import { createReaction } from '../api/recipientApi';
+import { createReaction, getReactions } from '../api/recipientApi';
 
 function EmojiComponents() {
   const [emojiList, setEmojiList] = useState([]);
-  console.dir(createReaction);
+
+  // 임의 id 설정
+  const id = 6945;
+
+  useEffect(() => {
+    const fetchEmojis = async () => {
+      const emojis = await getReactions(id);
+      await setEmojiList(emojis);
+    };
+    fetchEmojis();
+  }, []);
 
   return (
     <div>
-      <EmojiContainer addEmoji={setEmojiList} />
-      <EmojiButtonList emojiList={emojiList} setEmojiList={setEmojiList} />
+      <EmojiContainer
+        id={id}
+        addEmoji={setEmojiList}
+        createReaction={createReaction}
+      />
+      <EmojiButtonList
+        id={id}
+        emojiList={emojiList}
+        setEmojiList={setEmojiList}
+      />
     </div>
   );
 }

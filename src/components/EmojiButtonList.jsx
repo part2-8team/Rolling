@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import EmojiButton from './EmojiButton';
 import styled from 'styled-components';
+import { getReactions } from '../api/recipientApi';
 
-function EmojiButtonList({ emojiList, setEmojiList }) {
+function EmojiButtonList({ id, emojiList, setEmojiList }) {
+  useEffect(() => {
+    console.log(emojiList);
+  }, [id]);
+
   return (
     <StyledEmojiButtonList>
       {emojiList.map((emoji, i) => (
         <li key={i}>
-          <EmojiButton emoji={emoji} setEmojiList={setEmojiList} />
+          <EmojiButton emoji={emoji} setEmojiList={setEmojiList} id={id} />
         </li>
       ))}
     </StyledEmojiButtonList>

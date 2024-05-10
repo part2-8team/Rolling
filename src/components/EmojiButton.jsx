@@ -1,25 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { regular16 } from '../styles/fontSize';
+import { createReaction, getReactions } from '../api/recipientApi';
 
-function EmojiButton({ emoji, setEmojiList }) {
-  const imojiImage = emoji.emojiImage;
-  const imojiCount = emoji.count;
+function EmojiButton({ emoji, setEmojiList, id }) {
+  const emojiImage = emoji.emoji;
+  const emojiCount = emoji.count;
   const code = emoji.emojiCode;
 
-  const onClickEmojiButton = () => {
-    const updatedEmoji = { ...emoji, count: emoji.count + 1 };
-    setEmojiList((prevEmoji) => {
-      return [
-        updatedEmoji,
-        ...prevEmoji.filter((item) => item.emojiCode !== code),
-      ];
-    });
+  const onClickEmojiButton = async () => {
+    await createReaction(id, { emoji: emoji.emoji, type: 'increase' });
+    const emojiList = await getReactions(id);
+    await setEmojiList(emojiList);
   };
   return (
     <EmojiButtonStyled onClick={onClickEmojiButton}>
-      <span>{imojiImage}</span>
-      <span>{imojiCount}</span>
+      <span>{emojiImage}</span>
+      <span>{emojiCount}</span>
     </EmojiButtonStyled>
   );
 }

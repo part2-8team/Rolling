@@ -12,11 +12,13 @@
     "test": "jest"
   },
   "dependencies": {
-    "picmo": "^5.8.5",
+    "@babel/core": "^7.24.5",
+    "@testing-library/dom": "^10.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
-    "styled-components": "^6.1.8",
+    "react-toastify": "^10.0.5",
+    "styled-components": "^6.1.9",
     "styled-reset": "^4.5.2"
   },
   "devDependencies": {

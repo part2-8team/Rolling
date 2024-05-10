@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Header from '../components/Header';
-import Button from '../components/Button';
+import Button from '../components/Button/Button';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -12,7 +12,6 @@ import {
 } from '../styles/fontSize';
 import card01 from '../assets/IMG-LENDING1.png';
 import card02 from '../assets/IMG-LENDING2.png';
-import EmojiComponents from '../components/EmojiComponents';
 
 function MainPage(props) {
   const nav = useNavigate();
@@ -59,7 +58,6 @@ function MainPage(props) {
           />
         </div>
       </MainPageStyledComponent>
-      <EmojiComponents />
     </>
   );
 }
