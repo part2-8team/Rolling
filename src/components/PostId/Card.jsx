@@ -4,10 +4,22 @@ import { useRef, useEffect, useState } from 'react';
 // import DeleteButton from './DeleteButton';
 // import Modal from './Modal';
 // import CardModal from './CardModal';
-import { regular12, regular14, regular18, regular20 } from '../styles/fontSize';
-import USER_STATE from '../../utils/USER_SET';
+import {
+  regular12,
+  regular14,
+  regular18,
+  regular20,
+} from '../../styles/fontSize';
+// import USER_STATE from '../../utils/USER_SET';
 
-const CardContentWrapper = styled.div`
+export const USER_STATE = Object.freeze({
+  가족: { background: 'var(--green100)', color: 'var(--green500)' },
+  동료: { background: 'var(--purple100)', color: 'var(--purple600)' },
+  지인: { background: 'var(--orange100)', color: 'var(--orange500)' },
+  친구: { background: 'var(--blue100)', color: 'var(--blue500)' },
+});
+
+export const CardContentWrapper = styled.div`
   position: relative;
   max-width: 38.4rem;
   width: 32%;
@@ -149,7 +161,7 @@ function Card({
   return (
     <CardContentWrapper Ref={Ref} onClick={onClickCard}>
       <CardContent>
-        <UserInfo >
+        <UserInfo>
           <UserImg src={src} alt="프로필" />
           <UserNameText>
             Form.<UserName>${name}</UserName>

@@ -1,16 +1,15 @@
 import styled from 'styled-components';
-import Card from './Card';
 import React, { useEffect, useState } from 'react';
-import {} from '../api/etcApi';
-import {} from '../api/recipientApi';
+import { getMessageAll } from '../../api/messageApi';
 import Card, { CardContentWrapper } from './Card';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import plus from '../../assets/plus.svg';
 
 const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   max-width: 120rem;
-  margin: 0rem auto 0rem;
+  margin: 19.6rem auto 0rem;
   padding-bottom: 12.7rem;
   gap: 2.4rem 2%;
 
@@ -54,6 +53,12 @@ const Plus = styled.div`
   background: var(--gray500);
 `;
 
+const PlusImg = styled.img`
+width: 5.6rem;
+height: 5.6rem;
+
+`
+
 function CardItems({ data }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -70,7 +75,7 @@ function CardItems({ data }) {
       if (!hasMore) {
         return;
       }
-      const result = await getMessagesAll(id, offset);
+      const result = await getMessageAll(id, offset);
       const counts = result.count;
       if (counts < offset || result.next === null) {
         setHasMore(false);
@@ -84,7 +89,7 @@ function CardItems({ data }) {
 
   const DeleteMessage = async (messageId) => {
     try {
-      await deleteMessages(messageId);
+      await deleteMessage(messageId);
       const deletedId = messageId;
       const newMessageList = messages.filter(
         (message) => message.id !== deletedId,
@@ -118,11 +123,11 @@ function CardItems({ data }) {
         $isDisplay={isEditRoute}
       >
         <Plus>
-          <img src="" alt="+" />
+          <PlusImg src={plus} alt="+" />
         </Plus>
       </CardPlus>
-      {message &&
-        message.map((message) => (
+      {messages &&
+        messages.map((message) => (
           <Card
             key={message.id}
             id={message.id}

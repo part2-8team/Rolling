@@ -9,6 +9,7 @@ import add24 from '../../assets/add24.svg';
 import Toast from '../Modal/Toast';
 import ShareToggle from '../Modal/ShareToggle';
 import ModalPortal from '../Modal/ModalPortal';
+import EmojiDropDown from '../EmojiDropDown';
 
 const NavWapper = styled.div`
   width: 100%;
@@ -116,14 +117,6 @@ width: 0.1rem;
     background-color: var(--white);
 `;
 
-const EmojiDropDown = styled.img`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 24.6rem;
-  height: 3.6rem;
-  gap: 1.1 rem;
-`;
 const EmojiButton = styled.button`
   border-radius: 0.6rem;
   background: var(--${({ disabled }) => (disabled ? 'gray300' : 'white')});
@@ -240,11 +233,7 @@ function Nav({ name, peopleNum, profileUrl }) {
             {peopleNum}명이 작성했어요!
           </Written>
           <Vertical1 />
-          <EmojiDropDown src={Frame2356} />
-          <EmojiButton>
-            <img src={add24} alt="이모지 추가 버튼" />
-            추가
-          </EmojiButton>
+            <EmojiDropDown />
           <Vertical2 />
           <ShareButton ref={ref} onClick={ClickShare}>
             <img src={share24} alt="공유하기버튼" />

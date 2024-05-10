@@ -1,10 +1,17 @@
 import styled from 'styled-components';
 import Nav from '../components/PostId/Nav';
-import { useEffect, useState } from 'react';
-import {getRecipientData} from '../api/recipientApi';
+import { useEffect, useRef, useState } from 'react';
+import { getRecipient } from '../api/recipientApi';
 import Header from '../components/Header';
 import CardItems from '../components/PostId/CardItems';
+import { useParams } from 'react-router-dom';
 
+ const BACKGROUND_COLOR = Object.freeze({
+  beige: { background: 'var(--orange200)' },
+  purple: { background: 'var(--purple200)' },
+  green: { background: 'var(--green200)' },
+  blue: { background: 'var(--blue200)' },
+});
 
 const HeaderWrapper = styled.div`
   position: sticky;
@@ -61,13 +68,13 @@ const DeleteCard = styled.div`
 //   }
 // `;
 
-function PostId({ data }) {
+function PostId() {
   const { id } = useParams();
   const [data, setData] = useState({});
 
   const handleIdData = async () => {
     try {
-      const result = await getRecipientData(id);
+      const result = await getRecipient(id);
       setData(result);
     } catch (error) {
       throw new Error('데이터를 불러오지 못했습니다.', error);
@@ -93,9 +100,9 @@ function PostId({ data }) {
         peopleNum={data ? data.messageCount : 0}
         profileUrl={profileUrl}
       />
-      <DeleteCard>
+      {/* <DeleteCard>
         <DeleteButton />
-      </DeleteCard>
+      </DeleteCard> */}
       <CardItems data={data} />
     </PostIdWrapper>
   );
