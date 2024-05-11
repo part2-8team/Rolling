@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { createRecipient } from '../api/recipientApi';
+import { bold18 } from '../styles/fontSize';
 
 //컴포넌트
 import ToggleButton from './Button/ToggleButton';
@@ -9,7 +11,7 @@ import colorToggle from '../assets/colorToggle.svg';
 
 //스타일
 import styled, { createGlobalStyle } from 'styled-components';
-import { regular16, regular12, bold24, bold18 } from '../styles/fontSize';
+import { regular16, regular12, bold24 } from '../styles/fontSize';
 
 const MainContainer = styled.main`
   box-sizing: border-box;
@@ -99,30 +101,50 @@ const CreateButton = styled.button`
   height: 56px;
   margin-top: 69px;
   border-radius: 12px;
-  background-color: #cccccc;
+  background-color: ${({ disabled }) => (disabled ? '#cccccc' : 'var(--purple600)')}; /* 비활성화, 활성화 시 생성하기 버튼의 색상 */
   ${bold18}
   color: #FFFFFF;
   border: none;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `;
 
-function Container(props) {
+// 함수 컴포넌트
+const Container = () => {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(colorToggle);
+  const [selectedImage, setSelectedImage] = useState({});
 
   const handleBlur = () => {
+    setError(!inputValue);
+  };
+
+  const handleSubmit = async () => {
     if (!inputValue) {
       setError(true);
-    } else {
-      setError(false);
+      return;
+    }
+  
+    try {
+      const selectedColor = 'beige'; // 기본 색상 설정
+      const selectedBackgroundImageURL = 'https://picsum.photos/id/683/3840/2160'; // 기본 배경 이미지 URL 설정
+      
+      const data = {
+        name: inputValue,
+        backgroundColor: selectedImage?.backgroundColor || selectedColor,
+        backgroundImageURL: selectedImage?.backgroundImageURL || selectedBackgroundImageURL
+      };
+  
+      const response = await createRecipient(data);
+  
+      console.log('메세지가 생성되었습니다:', data);
+  
+      setInputValue('');
+    } catch (error) {
+      console.error('메세지를 생성하는데 오류 발생:', error.message);
+      setError(true);
     }
   };
 
-  const toggleImage = () => {
-    setSelectedImage((prevImage) =>
-      prevImage === colorToggle ? colorToggle : ImgToggle,
-    );
-  };
 
   return (
     <MainContainer>
@@ -146,9 +168,11 @@ function Container(props) {
             컬러를 선택하거나, 이미지를 선택할 수 있습니다.
           </BackgroundChooseSubText>
         </BackgroundChooseContainer>
-        <ToggleButton></ToggleButton>
+        <ToggleButton onSubmit={({ backgroundColor, backgroundImageURL }) => setSelectedImage({ backgroundColor, backgroundImageURL })} />
         <ButtonGroup>
-          <CreateButton type="button">생성하기</CreateButton>
+          <CreateButton disabled={!inputValue || !selectedImage} onClick={handleSubmit}>
+            생성하기
+          </CreateButton>
         </ButtonGroup>
       </MainToContainer>
     </MainContainer>
@@ -156,3 +180,5 @@ function Container(props) {
 }
 
 export default Container;
+
+

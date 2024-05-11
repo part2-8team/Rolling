@@ -40,6 +40,7 @@ export const createMessage = async (recipientId, data) => {
       },
       body: JSON.stringify({
         team: '6-8',
+        recipientId,
         ...data,
       }),
     },

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import SliderTitle from '../components/SliderTitle';
+import SectionTitle from '../components/SectionTitle';
 import SliderButton from '../components/SliderButton';
 import arrowRight from '../assets/arrow-right.svg';
 import arrowLeft from '../assets/arrow-left.svg';
@@ -79,7 +79,7 @@ function ListSlider({
 
   return (
     <StyleSection>
-      <SliderTitle title={title} />
+      <SectionTitle title={title} />
       {isPrev && (
         <SliderButton
           value={value}
