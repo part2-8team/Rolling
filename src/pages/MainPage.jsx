@@ -30,7 +30,6 @@ function MainPage(props) {
           />
         }
       />
-      <Nav/>
       <MainPageStyledComponent>
         <div className="MainPage">
           <div className="sections">

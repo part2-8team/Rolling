@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { createMessage } from '../api/messageApi';
-import { bold18 } from '../styles/fontSize';
 
 //컴포넌트
 import ToggleButton from './Button/ToggleButton';
@@ -11,7 +10,7 @@ import ImgToggle from '../assets/imgToggle.svg';
 
 //스타일
 import styled from 'styled-components';
-import { regular16, regular12, bold24, bold18 } from '../styles/fontSize';
+import { regular16, regular12, bold18, bold24 } from '../styles/fontSize';
 
 const MainContainer = styled.main`
   box-sizing: border-box;
@@ -101,7 +100,10 @@ const CreateButton = styled.button`
   height: 56px;
   margin-top: 69px;
   border-radius: 12px;
-  background-color: ${({ disabled }) => (disabled ? '#cccccc' : 'var(--purple600)')}; /* 비활성화, 활성화 시 생성하기 버튼의 색상 */
+  background-color: ${({ disabled }) =>
+    disabled
+      ? '#cccccc'
+      : 'var(--purple600)'}; /* 비활성화, 활성화 시 생성하기 버튼의 색상 */
   ${bold18}
   color: #FFFFFF;
   border: none;
@@ -119,7 +121,9 @@ const Container = () => {
   };
 
   const toggleImage = () => {
-    setSelectedImage((prevImage) => (prevImage === colorToggle ? colorToggle : ImgToggle));
+    setSelectedImage((prevImage) =>
+      prevImage === colorToggle ? colorToggle : ImgToggle,
+    );
   };
 
   const handleSubmit = async () => {
@@ -167,15 +171,20 @@ const Container = () => {
             컬러를 선택하거나, 이미지를 선택할 수 있습니다.
           </BackgroundChooseSubText>
         </BackgroundChooseContainer>
-        <ToggleButton onSubmit={(selectedImage) => setSelectedImage(selectedImage)} />
+        <ToggleButton
+          onSubmit={(selectedImage) => setSelectedImage(selectedImage)}
+        />
         <ButtonGroup>
-          <CreateButton disabled={!inputValue || !selectedImage} onClick={handleSubmit}>
+          <CreateButton
+            disabled={!inputValue || !selectedImage}
+            onClick={handleSubmit}
+          >
             생성하기
           </CreateButton>
         </ButtonGroup>
       </MainToContainer>
     </MainContainer>
   );
-}
+};
 
 export default Container;

@@ -10,6 +10,8 @@ import {
   regular18,
   regular20,
 } from '../../styles/fontSize';
+import parse from 'html-react-parser';
+
 // import USER_STATE from '../../utils/USER_SET';
 
 export const USER_STATE = Object.freeze({
@@ -127,20 +129,20 @@ function Card({
   onDelete,
 }) {
   const [isCardOnClick, setIsCardOnClick] = useState(false);
-  const Ref = useRef(second);
+  const ref = useRef();
 
-  const OutsideClick = (e) => {
-    if (isCardOpen && (!ref.current || !ref.current.contains(e.target))) {
-      setIsCardOnClick(false);
-    }
-  };
+  // const onClickOutside = (e) => {
+  //   if (isCardOpen && (!ref.current || !ref.current.contains(e.target))) {
+  //     setIsCardOnClick(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    window.addEventListener('click', onClickOutside);
-    return () => {
-      window.removeEventListener('click', onClickOutside);
-    };
-  }, [isCardOnClick]);
+  // useEffect(() => {
+  //   window.addEventListener('click', onClickOutside);
+  //   return () => {
+  //     window.removeEventListener('click', onClickOutside);
+  //   };
+  // }, [isCardOnClick]);
 
   const onClickCard = (e) => {
     e.preventDefault();
@@ -158,18 +160,20 @@ function Card({
 
   const font = fontClass[cardFont] || '';
 
+  const parseContent = parse(cardContent);
+
   return (
-    <CardContentWrapper Ref={Ref} onClick={onClickCard}>
+    <CardContentWrapper ref={ref} onClick={onClickCard}>
       <CardContent>
         <UserInfo>
           <UserImg src={src} alt="프로필" />
           <UserNameText>
-            Form.<UserName>${name}</UserName>
+            Form.<UserName>{name}</UserName>
             <UserState $state={userState}>{userState}</UserState>
           </UserNameText>
-          <DeleteButton id={id} onDelete={onDelete} />
+          {/* <DeleteButton id={id} onDelete={onDelete} /> */}
         </UserInfo>
-        <CardContentText className={font}>{cardContent}</CardContentText>
+        <CardContentText className={font}>{parseContent}</CardContentText>
         <CardDate>
           {`${createdDate.getFullYear()}. ${
             createdDate.getMonth() + 1

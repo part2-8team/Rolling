@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { regular16, bold18, bold28 } from '../../styles/fontSize';
 import { DISPLAY_SIZE } from '../../utils/PAGE_SIZE';
 import Frame2356 from '../../assets/Frame2356.png';
@@ -233,7 +233,7 @@ function Nav({ name, peopleNum, profileUrl }) {
             {peopleNum}명이 작성했어요!
           </Written>
           <Vertical1 />
-            <EmojiDropDown />
+          <EmojiDropDown />
           <Vertical2 />
           <ShareButton ref={ref} onClick={ClickShare}>
             <img src={share24} alt="공유하기버튼" />

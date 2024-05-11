@@ -87,7 +87,7 @@ function CardItems({ data }) {
     }
   };
 
-  const DeleteMessage = async (messageId) => {
+  const deleteMessage = async (messageId) => {
     try {
       await deleteMessage(messageId);
       const deletedId = messageId;
@@ -137,7 +137,7 @@ function CardItems({ data }) {
             userState={message.relationship}
             cardContent={message.content}
             cardCreatedAt={message.createdAt}
-            onDelete={DeleteMessage}
+            onDelete={deleteMessage}
           />
         ))}
       <div ref={setTarget} styled={{ width: '100%', height: '1rem' }} />

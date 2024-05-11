@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { createReaction, getReactions } from '../api/recipientApi';
 import { regular16 } from '../styles/fontSize';
+import ArrowDown from '../assets/arrow-down.svg';
 
 const FlexCenter = css`
   display: flex;
@@ -12,14 +13,17 @@ const FlexCenter = css`
 `;
 
 const EmojiGroup = styled.div`
+  width: 20.8rem;
   display: flex;
   gap: 0.8rem;
 `;
 
 const EmojiBadge = styled.div`
   ${FlexCenter}
+  margin : 0
   padding: 0.8rem 1.2rem;
   width: 6.3rem;
+  height: 3.8rem;
   gap: 0.2rem;
   border-radius: 3.2rem;
   background: rgba(0, 0, 0, 0.54);
@@ -83,7 +87,8 @@ const DropdownMenu = styled.div`
   }
 `;
 
-const EmojiGroupInDropDown = styled(EmojiGroup)`
+const EmojiGroupInDropDown = styled.div`
+  width: 31.2rem;
   display: grid;
   grid-gap: 0.8rem;
   grid-template-columns: 6.3rem 6.3rem 6.3rem 6.3rem;
@@ -156,14 +161,14 @@ function EmojiDropDown() {
   const handleEmojiData = async () => {
     try {
       const response = await getReactions(recipient_id);
-      const data = response.results.map((item) => ({
+      const data = response.map((item) => ({
         unified: item.id,
         emoji: item.emoji,
         count: item.count,
       }));
       setBadges(data);
     } catch (error) {
-      throw new Error('Failed to fetch data', error);
+      throw new Error(error);
     }
   };
 
@@ -221,7 +226,7 @@ function EmojiDropDown() {
       {badges.length > 0 &&
         (badges.length > 3 ? (
           <DownArrow onClick={() => setIsDropDownOpen((prev) => !prev)}>
-            <ArrowImage src="/img/arrow_down.svg" alt="" />
+            <ArrowImage src={ArrowDown} alt="" />
             {isDropDownOpen && (
               <DropdownMenu>
                 <EmojiGroupInDropDown>
