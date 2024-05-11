@@ -5,8 +5,8 @@ import MainPage from './pages/MainPage';
 import ListPage from './pages/ListPage';
 import Post from './pages/Post';
 // import PostId from './pages/PostId';
-// import PostIdEdit from "./pages/PostIdEdit";
-// import PostIdMessage from "./pages/PostIdMessage";
+// import PostIdEdit from './pages/PostIdEdit';
+// import PostIdMessage from './pages/PostIdMessage';
 import styled from 'styled-components';
 
 function App() {

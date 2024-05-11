@@ -3,9 +3,10 @@ import SliderTitle from '../components/SliderTitle';
 import SliderButton from '../components/SliderButton';
 import arrowRight from '../assets/arrow-right.svg';
 import arrowLeft from '../assets/arrow-left.svg';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import SliderCard from './SLiderCard';
+import { useNavigate } from 'react-router-dom';
 
-const sliderCards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const SLIDE = 295;
 
 function ListSlider({
@@ -15,21 +16,33 @@ function ListSlider({
   clickNext,
   clickPrev,
   value,
+  moveTouchSlider,
+  handleOnTouchStart,
+  handleOnTouchMove,
+  handleOnTouchEnd,
+  cardItems,
 }) {
+  const navigate = useNavigate();
   // StyleSliderWrap 의 너비값 (295 * 요소의 개수 - 첫 요소 왼쪽 마진값)
-  const sliderWidth = SLIDE * sliderCards.length - 20;
+  const sliderWidth = SLIDE * cardItems.length - 20;
   // 다음 버튼 클릭시, 마지막 요소만 보여줘야 하는 기준 마지막 4개만 남았을때의 px값
-  const sliderEnd = (sliderCards.length - 4) * -SLIDE;
+  const sliderEnd = (cardItems.length - 4) * -SLIDE;
   // 처음 요소가 보일시, 버튼 단락회로 평가
   const isPrev = moveSlider >= 0 ? false : true;
   // 마지막 요소가 보일시, 버튼 단락회로 평가
   const isNext =
     sliderEnd >= 1 ? false : moveSlider === sliderEnd ? false : true;
+  // 카드 클릭시 디테일 페이지 이동
+  const handleCardClick = (id) => {
+    navigate(`/post/${id}`);
+  };
 
+  // 수정 예정
   const onClickNext = () => {
     clickNext(moveSlider, value);
   };
 
+  // 수정 예정
   const onClickPrev = () => {
     clickPrev(moveSlider, value);
   };
@@ -38,6 +51,31 @@ function ListSlider({
     if (!sliderRef.current) return;
     sliderRef.current.style.transform = `translateX(${moveSlider}px)`;
   }, [moveSlider]);
+
+  useEffect(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.style.transform = `translateX(${moveTouchSlider}px)`;
+  }, [moveTouchSlider]);
+
+  // 터치 스와이프
+  // 기능 수정 및 페이지네이션 기능 추가 예정
+  const onTouchStart = (e) => {
+    handleOnTouchStart(e);
+  };
+
+  const onTouchMove = (e) => {
+    handleOnTouchMove(e);
+  };
+
+  const onTouchEnd = (e) => {
+    const isTouches = e.touches[0];
+    if (!isTouches) return;
+    handleOnTouchEnd(e);
+  };
+
+  useEffect(() => {
+    console.log('translateX의 값', moveTouchSlider);
+  }, [moveTouchSlider]);
 
   return (
     <StyleSection>
@@ -51,10 +89,18 @@ function ListSlider({
           onClick={onClickPrev}
         />
       )}
-      <StyleSliderWrap>
+      <StyleSliderWrap
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
         <StyleSlider ref={sliderRef} width={sliderWidth}>
-          {sliderCards.map((card) => (
-            <StyleSliderCard key={card}>{card}</StyleSliderCard>
+          {cardItems.map((card) => (
+            <SliderCard
+              key={card.id}
+              {...card}
+              handleCardClick={handleCardClick}
+            />
           ))}
         </StyleSlider>
       </StyleSliderWrap>
@@ -113,22 +159,4 @@ const StyleSlider = styled.ul`
 
   display: flex;
   transition: all 0.5s ease-in;
-`;
-
-const StyleSliderCard = styled.li`
-  width: 275px;
-  height: 260px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border: 1px solid #0000001a;
-  border-radius: 16px;
-  box-shadow: 0px 2px 12px 0px #00000014;
-  transition: 0.5 ease-out;
-
-  &:not(:first-child) {
-    margin-left: 20px;
-  }
 `;
