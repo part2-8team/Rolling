@@ -1,15 +1,15 @@
 import styled, { css } from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import EmojiButton from './EmojiButton';
-import { getReactions } from '../api/recipientApi';
-import EmojiDropDown from './EmojiDropDown';
 import { regular16 } from '../styles/fontSize';
 import ArrowDown from '../assets/arrow-down.svg';
+
 const FlexCenter = css`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
+
 const DownArrow = styled.button`
   min-width: 2.4rem;
   height: 2.4rem;
@@ -28,6 +28,7 @@ const Emoji = styled.span`
   padding: 0 0.2rem;
   margin-right: 0.2rem;
 `;
+
 const EmojiGroupInDropDown = styled.div`
   width: 31.2rem;
   display: grid;
@@ -40,16 +41,12 @@ const DropdownMenu = styled.div`
   top: 4.5rem;
   right: 0;
   z-index: 9999;
-
   display: flex;
-
   border-radius: 0.8rem;
   border: 0.1rem solid #b6b6b6;
   background: var(--white);
   box-shadow: 0rem 0.2rem 1.2rem 0rem rgba(0, 0, 0, 0.08);
-
   padding: 2.4rem;
-
   align-items: flex-start;
   gap: 1rem;
 
@@ -58,7 +55,7 @@ const DropdownMenu = styled.div`
   }
 `;
 
-const EmojiBadge = styled.div`
+const EmojiImg = styled.div`
   ${FlexCenter}
   margin : 0
   padding: 0.8rem 1.2rem;
@@ -80,6 +77,14 @@ const ArrowImage = styled.img`
   width: 100%;
   height: 100%;
 `;
+
+const StyledEmojiButtonList = styled.ul`
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+`;
+
 function EmojiButtonList({ id, emojiList, setEmojiList }) {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   useEffect(() => {
@@ -103,10 +108,10 @@ function EmojiButtonList({ id, emojiList, setEmojiList }) {
               <DropdownMenu>
                 <EmojiGroupInDropDown>
                   {emojiList.slice(3, 11).map((emoji) => (
-                    <EmojiBadge key={emoji.unified}>
+                    <EmojiImg key={emoji.unified}>
                       <Emoji>{emoji.emoji}</Emoji>
                       <span>{emoji.count}</span>
-                    </EmojiBadge>
+                    </EmojiImg>
                   ))}
                 </EmojiGroupInDropDown>
               </DropdownMenu>
@@ -120,10 +125,3 @@ function EmojiButtonList({ id, emojiList, setEmojiList }) {
   );
 }
 export default EmojiButtonList;
-
-const StyledEmojiButtonList = styled.ul`
-  list-style-type: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-`;
