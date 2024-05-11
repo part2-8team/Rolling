@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { isStyledComponent } from 'styled-components';
 import Header from '../components/Header';
 import SectionTitle from '../components/SectionTitle';
 import Button from '../components/Button/Button';

@@ -7,12 +7,9 @@ import Post from './pages/Post';
 import PostId from './pages/PostId';
 // import PostIdEdit from './pages/PostIdEdit';
 import PostIdMessage from './pages/PostIdMessage';
-import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
-    <>
-    <ToastContainer />
     <BrowserRouter>
       <Routes>
         <Route path="/">
@@ -29,7 +26,6 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-    </>
   );
 }
 
