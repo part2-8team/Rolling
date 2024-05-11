@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { getBackgroundImages } from '../../api/etcApi';
+import { getBackgroundImages } from '../../api/etcApi'; 
+import { createRecipient } from '../../api/recipientApi';
+
 
 //이미지
 import colorToggle from '../../assets/colorToggle.svg';
 import ImgToggle from '../../assets/imgToggle.svg';
 import switchImgToggle from '../../assets/switchImgToggle.svg';
 import switchColorToggle from '../../assets/switchcolorToggle.svg';
-import checkIcon from '../../assets/checkIcon.svg'; // 추가: 체크 아이콘 이미지
+import checkIcon from '../../assets/checkIcon.svg'; 
 import colorYellow from '../../assets/colorYellow.png';
 import colorPink from '../../assets/colorPink.png';
 import colorBlue from '../../assets/colorBlue.png';
 import colorGreen from '../../assets/colorGreen.png';
-
 
 //스타일
 import styled from 'styled-components';
@@ -61,9 +62,9 @@ const CheckIcon = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-//함수 구현 부분
 
-const ToggleButton = () => {
+
+const ToggleButton = ({ onSubmit }) => {
   const [isColorActive, setIsColorActive] = useState(true);
   const [isImageActive, setIsImageActive] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -76,12 +77,29 @@ const ToggleButton = () => {
         const images = await getBackgroundImages();
         setBackgroundImages(images);
       } catch (error) {
-        console.error('Error fetching background images:', error);
+        console.error('배경 이미지를 가져오는 중 오류 발생:', error);
       }
     };
 
     fetchBackgroundImages();
   }, []);
+
+  // 데이터 등록
+  const handleSubmit = async () => {
+    if (!selectedImage) {
+      console.error("이미지를 선택해주세요.");
+      return;
+    }
+  
+    try {
+      const responseData = await createRecipient("recipientName", selectedImage, selectedImage);
+      console.log("이미지가 성공적으로 전송되었습니다.");
+      onSubmit(selectedImage); // 선택된 이미지를 부모 컴포넌트로 전달
+    } catch (error) {
+      console.error("이미지 전송 중 오류 발생:", error);
+    }
+  };
+
 
   const handleColorButtonClick = () => {
     setIsColorActive(true);
@@ -94,12 +112,16 @@ const ToggleButton = () => {
   };
 
   const handleImageSelect = (image) => {
-    setSelectedImage(image);
+    setSelectedImage(prevSelectedImage => {
+      // 선택 이미지 취소하기
+      if (prevSelectedImage === image) {
+        return null;
+      } else {
+        return image;
+      }
+    });
   };
 
-  const handleConfirmButtonClick = () => {
-    console.log(selectedImage);
-  };
 
   return (
     <>
@@ -172,7 +194,8 @@ const ToggleButton = () => {
             </ColorCard>
           ))}
         </ColorCardGroup>
-      )}
+      )}  
+
     </>
   );
 };
