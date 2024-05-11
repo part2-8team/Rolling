@@ -51,6 +51,7 @@ const HeaderContent = styled.div`
 
     @media (max-width: 360px) {
       padding: 0 20px;
+    }
   `;
 
 const LogoImg = styled.img`
