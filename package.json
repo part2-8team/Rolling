@@ -12,6 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "picmo": "^5.8.5",
     "@babel/core": "^7.24.5",
     "@testing-library/dom": "^10.1.0",
     "react": "^18.2.0",
