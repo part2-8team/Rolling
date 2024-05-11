@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import { toast, ToastContainer } from 'react-toastify';
 import { regular16, bold18, bold28 } from '../../styles/fontSize';
 import { DISPLAY_SIZE } from '../../utils/PAGE_SIZE';
-import Frame2356 from '../../assets/Frame2356.png';
+import Propile from '../Propile';
 import share24 from '../../assets/share24.svg';
-import add24 from '../../assets/add24.svg';
 import Toast from '../Modal/Toast';
 import ShareToggle from '../Modal/ShareToggle';
 import ModalPortal from '../Modal/ModalPortal';
@@ -229,7 +228,7 @@ function Nav({ name, peopleNum, profileUrl }) {
         <Name>To.{name}</Name>
         <PostIdData>
           <Written>
-            <WrittenByIcons profileUrl={profileUrl} peopleNum={peopleNum} />
+            <Propile profileUrl={profileUrl} peopleNum={peopleNum} />
             {peopleNum}명이 작성했어요!
           </Written>
           <Vertical1 />
