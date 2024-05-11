@@ -14,7 +14,6 @@
   "dependencies": {
     "@babel/core": "^7.24.5",
     "@testing-library/dom": "^10.1.0",
-    "axios": "^1.6.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-quill": "^2.0.0",
