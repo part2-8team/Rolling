@@ -129,12 +129,12 @@ const Container = () => {
   
     try {
       const selectedColor = 'beige';
-      const selectedBackgroundImageURL = 'https://picsum.photos/id/683/3840/2160';
+      
   
       const data = {
         name: inputValue,
         backgroundColor: selectedImage?.backgroundColor || selectedColor,
-        backgroundImageURL: selectedImage?.backgroundImageURL || selectedBackgroundImageURL
+        backgroundImageURL: selectedImage?.backgroundImageURL || null
       };
   
       const response = await createRecipient(data);

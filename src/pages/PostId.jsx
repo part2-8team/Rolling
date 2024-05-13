@@ -6,6 +6,8 @@ import Header from '../components/Header';
 import CardItems from '../components/PostId/CardItems';
 import { useParams } from 'react-router-dom';
 
+import EditButton from '../components/Button/EditButton';
+
  const BACKGROUND_COLOR = Object.freeze({
   beige: { background: 'var(--orange200)' },
   purple: { background: 'var(--purple200)' },
@@ -100,9 +102,9 @@ function PostId() {
         peopleNum={data ? data.messageCount : 0}
         profileUrl={profileUrl}
       />
-      {/* <DeleteCard>
-        <DeleteButton />
-      </DeleteCard> */}
+      <DeleteCard>
+      <EditButton />
+      </DeleteCard>
       <CardItems data={data} />
     </PostIdWrapper>
   );

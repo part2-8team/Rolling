@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRef, useEffect, useState } from 'react';
-// import DeleteButton from './DeleteButton';
+import DeleteMessageButton from './DeleteMessageButton';
 // import Modal from './Modal';
 // import CardModal from './CardModal';
 import {
@@ -11,6 +11,7 @@ import {
   regular20,
 } from '../../styles/fontSize';
 import parse from 'html-react-parser';
+import { mapFont } from '../../utils/mapFont';
 
 // import USER_STATE from '../../utils/USER_SET';
 
@@ -161,15 +162,6 @@ function Card({
 
   const createdDate = new Date(cardCreatedAt);
 
-  const fontClass = {
-    'Noto Sans': 'noto-sans',
-    Pretendard: 'pretendard',
-    나눔명조: 'nanum-gothic',
-    '나눔손글씨 손편지체': 'nanum-myeongjo',
-  };
-
-  const font = fontClass[cardFont] || '';
-
   const parseContent = parse(cardContent);
 
   return (
@@ -181,9 +173,11 @@ function Card({
             Form.<UserName>{name}</UserName>
             <UserState $state={userState}>{userState}</UserState>
           </UserNameText>
-          {/* <DeleteButton id={id} onDelete={onDelete} /> */}
+          <DeleteButton id={id} onDelete={onDelete} />
         </UserInfo>
-        <CardContentText className={font}>{parseContent}</CardContentText>
+        <CardContentText style={{ fontFamily: mapFont(cardFont) }}>
+          {parseContent}
+        </CardContentText>
         <CardDate>
           {`${createdDate.getFullYear()}. ${
             createdDate.getMonth() + 1

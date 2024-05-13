@@ -85,14 +85,6 @@ const Written = styled.div`
   }
 `;
 
-const WrittenByIcons = styled.img`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 7.6rem;
-  height: 2.8rem;
-  gap: 1.1 rem;
-`;
 
 const Vertical1 = styled.div`
 width: 0.1rem;
@@ -116,31 +108,6 @@ width: 0.1rem;
     background-color: var(--white);
 `;
 
-const EmojiButton = styled.button`
-  border-radius: 0.6rem;
-  background: var(--${({ disabled }) => (disabled ? 'gray300' : 'white')});
-  color: var(--${({ disabled }) => (disabled ? 'white' : 'gray900')});
-  border: 1px solid var(--gray300);
-  ${regular16}
-
-  &:hover:enabled {
-    background: var(--gray100);
-  }
-
-  &:active:enabled {
-    background: var(--gray100);
-  }
-
-  &:focus:enabled {
-    border: 1px solid var(--gray500);
-  }
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 8.8rem;
-  height: 3.6rem;
-  gap: 1.1 rem;
-`;
 const ShareButton = styled.button`
   border-radius: 0.6rem;
   background: var(--${({ disabled }) => (disabled ? 'gray300' : 'white')});
