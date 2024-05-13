@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createRecipient } from '../api/recipientApi';
 import { bold18 } from '../styles/fontSize';
+import { useNavigate } from 'react-router-dom'; // URL 이동
 
 //컴포넌트
 import ToggleButton from './Button/ToggleButton';
@@ -113,6 +114,7 @@ const Container = () => {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState(false);
   const [selectedImage, setSelectedImage] = useState({});
+  const navigate = useNavigate();
 
   const handleBlur = () => {
     setError(!inputValue);
@@ -121,13 +123,13 @@ const Container = () => {
   const handleSubmit = async () => {
     if (!inputValue) {
       setError(true);
-      return;
+      return null; // 입력값이 없으면 null 반환
     }
   
     try {
-      const selectedColor = 'beige'; // 기본 색상 설정
-      const selectedBackgroundImageURL = 'https://picsum.photos/id/683/3840/2160'; // 기본 배경 이미지 URL 설정
-      
+      const selectedColor = 'beige';
+      const selectedBackgroundImageURL = 'https://picsum.photos/id/683/3840/2160';
+  
       const data = {
         name: inputValue,
         backgroundColor: selectedImage?.backgroundColor || selectedColor,
@@ -139,9 +141,20 @@ const Container = () => {
       console.log('메세지가 생성되었습니다:', data);
   
       setInputValue('');
+  
+      // 생성된 페이지의 ID 반환
+      return response.id;
     } catch (error) {
       console.error('메세지를 생성하는데 오류 발생:', error.message);
       setError(true);
+      return null; // 오류 발생시 null 반환
+    }
+  };
+
+  const handleCreateRecipient = async () => {
+    const id = await handleSubmit(); // 생성된 페이지의 ID 받아오기
+    if (id) {
+      navigate(`/post/${id}`); // 생성된 페이지로 이동
     }
   };
 
@@ -170,7 +183,7 @@ const Container = () => {
         </BackgroundChooseContainer>
         <ToggleButton onSubmit={({ backgroundColor, backgroundImageURL }) => setSelectedImage({ backgroundColor, backgroundImageURL })} />
         <ButtonGroup>
-          <CreateButton disabled={!inputValue || !selectedImage} onClick={handleSubmit}>
+          <CreateButton disabled={!inputValue || !selectedImage} onClick={handleCreateRecipient}>
             생성하기
           </CreateButton>
         </ButtonGroup>
