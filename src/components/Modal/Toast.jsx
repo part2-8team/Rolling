@@ -1,5 +1,5 @@
-
-import { toast } from "react-toastify/dist";
+import { toast } from "react-toastify";
+import { ReactDOM } from 'react-dom/client';
 
 function Toast() {
   toast.success('URL이 복사되었습니다.', {
@@ -13,5 +13,3 @@ function Toast() {
 }
 
 export default Toast;
-
-toast

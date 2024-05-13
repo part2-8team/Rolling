@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import Button from '../components/Button/Button';
 import ListSlider from '../components/ListSlider';
 import Header from '../components/Header';
+import CreateButton from '../components/Button/CreateButton';
+
 // 슬라이더 클릭 한번당 움직일 px
 const SLIDE = 295;
 
@@ -107,36 +109,35 @@ function ListPage() {
 
   return (
     <>
-      <Header />
-      <StyleContainer>
-        <ListSlider
-          key={popularSliderValue}
-          title="인기 롤링 페이퍼 🔥"
-          moveSlider={movePopularSlider}
-          sliderRef={popularSlider}
-          clickNext={handleClickNext}
-          clickPrev={handleClickPrev}
-          value={popularSliderValue}
-          moveTouchSlider={touchMove}
-          handleOnTouchStart={handleOnTouchStart}
-          handleOnTouchMove={handleOnTouchMove}
-          handleOnTouchEnd={handleOnTouchEnd}
-          cardItems={popularItems}
-        />
-        <ListSlider
-          key={recentSliderValue}
-          title="최근에 만든 롤링 페이퍼 ⭐️"
-          moveSlider={moveRecentSlider}
-          sliderRef={recentSlider}
-          clickNext={handleClickNext}
-          clickPrev={handleClickPrev}
-          value={recentSliderValue}
-          cardItems={recentItems}
-        />
-        <StyleSection className="button-section">
-          <Button text="나도 만들어보기" onClick={moveToPost} />
-        </StyleSection>
-      </StyleContainer>
+    <Header
+    event={
+      <CreateButton
+        onClick={() => nav('/post')}
+        text={'롤링 페이퍼 만들기'}
+      />
+    }
+  />
+    <StyleContainer>
+      <ListSlider
+        title="인기 롤링 페이퍼 🔥"
+        moveSlider={movePopularSlider}
+        sliderRef={popularSlider}
+        clickNext={handleClickNext}
+        clickPrev={handleClickPrev}
+        value={popularSliderValue}
+      />
+      <ListSlider
+        title="최근에 만든 롤링 페이퍼 ⭐️"
+        moveSlider={moveRecentSlider}
+        sliderRef={recentSlider}
+        clickNext={handleClickNext}
+        clickPrev={handleClickPrev}
+        value={recentSliderValue}
+      />
+      <StyleSection className="button-section">
+        <Button text="나도 만들어보기" onClick={moveToPost} />
+      </StyleSection>
+    </StyleContainer>
     </>
   );
 }

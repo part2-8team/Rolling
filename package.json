@@ -14,11 +14,15 @@
   "dependencies": {
     "@babel/core": "^7.24.5",
     "@testing-library/dom": "^10.1.0",
+    "emoji-picker-react": "^4.9.2",
+    "html-react-parser": "^5.1.10",
+    "picmo": "^5.8.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-quill": "^2.0.0",
     "react-responsive": "^10.0.0",
-    "react-router-dom": "^6.23.0",
+    "react-router": "^6.23.1",
+    "react-router-dom": "^6.23.1",
     "react-toastify": "^10.0.5",
     "styled-components": "^6.1.9",
     "styled-reset": "^4.5.2"
