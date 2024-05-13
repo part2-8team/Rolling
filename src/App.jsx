@@ -5,9 +5,8 @@ import MainPage from './pages/MainPage';
 import ListPage from './pages/ListPage';
 import Post from './pages/Post';
 import PostId from './pages/PostId';
-// import PostIdEdit from './pages/PostIdEdit';
+import PostIdEdit from './pages/PostIdEdit';
 import PostIdMessage from './pages/PostIdMessage';
-import EmojiComponents from './components/EmojiComponents';
 
 function App() {
   return (
@@ -15,14 +14,13 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<MainPage />} />
-          <Route path="test" element={<EmojiComponents />} />
           <Route path="list" element={<ListPage />} />
           <Route path="post">
             <Route index element={<Post />} />
             <Route path=":id">
               <Route index element={<PostId />} />
               <Route path="message" element={<PostIdMessage />} />
-              {/* <Route path="edit" element={<PostIdEdit />} /> */}
+              <Route path="edit" element={<PostIdEdit />} />
             </Route>
           </Route>
         </Route>

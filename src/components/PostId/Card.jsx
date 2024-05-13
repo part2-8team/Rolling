@@ -14,7 +14,7 @@ import parse from 'html-react-parser';
 
 // import USER_STATE from '../../utils/USER_SET';
 
-export const USER_STATE = Object.freeze({
+const USER_STATE = Object.freeze({
   가족: { background: 'var(--green100)', color: 'var(--green500)' },
   동료: { background: 'var(--purple100)', color: 'var(--purple600)' },
   지인: { background: 'var(--orange100)', color: 'var(--orange500)' },
@@ -38,6 +38,16 @@ export const CardContentWrapper = styled.div`
   &:hover {
     transform: translateY(-1.2rem);
   }
+
+@media (min-width: 768px) and (max-width: 1247px) {
+  max-width: 1247px;
+  width: 49%;
+}
+@media (max-width: 768px) {
+  max-width: 768px;
+  min-width: 32rem;
+  width: 100%;
+
 `;
 
 const CardContent = styled.div`
@@ -163,7 +173,7 @@ function Card({
   const parseContent = parse(cardContent);
 
   return (
-    <CardContentWrapper ref={ref} onClick={onClickCard}>
+    <CardContentWrapper onClick={onClickCard}>
       <CardContent>
         <UserInfo>
           <UserImg src={src} alt="프로필" />

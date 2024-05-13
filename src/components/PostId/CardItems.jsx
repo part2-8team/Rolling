@@ -29,16 +29,9 @@ const CardPlus = styled(CardContentWrapper)`
   transition: all 0.5s ease-out;
   &:hover {
     transform: translateY(-1.2rem);
-}
+  }
 
-@media (min-width: 768px) and (max-width: 1247px) {
-  max-width: 1247px;
-  width: 49%;
-}
-@media (max-width: 768px) {
-  max-width: 768px;
-  min-width: 32rem;
-  width: 100%;
+
 `;
 
 const Plus = styled.div`
@@ -54,10 +47,9 @@ const Plus = styled.div`
 `;
 
 const PlusImg = styled.img`
-width: 5.6rem;
-height: 5.6rem;
-
-`
+  width: 5.6rem;
+  height: 5.6rem;
+`;
 
 function CardItems({ data }) {
   const { id } = useParams();
