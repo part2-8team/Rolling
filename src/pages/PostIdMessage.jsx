@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { isStyledComponent } from 'styled-components';
 import Header from '../components/Header';
 import SectionTitle from '../components/SectionTitle';
 import Button from '../components/Button/Button';
@@ -27,7 +27,7 @@ function PostIdMessage() {
   const { id } = useParams();
 
   const handleSenderChange = (e) => {
-    setSender(e.target.value);
+    setSender(e.target.value.trim());
   };
 
   const handleProfileClick = (e) => {
@@ -35,7 +35,7 @@ function PostIdMessage() {
   };
 
   const handleRelationClick = (e) => {
-    setRelationship(e.target.innerText);
+    setRelationship(e.target.innerText.trim());
   };
 
   const handleFontClick = (e) => {
@@ -43,16 +43,16 @@ function PostIdMessage() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const data = {};
-    data['sender'] = sender;
-    data['profileImageURL'] = profileImageURL;
-    data['relationship'] = relationship;
-    data['content'] = content;
-    data['font'] = font;
-
-    await createMessage(id, data);
+    const data = {
+      recipientId: id,
+      sender: sender,
+      profileImageURL: profileImageURL,
+      relationship: relationship,
+      content: content,
+      font: font,
+    };
+    const response = await createMessage(id, data);
+    return response.id;
   };
 
   useEffect(() => {
@@ -80,7 +80,10 @@ function PostIdMessage() {
           <SectionTitle title="프로필 이미지" />
           <ImgContainer>
             <SelectedImg>
-              <ProfileImage imgUrl={profileImgArr[0]} size="80" />
+              <ProfileImage
+                imgUrl={profileImageURL || profileImgArr[0]}
+                size="80"
+              />
             </SelectedImg>
             <div>
               <SectionDesc>프로필 이미지를 선택해주세요!</SectionDesc>
@@ -90,7 +93,7 @@ function PostIdMessage() {
                     <li key={i}>
                       <ProfileImage
                         imgUrl={url}
-                        size={isMobile ? '40' : '56'}
+                        size={isMobile ? '40' : '55'}
                       />
                     </li>
                   );

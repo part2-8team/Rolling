@@ -8,7 +8,7 @@ import ToggleButton from './Button/ToggleButton';
 
 //이미지
 import colorToggle from '../assets/colorToggle.svg';
- import ImgToggle from '../assets/imgToggle.svg';
+import ImgToggle from '../assets/imgToggle.svg';
 
 //스타일
 import styled, { createGlobalStyle } from 'styled-components';
@@ -107,6 +107,7 @@ const CreateButton = styled.button`
   color: #FFFFFF;
   border: none;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `;
 
 // 함수 컴포넌트
@@ -190,7 +191,7 @@ const Container = () => {
       </MainToContainer>
     </MainContainer>
   );
-}
+};
 
 export default Container;
 

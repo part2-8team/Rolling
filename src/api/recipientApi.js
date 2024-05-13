@@ -96,7 +96,7 @@ export const deleteRecipient = async (recipientsId) => {
   return response.status;
 };
 
-const reactionPath = 'reactions';
+const reactionPath = 'reactions/?limit=11&offset=11';
 
 /**
  * 수신자(저장소)에 등록된 리액션 객체 배열을 리턴합니다.

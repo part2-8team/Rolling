@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getBackgroundImages } from '../../api/etcApi'; 
+import { getBackgroundImages } from '../../api/etcApi';
 import { createRecipient } from '../../api/recipientApi';
 
 //이미지
@@ -7,7 +7,7 @@ import colorToggle from '../../assets/colorToggle.svg';
 import ImgToggle from '../../assets/imgToggle.svg';
 import switchImgToggle from '../../assets/switchImgToggle.svg';
 import switchColorToggle from '../../assets/switchcolorToggle.svg';
-import checkIcon from '../../assets/checkIcon.svg'; 
+import checkIcon from '../../assets/checkIcon.svg';
 import beige from '../../assets/beige.png';
 import purple from '../../assets/purple.png';
 import blue from '../../assets/blue.png';
@@ -62,8 +62,7 @@ const CheckIcon = styled.img`
 `;
 
 
-
-const ToggleButton = ({ onSubmit, defaultColor = 'beige', defaultImage = null }) => {
+  const ToggleButton = ({ onSubmit, defaultColor = 'beige', defaultImage = null }) => {
   const [isColorActive, setIsColorActive] = useState(true);
   const [isImageActive, setIsImageActive] = useState(false);
   const [selectedColor, setSelectedColor] = useState(defaultColor); // 기본 선택 컬러
@@ -90,7 +89,6 @@ const ToggleButton = ({ onSubmit, defaultColor = 'beige', defaultImage = null })
     fetchBackgroundImages();
   }, []);
 
-  // 컬러, 이미지 버튼 클릭 핸들러
   const handleColorButtonClick = () => {
     setIsColorActive(true);
     setIsImageActive(false);
@@ -122,7 +120,6 @@ const ToggleButton = ({ onSubmit, defaultColor = 'beige', defaultImage = null })
     setSelectedImage(null); // 컬러 선택 시 선택된 이미지 초기화
     onSubmit({ backgroundColor: color, backgroundImageURL: null }); // 선택된 컬러를 부모 컴포넌트로 전달
   };
-
   return (
     <>
       <ChooseImgGroup>
@@ -172,7 +169,7 @@ const ToggleButton = ({ onSubmit, defaultColor = 'beige', defaultImage = null })
             </ColorCard>
           ))}
         </ColorCardGroup>
-      )}  
+      )}
     </>
   );
 };
