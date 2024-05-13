@@ -93,7 +93,7 @@ const CheckIcon = styled.img`
 
 
 
-const ToggleButton = ({ onSubmit, defaultColor = 'beige', defaultImage = null }) => {
+  const ToggleButton = ({ onSubmit, defaultColor = 'beige', defaultImage = null }) => {
   const [isColorActive, setIsColorActive] = useState(true);
   const [isImageActive, setIsImageActive] = useState(false);
   const [selectedColor, setSelectedColor] = useState(defaultColor);
@@ -143,10 +143,9 @@ const ToggleButton = ({ onSubmit, defaultColor = 'beige', defaultImage = null })
 
   const handleColorSelect = (color) => {
     setSelectedColor(color);
-    setSelectedImage(null);
-    onSubmit({ backgroundColor: color, backgroundImageURL: null });
+    setSelectedImage(null); // 컬러 선택 시 선택된 이미지 초기화
+    onSubmit({ backgroundColor: color, backgroundImageURL: null }); // 선택된 컬러를 부모 컴포넌트로 전달
   };
-
 
   return (
     <>
