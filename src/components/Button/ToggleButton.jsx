@@ -61,11 +61,12 @@ const CheckIcon = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-const ToggleButton = ({ onSubmit }) => {
+
+  const ToggleButton = ({ onSubmit, defaultColor = 'beige', defaultImage = null }) => {
   const [isColorActive, setIsColorActive] = useState(true);
   const [isImageActive, setIsImageActive] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(null); // 변경된 부분: 선택된 색상 상태 추가
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(defaultColor); // 기본 선택 컬러
+  const [selectedImage, setSelectedImage] = useState(defaultImage); // 기본 이미지 컬러
   const [backgroundImages, setBackgroundImages] = useState([]);
 
   // 배경 이미지 가져오기
@@ -74,11 +75,17 @@ const ToggleButton = ({ onSubmit }) => {
       try {
         const images = await getBackgroundImages();
         setBackgroundImages(images);
+  
+        // 첫번 째 이미지를 선택값으로 지정
+        if (images.length > 0) {
+          setSelectedImage(images[0]);
+          onSubmit({ backgroundColor: null, backgroundImageURL: images[0] }); // 부모 컴포넌트로 전달
+        }
       } catch (error) {
         console.error('배경 이미지를 가져오는 중 오류 발생:', error);
       }
     };
-
+  
     fetchBackgroundImages();
   }, []);
 
@@ -95,6 +102,7 @@ const ToggleButton = ({ onSubmit }) => {
   // 이미지 선택 핸들러
   const handleImageSelect = (image) => {
     setSelectedImage(image);
+    setSelectedColor(null); // 이미지 선택 시 선택된 컬러 초기화
     onSubmit({ backgroundColor: null, backgroundImageURL: image }); // 선택된 이미지를 부모 컴포넌트로 전달
   };
 
@@ -108,15 +116,10 @@ const ToggleButton = ({ onSubmit }) => {
 
   // 컬러 선택 핸들러
   const handleColorSelect = (color) => {
-    const selectedColor = colors.find((item) => item.color === color);
-    setSelectedColor(selectedColor); // 선택된 색상을 상태에 설정
-    setSelectedImage(null); // 이미지 선택 초기화
-    onSubmit({
-      backgroundColor: selectedColor.color,
-      backgroundImageURL: null,
-    }); // 선택된 색상을 부모 컴포넌트로 전달
+    setSelectedColor(color);
+    setSelectedImage(null); // 컬러 선택 시 선택된 이미지 초기화
+    onSubmit({ backgroundColor: color, backgroundImageURL: null }); // 선택된 컬러를 부모 컴포넌트로 전달
   };
-
   return (
     <>
       <ChooseImgGroup>
@@ -145,9 +148,7 @@ const ToggleButton = ({ onSubmit }) => {
               onClick={() => handleColorSelect(color.color)}
               style={{ borderRadius: '20px' }}
             >
-              {selectedColor && selectedColor.color === color.color && (
-                <CheckIcon src={checkIcon} alt="선택됨" />
-              )}
+              {selectedColor === color.color && <CheckIcon src={checkIcon} alt="선택됨" />}
             </ColorCard>
           ))}
         </ColorCardGroup>
