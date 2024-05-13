@@ -12,9 +12,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "picmo": "^5.8.5",
     "@babel/core": "^7.24.5",
     "@testing-library/dom": "^10.1.0",
+    "emoji-picker-react": "^4.9.2",
+    "html-react-parser": "^5.1.10",
+    "picmo": "^5.8.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-quill": "^2.0.0",

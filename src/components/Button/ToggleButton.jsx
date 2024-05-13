@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getBackgroundImages } from '../../api/etcApi'; 
+import { getBackgroundImages } from '../../api/etcApi';
 import { createRecipient } from '../../api/recipientApi';
 
 //이미지
@@ -7,7 +7,7 @@ import colorToggle from '../../assets/colorToggle.svg';
 import ImgToggle from '../../assets/imgToggle.svg';
 import switchImgToggle from '../../assets/switchImgToggle.svg';
 import switchColorToggle from '../../assets/switchcolorToggle.svg';
-import checkIcon from '../../assets/checkIcon.svg'; 
+import checkIcon from '../../assets/checkIcon.svg';
 import beige from '../../assets/beige.png';
 import purple from '../../assets/purple.png';
 import blue from '../../assets/blue.png';
@@ -61,8 +61,6 @@ const CheckIcon = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-
-
 const ToggleButton = ({ onSubmit }) => {
   const [isColorActive, setIsColorActive] = useState(true);
   const [isImageActive, setIsImageActive] = useState(false);
@@ -84,7 +82,6 @@ const ToggleButton = ({ onSubmit }) => {
     fetchBackgroundImages();
   }, []);
 
-  // 컬러, 이미지 버튼 클릭 핸들러
   const handleColorButtonClick = () => {
     setIsColorActive(true);
     setIsImageActive(false);
@@ -114,7 +111,10 @@ const ToggleButton = ({ onSubmit }) => {
     const selectedColor = colors.find((item) => item.color === color);
     setSelectedColor(selectedColor); // 선택된 색상을 상태에 설정
     setSelectedImage(null); // 이미지 선택 초기화
-    onSubmit({ backgroundColor: selectedColor.color, backgroundImageURL: null }); // 선택된 색상을 부모 컴포넌트로 전달
+    onSubmit({
+      backgroundColor: selectedColor.color,
+      backgroundImageURL: null,
+    }); // 선택된 색상을 부모 컴포넌트로 전달
   };
 
   return (
@@ -145,7 +145,9 @@ const ToggleButton = ({ onSubmit }) => {
               onClick={() => handleColorSelect(color.color)}
               style={{ borderRadius: '20px' }}
             >
-              {selectedColor && selectedColor.color === color.color && <CheckIcon src={checkIcon} alt="선택됨" />}
+              {selectedColor && selectedColor.color === color.color && (
+                <CheckIcon src={checkIcon} alt="선택됨" />
+              )}
             </ColorCard>
           ))}
         </ColorCardGroup>
@@ -166,7 +168,7 @@ const ToggleButton = ({ onSubmit }) => {
             </ColorCard>
           ))}
         </ColorCardGroup>
-      )}  
+      )}
     </>
   );
 };

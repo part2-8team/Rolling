@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import { bold14, bold16 } from '../styles/fontSize';
 import logo from '../assets/logo.svg';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Header() {
+function Header({ event }) {
   const nav = useNavigate();
   return (
     <HeaderContainer>
@@ -16,13 +15,7 @@ function Header() {
             nav('/');
           }}
         />
-        <CreateButton
-          onClick={() => {
-            nav('/post');
-          }}
-        >
-          롤링 페이퍼 만들기
-        </CreateButton>
+        <div>{event}</div>
       </HeaderContent>
     </HeaderContainer>
   );
@@ -65,18 +58,4 @@ const LogoImg = styled.img`
   cursor: pointer;
   height: 30px;
   width: 107px;
-`;
-
-const CreateButton = styled.button`
-  ${bold16}
-  color: var(--gray900);
-  border: 1px solid var(--gray300);
-  border-radius: 6px;
-  background-color: var(--white);
-  padding: 7px 16px;
-  cursor: pointer;
-
-  @media (max-width: 360px) {
-    ${bold14}
-  }
 `;
