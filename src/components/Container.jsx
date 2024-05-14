@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createRecipient } from '../api/recipientApi';
 import { bold18 } from '../styles/fontSize';
+import { useNavigate } from 'react-router-dom'; // URL 이동
 
 //컴포넌트
 import ToggleButton from './Button/ToggleButton';
@@ -17,7 +18,6 @@ const MainContainer = styled.main`
   box-sizing: border-box;
   width: 100%;
   height: 100vh;
-  /* border: 1px solid blue; */
 `;
 
 const MainToContainer = styled.div`
@@ -29,13 +29,33 @@ const MainToContainer = styled.div`
   height: 104px;
   margin: 0 auto;
   margin-top: 114px;
-  /* border: 1px solid red; */
+  @media (max-width: 768px) {
+    width: 720px;
+    
+  }
+
+  @media (max-width: 600px) {
+    width: 380px;
+  }
+  
 `;
 
 const ToUser = styled.h1`
   width: 34px;
   height: 42px;
   ${bold24}
+
+  @media (max-width: 768px) {
+    width: 34px;
+    height: 42px;
+    position: relative;
+    left: 35px;
+  }
+
+  @media (max-width: 600px) {
+    width: 34px;
+    height: 42px;
+  }
 `;
 
 const ToInput = styled.input`
@@ -56,8 +76,18 @@ const ToInput = styled.input`
   &::placeholder {
     width: 688px;
     height: 26px;
-    /* border: 1px solid blue; */
     ${regular16}
+  }
+
+  @media (max-width: 768px) {
+    width: 630px;
+    position: relative;
+    left: 35px;
+  }
+
+  @media (max-width: 600px) {
+    width: 350px;
+    font-size: 24px;
   }
 `;
 
@@ -69,6 +99,18 @@ const ErrorMessage = styled.div`
   left: 0;
   ${regular12};
   color: var(--error);
+
+  @media (max-width: 768px) {
+    bottom: 0px;
+    position: relative;
+    left: 35px;
+  }
+
+  @media (max-width: 600px) {
+    bottom: 0px;
+    position: relative;
+    left: 35px;
+  }
 `;
 
 // 배경화면 선택 문구
@@ -76,6 +118,18 @@ const BackgroundChooseContainer = styled.div`
   width: 301px;
   height: 66px;
   margin-top: 50px;
+
+  @media (max-width: 768px) {
+    margin-top: 50px;
+    position: relative;
+    left: 35px;
+  }
+
+  @media (max-width: 600px) {
+    margin-top: 30px;
+    position: relative;
+    left: 35px;
+  }
 `;
 const BackgroundChooseTitleText = styled.h1`
   width: 243px;
@@ -94,6 +148,18 @@ const BackgroundChooseSubText = styled.p`
 const ButtonGroup = styled.div`
   width: 720px;
   height: 56px;
+
+  @media (max-width: 768px) {
+    position: relative;
+    top: 100px;
+    width: 768px;
+  }
+
+  @media (max-width: 600px) {
+    position: relative;
+    top: 10px;
+    left: 10px;
+  }
 `;
 
 const CreateButton = styled.button`
@@ -106,13 +172,26 @@ const CreateButton = styled.button`
   color: #FFFFFF;
   border: none;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+
+  @media (max-width: 768px) {
+    width: 680px;
+    position: relative;
+    left: 20px;
+  }
+
+  @media (max-width: 600px) {
+    width: 320px;
+    position: relative;
+  }
 `;
+
 
 // 함수 컴포넌트
 const Container = () => {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState(false);
   const [selectedImage, setSelectedImage] = useState({});
+  const navigate = useNavigate();
 
   const handleBlur = () => {
     setError(!inputValue);
@@ -121,17 +200,17 @@ const Container = () => {
   const handleSubmit = async () => {
     if (!inputValue) {
       setError(true);
-      return;
+      return null; // 입력값이 없으면 null 반환
     }
   
     try {
-      const selectedColor = 'beige'; // 기본 색상 설정
-      const selectedBackgroundImageURL = 'https://picsum.photos/id/683/3840/2160'; // 기본 배경 이미지 URL 설정
-      
+      const selectedColor = 'beige';
+      const selectedBackgroundImageURL = 'https://picsum.photos/id/683/3840/2160';
+  
       const data = {
         name: inputValue,
         backgroundColor: selectedImage?.backgroundColor || selectedColor,
-        backgroundImageURL: selectedImage?.backgroundImageURL || selectedBackgroundImageURL
+        backgroundImageURL: selectedImage?.backgroundImageURL || null
       };
   
       const response = await createRecipient(data);
@@ -139,9 +218,20 @@ const Container = () => {
       console.log('메세지가 생성되었습니다:', data);
   
       setInputValue('');
+  
+      // 생성된 페이지의 ID 반환
+      return response.id;
     } catch (error) {
       console.error('메세지를 생성하는데 오류 발생:', error.message);
       setError(true);
+      return null; // 오류 발생시 null 반환
+    }
+  };
+
+  const handleCreateRecipient = async () => {
+    const id = await handleSubmit(); // 생성된 페이지의 ID 받아오기
+    if (id) {
+      navigate(`/post/${id}`); // 생성된 페이지로 이동
     }
   };
 
@@ -170,7 +260,7 @@ const Container = () => {
         </BackgroundChooseContainer>
         <ToggleButton onSubmit={({ backgroundColor, backgroundImageURL }) => setSelectedImage({ backgroundColor, backgroundImageURL })} />
         <ButtonGroup>
-          <CreateButton disabled={!inputValue || !selectedImage} onClick={handleSubmit}>
+          <CreateButton disabled={!inputValue || !selectedImage} onClick={handleCreateRecipient}>
             생성하기
           </CreateButton>
         </ButtonGroup>
