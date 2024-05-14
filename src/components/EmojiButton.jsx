@@ -27,8 +27,8 @@ const EmojiButtonStyled = styled.button`
   background-color: rgba(0, 0, 0, 0.54);
   color: var(--white);
   ${regular16}
-  padding: 8px 12px;
-  border-radius: 32px;
+  padding: 0.8rem 1.2rem;
+  border-radius: 3.2rem;
   border: none;
   display: flex;
   align-items: center;

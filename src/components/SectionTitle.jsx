@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { bold24 } from '../styles/fontSize';
 
-function SliderTitle({ title }) {
+function SectionTitle({ title }) {
   return <StyleSliderTitle>{title}</StyleSliderTitle>;
 }
 
-export default SliderTitle;
+export default SectionTitle;
 
 // Styled-Components
 const StyleSliderTitle = styled.h2`
