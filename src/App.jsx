@@ -7,6 +7,7 @@ import Post from './pages/Post';
 import PostId from './pages/PostId';
 import PostIdEdit from './pages/PostIdEdit';
 import PostIdMessage from './pages/PostIdMessage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path="edit" element={<PostIdEdit />} />
             </Route>
           </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
