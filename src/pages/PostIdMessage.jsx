@@ -12,6 +12,7 @@ import ProfileImage from '../components/ProfileImage';
 import { regular16 } from '../styles/fontSize';
 import { createMessage } from '../api/messageApi';
 import { getProfileImages } from '../api/etcApi';
+import { useNavigate } from 'react-router-dom';
 
 const RELATIONSHIP_ARR = ['지인', '친구', '동료', '가족'];
 const FONT_ARR = ['Noto Sans', 'Pretendard', '나눔명조', '나눔손글씨 손편지체'];
