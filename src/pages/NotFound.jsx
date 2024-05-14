@@ -83,7 +83,7 @@ const StyleBackground = styled.div`
   background-size: cover;
 `;
 
-function NotFoundPage() {
+function NotFound() {
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
   const [position, setPosition] = useState(0);
@@ -143,4 +143,4 @@ function NotFoundPage() {
   );
 }
 
-export default NotFoundPage;
+export default NotFound;

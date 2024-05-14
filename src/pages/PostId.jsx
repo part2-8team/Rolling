@@ -82,12 +82,12 @@ function PostId() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!id) {
+    if (!id || isNaN(id)) {
+      // ID 값이 없거나 유효하지 않으면 404 페이지로 리디렉션
       navigate('/not-found');
     }
     // ID에 해당하는 포스트를 로드하는 로직을 추가하세요.
   }, [id, navigate]);
-
 
   const handleIdData = async () => {
     try {
