@@ -46,6 +46,7 @@ export const createMessage = async (recipientId, data) => {
     },
   );
   if (!response.ok) {
+    e;
     throw new Error('메세지를 저장하는데 실패했습니다');
   }
   const body = await response.json();
