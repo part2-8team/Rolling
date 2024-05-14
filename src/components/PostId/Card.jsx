@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRef, useEffect, useState } from 'react';
-import DeleteMessageButton from './DeleteMessageButton';
 // import Modal from './Modal';
 // import CardModal from './CardModal';
 import {
@@ -12,8 +11,8 @@ import {
 } from '../../styles/fontSize';
 import parse from 'html-react-parser';
 import { mapFont } from '../../utils/mapFont';
-
-// import USER_STATE from '../../utils/USER_SET';
+import DeleteButton from '../Button/DeleteButton';
+import { useLocation } from 'react-router';
 
 const USER_STATE = Object.freeze({
   가족: { background: 'var(--green100)', color: 'var(--green500)' },
@@ -40,15 +39,15 @@ export const CardContentWrapper = styled.div`
     transform: translateY(-1.2rem);
   }
 
-@media (min-width: 768px) and (max-width: 1247px) {
-  max-width: 1247px;
-  width: 49%;
-}
-@media (max-width: 768px) {
-  max-width: 768px;
-  min-width: 32rem;
-  width: 100%;
-
+  @media (min-width: 768px) and (max-width: 1247px) {
+    max-width: 1247px;
+    width: 49%;
+  }
+  @media (max-width: 768px) {
+    max-width: 768px;
+    min-width: 32rem;
+    width: 100%;
+  }
 `;
 
 const CardContent = styled.div`
@@ -104,6 +103,31 @@ const UserState = styled.div`
   ${regular14}
 `;
 
+// const DeleteButton = styled.button`
+//   display: inline-flex;
+//   padding: 8px;
+//   justify-content: center;
+//   align-items: center;
+//   gap: 10px;
+//   border-radius: 6px;
+//   border: 1px solid var(--grayscale300);
+//   background: var(--white);
+//   cursor: pointer;
+
+//   &:disabled {
+//     background: var(--grayscale300);
+//   }
+//   &:hover {
+//     background: var(--grayscale100);
+//   }
+//   &:active {
+//     background: var(--grayscale100);
+//   }
+//   &:focus {
+//     border: 1px solid var(--grayscale500);
+//   }
+// `;
+
 const CardContentText = styled.div`
   height: 100%;
   width: 100%;
@@ -138,9 +162,12 @@ function Card({
   cardContent = '코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두 조심 또 조심하세요!',
   cardCreatedAt = '2023.07.08',
   onDelete,
+  isEdit
 }) {
   const [isCardOnClick, setIsCardOnClick] = useState(false);
   const ref = useRef();
+  const location = useLocation();
+  const isEditRoute = location.pathname.includes('/edit');
 
   // const onClickOutside = (e) => {
   //   if (isCardOpen && (!ref.current || !ref.current.contains(e.target))) {
@@ -173,7 +200,7 @@ function Card({
             Form.<UserName>{name}</UserName>
             <UserState $state={userState}>{userState}</UserState>
           </UserNameText>
-          <DeleteButton id={id} onDelete={onDelete} />
+          {isEdit && <DeleteButton id={id} onDelete={onDelete}/> }
         </UserInfo>
         <CardContentText style={{ fontFamily: mapFont(cardFont) }}>
           {parseContent}
@@ -201,4 +228,5 @@ function Card({
     </CardContentWrapper>
   );
 }
+
 export default Card;

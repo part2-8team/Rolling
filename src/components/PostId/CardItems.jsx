@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
-import { getMessageAll } from '../../api/messageApi';
+import { getMessageAll, deleteMessage } from '../../api/messageApi';
 import Card, { CardContentWrapper } from './Card';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import plus from '../../assets/plus.svg';
@@ -9,7 +9,7 @@ const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   max-width: 120rem;
-  margin: 19.6rem auto 0rem;
+  margin: 1rem auto 0rem;
   padding-bottom: 12.7rem;
   gap: 2.4rem 2%;
 
@@ -51,7 +51,7 @@ const PlusImg = styled.img`
   height: 5.6rem;
 `;
 
-function CardItems({ data }) {
+function CardItems({ data, isEdit }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -79,7 +79,7 @@ function CardItems({ data }) {
     }
   };
 
-  const deleteMessage = async (messageId) => {
+  const handleDeleteMessage = async (messageId) => {
     try {
       await deleteMessage(messageId);
       const deletedId = messageId;
@@ -91,6 +91,7 @@ function CardItems({ data }) {
       throw new Error('메세지 삭제에 실패했습니다.', error);
     }
   };
+
 
   useEffect(() => {
     let observer;
@@ -129,7 +130,8 @@ function CardItems({ data }) {
             userState={message.relationship}
             cardContent={message.content}
             cardCreatedAt={message.createdAt}
-            onDelete={deleteMessage}
+            onDelete={handleDeleteMessage}
+            isEdit={isEdit}
           />
         ))}
       <div ref={setTarget} styled={{ width: '100%', height: '1rem' }} />

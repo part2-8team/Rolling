@@ -95,6 +95,7 @@ width: 0.1rem;
 
   @media (max-width: 1023px) {
     display: none;
+  }
 `;
 
 const Vertical2 = styled.div`
@@ -106,6 +107,7 @@ width: 0.1rem;
   @media (max-width: 469px) {
     margin: 0 0.5rem;
     background-color: var(--white);
+  }
 `;
 
 const ShareButton = styled.button`
