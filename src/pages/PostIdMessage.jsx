@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useParams } from 'react-router-dom';
-import styled, { isStyledComponent } from 'styled-components';
+import { useNavigate, useParams } from 'react-router-dom';
+import { createMessage } from '../api/messageApi';
+import { getProfileImages } from '../api/etcApi';
+import styled from 'styled-components';
 import Header from '../components/Header';
 import SectionTitle from '../components/SectionTitle';
 import Button from '../components/Button/Button';
@@ -10,22 +12,21 @@ import SelectBox from '../components/SelectBox';
 import QuillEditor from '../components/QuillEditor';
 import ProfileImage from '../components/ProfileImage';
 import { regular16 } from '../styles/fontSize';
-import { createMessage } from '../api/messageApi';
-import { getProfileImages } from '../api/etcApi';
-import { useNavigate } from 'react-router-dom';
+
 
 const RELATIONSHIP_ARR = ['지인', '친구', '동료', '가족'];
 const FONT_ARR = ['Noto Sans', 'Pretendard', '나눔명조', '나눔손글씨 손편지체'];
 
 function PostIdMessage() {
+  const [profileImgArr, setProfileImgArr] = useState([]);
   const [sender, setSender] = useState('');
-  const [profileImageURL, setProfileImageURL] = useState('');
+  const [profileImageURL, setProfileImageURL] = useState(profileImgArr[0]);
   const [relationship, setRelationship] = useState('지인');
   const [content, setContent] = useState('');
   const [font, setFont] = useState('Noto Sans');
-  const [profileImgArr, setProfileImgArr] = useState([]);
   const isMobile = useMediaQuery({ maxWidth: 360 });
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleSenderChange = (e) => {
     setSender(e.target.value.trim());
@@ -43,17 +44,22 @@ function PostIdMessage() {
     setFont(e.target.innerText);
   };
 
-  const handleSubmit = async (e) => {
-    const data = {
-      recipientId: id,
-      sender: sender,
-      profileImageURL: profileImageURL,
-      relationship: relationship,
-      content: content,
-      font: font,
-    };
-    const response = await createMessage(id, data);
-    return response.id;
+  const handleSubmit = async () => {
+    try {
+      const data = {
+        recipientId: id,
+        sender: sender,
+        profileImageURL: profileImageURL,
+        relationship: relationship,
+        content: content,
+        font: font,
+      };
+      console.log(data);
+      await createMessage(id, data);
+      navigate(`/post/${id}`);
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   useEffect(() => {
@@ -125,7 +131,7 @@ function PostIdMessage() {
         </Section>
 
         <Button
-          type="submit"
+          disabled={!sender}
           text="생성하기"
           width="100%"
           onClick={handleSubmit}
@@ -137,7 +143,7 @@ function PostIdMessage() {
 
 export default PostIdMessage;
 
-const Container = styled.form.attrs()`
+const Container = styled.main`
   width: 720px;
   margin: 112px auto 24px auto;
   box-sizing: border-box;
@@ -148,7 +154,7 @@ const Container = styled.form.attrs()`
   }
 `;
 
-const Section = styled.fieldset`
+const Section = styled.section`
   display: flex;
   flex-direction: column;
   gap: 12px;

@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import Nav from '../components/PostId/Nav';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getRecipient } from '../api/recipientApi';
 import Header from '../components/Header';
 import CardItems from '../components/PostId/CardItems';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { bold16 } from '../styles/fontSize';
 
- const BACKGROUND_COLOR = Object.freeze({
+const BACKGROUND_COLOR = Object.freeze({
   beige: { background: 'var(--orange200)' },
   purple: { background: 'var(--purple200)' },
   green: { background: 'var(--green200)' },
@@ -37,7 +38,7 @@ const PostIdWrapper = styled.div`
   min-height: 100vh;
 `;
 
-const DeleteCard = styled.div`
+const EditCard = styled.div`
   display: flex;
   margin: 6.3rem auto 2.5rem;
   max-width: 120rem;
@@ -51,26 +52,34 @@ const DeleteCard = styled.div`
     margin: 3rem 2.4rem 2.4rem;
   }
 `;
-// 무한스크롤 구현시 적용예정
-// const CardWrapper = styled.div`
-//   display: flex;
-//   flex-wrap: wrap;
-//   max-width: 120rem;
-//   margin: 0rem auto 0rem;
-//   padding-bottom: 12.7rem;
-//   gap: 2.4rem 2%;
 
-//   @media (max-width: 1247px) {
-//     margin: 9.3rem 2.4rem 2rem;
-//   }
-//   @media (min-width: 360px) and (max-width: 767px) {
-//     margin: 9.3rem 2.4rem 0rem;
-//   }
-// `;
+const EditButton = styled.button`
+  width: 9.2rem;
+  height: 3.9rem;
+  margin-top: 6.5rem;
+  padding: 0.6rem 1.6rem;
+  border-radius: 0.8rem;
+  ${bold16}
+  background: var(--${({ disabled }) => (disabled ? 'gray300' : 'purple600')});
+  color: var(--white);
+
+  &:hover:enabled {
+    background: var(--purple700);
+  }
+
+  &:active:enabled {
+    background: var(--purple800);
+  }
+
+  &:focus:enabled {
+    background: var(--purple800);
+  }
+`;
 
 function PostId() {
   const { id } = useParams();
   const [data, setData] = useState({});
+  const navigate = useNavigate();
 
   const handleIdData = async () => {
     try {
@@ -100,9 +109,12 @@ function PostId() {
         peopleNum={data ? data.messageCount : 0}
         profileUrl={profileUrl}
       />
-      {/* <DeleteCard>
-        <DeleteButton />
-      </DeleteCard> */}
+      <EditCard>
+        {/* <EditButton /> */}
+        <EditButton onClick={() => navigate(`/post/${data.id}/edit`)}>
+          수정하기
+        </EditButton>
+      </EditCard>
       <CardItems data={data} />
     </PostIdWrapper>
   );
