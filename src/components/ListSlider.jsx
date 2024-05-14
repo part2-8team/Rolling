@@ -12,7 +12,6 @@ const SLIDE = 295;
 function ListSlider({
   title,
   moveSlider,
-  sliderRef,
   clickNext,
   clickPrev,
   value,
@@ -23,39 +22,27 @@ function ListSlider({
   cardItems,
 }) {
   const navigate = useNavigate();
-  // StyleSliderWrap 의 너비값 (295 * 요소의 개수 - 첫 요소 왼쪽 마진값)
   const sliderWidth = SLIDE * cardItems.length - 20;
-  // 다음 버튼 클릭시, 마지막 요소만 보여줘야 하는 기준 마지막 4개만 남았을때의 px값
   const sliderEnd = (cardItems.length - 4) * -SLIDE;
-  // 처음 요소가 보일시, 버튼 단락회로 평가
+  const sliderLength = cardItems.length;
   const isPrev = moveSlider >= 0 ? false : true;
-  // 마지막 요소가 보일시, 버튼 단락회로 평가
   const isNext =
     sliderEnd >= 1 ? false : moveSlider === sliderEnd ? false : true;
-  // 카드 클릭시 디테일 페이지 이동
+  const translateX = { transform: `translateX(${moveSlider}px)` };
+
   const handleCardClick = (id) => {
     navigate(`/post/${id}`);
   };
 
   // 수정 예정
   const onClickNext = () => {
-    clickNext(moveSlider, value);
+    clickNext(moveSlider, value, sliderEnd, sliderLength);
   };
 
   // 수정 예정
   const onClickPrev = () => {
     clickPrev(moveSlider, value);
   };
-
-  useEffect(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.style.transform = `translateX(${moveSlider}px)`;
-  }, [moveSlider]);
-
-  useEffect(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.style.transform = `translateX(${moveTouchSlider}px)`;
-  }, [moveTouchSlider]);
 
   // 터치 스와이프
   // 기능 수정 및 페이지네이션 기능 추가 예정
@@ -73,16 +60,11 @@ function ListSlider({
     handleOnTouchEnd(e);
   };
 
-  useEffect(() => {
-    console.log('translateX의 값', moveTouchSlider);
-  }, [moveTouchSlider]);
-
   return (
     <StyleSection>
       <SectionTitle title={title} />
       {isPrev && (
         <SliderButton
-          value={value}
           className="prev-button"
           src={arrowLeft}
           alt="이전 버튼"
@@ -94,7 +76,7 @@ function ListSlider({
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        <StyleSlider ref={sliderRef} width={sliderWidth}>
+        <StyleSlider width={sliderWidth} style={translateX}>
           {cardItems.map((card) => (
             <SliderCard
               key={card.id}
@@ -106,7 +88,6 @@ function ListSlider({
       </StyleSliderWrap>
       {isNext && (
         <SliderButton
-          value={value}
           className="next-button"
           src={arrowRight}
           alt="다음 버튼"
@@ -158,5 +139,5 @@ const StyleSlider = styled.ul`
   left: 0;
 
   display: flex;
-  transition: all 0.5s ease-in;
+  transition: transform 0.5s ease-in-out;
 `;
