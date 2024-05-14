@@ -20,13 +20,13 @@ function SliderCard({
   const [emojiItems, setEmojiItems] = useState([]);
 
   // 카드 클릭시 디테일 페이지 이동
-  const moveToCardDetail = (id) => {
+  const moveToCardDetail = () => {
     handleCardClick(id);
   };
 
   const background =
     backgroundImageURL !== null
-      ? selectBackground(backgroundImageURL, backgroundColor)
+      ? selectBackground(backgroundImageURL)
       : selectBackgroundColor(backgroundColor);
 
   const backgroundPattern = selectBackgroundPattern(backgroundColor);
@@ -49,7 +49,7 @@ function SliderCard({
   // }, []);
 
   return (
-    <StyleSliderCard style={background}>
+    <StyleSliderCard style={background} onClick={moveToCardDetail}>
       <StyleCardWrap>
         <StyleMessageWrap>
           <StyleCardName>To. {name}</StyleCardName>
@@ -118,6 +118,8 @@ const StyleSliderCard = styled.li`
 
   position: relative;
   z-index: 1;
+
+  cursor: pointer;
 
   &:not(:first-child) {
     margin-left: 20px;

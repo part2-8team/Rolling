@@ -57,7 +57,7 @@ const DropdownMenu = styled.div`
 
 const EmojiImg = styled.div`
   ${FlexCenter}
-  margin : 0
+  margin : 0;
   padding: 0.8rem 1.2rem;
   width: 6.3rem;
   height: 3.8rem;

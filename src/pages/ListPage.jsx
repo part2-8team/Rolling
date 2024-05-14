@@ -6,59 +6,98 @@ import Button from '../components/Button/Button';
 import ListSlider from '../components/ListSlider';
 import Header from '../components/Header';
 import CreateButton from '../components/Button/CreateButton';
-
 // 슬라이더 클릭 한번당 움직일 px
 const SLIDE = 295;
+const LIMIT = 16;
 
 function ListPage() {
   const [movePopularSlider, setMovePopularSlider] = useState(0);
   const [moveRecentSlider, setMoveRecentSlider] = useState(0);
-  const popularSlider = useRef(null);
-  const recentSlider = useRef(null);
+  const [popularItems, setPopularItems] = useState([]);
+  const [recentItems, setRecentItems] = useState([]);
+  const [popularOffset, setPopularOffset] = useState(0);
+  const [recentOffset, setRecentOffset] = useState(0);
   const popularSliderValue = 'popular';
   const recentSliderValue = 'recent';
   const nav = useNavigate();
 
-  const [popularItems, setPopularItems] = useState([]);
-  const [recentItems, setRecentItems] = useState([]);
-
-  // 페이지네이션 기능 추가 예정
-  const getRecipientsItems = async () => {
-    // const allItemsCount = await getRecipientsCount();
+  // 페이지네이션
+  const getRecipientsAllItems = async ({ limit, offset }) => {
     const recipientsAllItems = await getRecipientsAll({
-      limit: 32,
-      offset: null,
+      limit,
+      offset,
     });
-    const popularAllItems = JSON.parse(JSON.stringify([...recipientsAllItems]));
-    const recentAllItems = JSON.parse(JSON.stringify([...recipientsAllItems]));
-    const sortedPopular = popularAllItems.sort(
-      (a, b) => b['reactionCount'] - a['reactionCount'],
-    );
-    const sortedRecent = recentAllItems.sort(
-      (a, b) => new Date(a['createdAt']) - new Date(b['createdAt']),
-    );
-    setPopularItems(sortedPopular);
-    setRecentItems(sortedRecent);
+    return recipientsAllItems;
+  };
+
+  const getPopularItems = async ({ limit, offset }) => {
+    const recipientsAllItems = await getRecipientsAllItems({ limit, offset });
+    const sortedPopular = JSON.parse(
+      JSON.stringify([...recipientsAllItems]),
+    ).sort((a, b) => b['reactionCount'] - a['reactionCount']);
+    if (offset === 0) {
+      setPopularItems(sortedPopular);
+    } else {
+      setPopularItems((prevItems) => [...prevItems, ...sortedPopular]);
+    }
+  };
+
+  const getRecentItems = async ({ limit, offset }) => {
+    const recipientsAllItems = await getRecipientsAllItems({ limit, offset });
+    const sortedRecent = JSON.parse(
+      JSON.stringify([...recipientsAllItems]),
+    ).sort((a, b) => new Date(a['createdAt']) - new Date(b['createdAt']));
+    if (offset === 0) {
+      setRecentItems(sortedRecent);
+    } else {
+      setRecentItems((prevItems) => [...prevItems, ...sortedRecent]);
+    }
+  };
+
+  const loadMorePopularItems = ({ limit, offset }) => {
+    getPopularItems({ limit, offset });
+  };
+
+  const loadMoreRecentItems = ({ limit, offset }) => {
+    getRecentItems({ limit, offset });
   };
 
   useEffect(() => {
-    getRecipientsItems();
+    getPopularItems({ limit: LIMIT, offset: 0 });
+    getRecentItems({ limit: LIMIT, offset: 0 });
   }, []);
 
+  useEffect(() => {
+    loadMorePopularItems({ limit: LIMIT, offset: popularOffset });
+  }, [popularOffset]);
+
+  useEffect(() => {
+    loadMoreRecentItems({ limit: LIMIT, offset: recentOffset });
+  }, [recentOffset]);
+
+  // 나도 만들어 보기 버튼 클릭시 페이지 이동
   const moveToPost = () => {
     nav('/post');
   };
 
   // 슬라이더 버튼 구분을 위한 함수
-  const handleClickNext = (state, value) => {
+  const handleClickNext = (state, value, sliderEnd, sliderLength) => {
     if (value === 'popular') {
       const moveNext = state - SLIDE;
       setMovePopularSlider(moveNext);
+      if (moveNext === sliderEnd) {
+        const itemsLength = sliderLength;
+        setPopularOffset(popularOffset + itemsLength);
+      }
     }
 
     if (value === 'recent') {
       const moveNext = state - SLIDE;
       setMoveRecentSlider(moveNext);
+      if (moveNext === sliderEnd) {
+        const itemsLength = sliderLength;
+        setRecentOffset(recentOffset + itemsLength);
+      }
     }
   };
 
@@ -109,35 +148,39 @@ function ListPage() {
 
   return (
     <>
-    <Header
-    event={
-      <CreateButton
-        onClick={() => nav('/post')}
-        text={'롤링 페이퍼 만들기'}
+      <Header
+        event={
+          <CreateButton
+            onClick={() => nav('/post')}
+            text={'롤링 페이퍼 만들기'}
+          />
+        }
       />
-    }
-  />
-    <StyleContainer>
-      <ListSlider
-        title="인기 롤링 페이퍼 🔥"
-        moveSlider={movePopularSlider}
-        sliderRef={popularSlider}
-        clickNext={handleClickNext}
-        clickPrev={handleClickPrev}
-        value={popularSliderValue}
-      />
-      <ListSlider
-        title="최근에 만든 롤링 페이퍼 ⭐️"
-        moveSlider={moveRecentSlider}
-        sliderRef={recentSlider}
-        clickNext={handleClickNext}
-        clickPrev={handleClickPrev}
-        value={recentSliderValue}
-      />
-      <StyleSection className="button-section">
-        <Button text="나도 만들어보기" onClick={moveToPost} />
-      </StyleSection>
-    </StyleContainer>
+      <StyleContainer>
+        <ListSlider
+          title="인기 롤링 페이퍼 🔥"
+          moveSlider={movePopularSlider}
+          clickNext={handleClickNext}
+          clickPrev={handleClickPrev}
+          value={popularSliderValue}
+          moveTouchSlider={touchMove}
+          handleOnTouchStart={handleOnTouchStart}
+          handleOnTouchMove={handleOnTouchMove}
+          handleOnTouchEnd={handleOnTouchEnd}
+          cardItems={popularItems}
+        />
+        <ListSlider
+          title="최근에 만든 롤링 페이퍼 ⭐️"
+          moveSlider={moveRecentSlider}
+          clickNext={handleClickNext}
+          clickPrev={handleClickPrev}
+          value={recentSliderValue}
+          cardItems={recentItems}
+        />
+        <StyleSection className="button-section">
+          <Button text="나도 만들어보기" onClick={moveToPost} />
+        </StyleSection>
+      </StyleContainer>
     </>
   );
 }
