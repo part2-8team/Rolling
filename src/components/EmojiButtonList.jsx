@@ -78,6 +78,10 @@ const ArrowImage = styled.img`
   height: 100%;
 `;
 
+const MarginRight = styled.div`
+  margin-right: 2.8rem;
+`;
+
 const StyledEmojiButtonList = styled.ul`
   list-style-type: none;
   display: flex;
@@ -85,7 +89,7 @@ const StyledEmojiButtonList = styled.ul`
   padding: 0;
 `;
 
-function EmojiButtonList({ id, emojiList, setEmojiList }) {
+function EmojiButtonList({ id, emojiList, setEmojiList, isNav }) {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   useEffect(() => {
     console.log(emojiList);
@@ -100,7 +104,7 @@ function EmojiButtonList({ id, emojiList, setEmojiList }) {
           </li>
         ))}
       </StyledEmojiButtonList>
-      {emojiList.length > 0 &&
+      {isNav && emojiList.length > 0 &&
         (emojiList.length > 3 ? (
           <DownArrow onClick={() => setIsDropDownOpen((prev) => !prev)}>
             <ArrowImage src={ArrowDown} alt="" />

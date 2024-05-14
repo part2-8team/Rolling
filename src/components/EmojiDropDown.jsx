@@ -57,7 +57,7 @@ const EmojiPickerWrapper = styled.div`
   }
 `;
 
-function EmojiDropDown() {
+function EmojiDropDown({isNav}) {
   const [emojiList, setEmojiList] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const { id: recipient_id } = useParams();
@@ -88,6 +88,7 @@ function EmojiDropDown() {
         id={recipient_id}
         emojiList={emojiList}
         setEmojiList={setEmojiList}
+        isNav={isNav}
       />
       <EmojiAddButton onClick={handleEmojiPicker}>
         <img src="/img/emojiAdd.svg" alt="" />

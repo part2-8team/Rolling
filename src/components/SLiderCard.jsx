@@ -5,8 +5,10 @@ import {
   selectBackground,
   selectBackgroundColor,
 } from '../utils/SELECT_BACKGROUND';
-import { getReactions } from '../api/recipientApi';
+import { getReactions, getRecipient } from '../api/recipientApi';
 import { useEffect, useState } from 'react';
+import EmojiButtonList from './EmojiButtonList';
+import Propile from './Propile';
 
 function SliderCard({
   id,
@@ -17,8 +19,8 @@ function SliderCard({
   reactionCount,
   handleCardClick,
 }) {
-  const [emojiItems, setEmojiItems] = useState([]);
-
+  const [emojiList, setEmojiList] = useState([]);
+  const [data, setData] = useState({});
   // 카드 클릭시 디테일 페이지 이동
   const moveToCardDetail = () => {
     handleCardClick(id);
@@ -38,54 +40,55 @@ function SliderCard({
   };
 
   // 이모지 api
-  // const getEmojiList = async () => {
-  //   const getEmoji = await getReactions(id);
-  //   setEmojiItems(getEmoji);
-  // };
+  const handleEmojiData = async () => {
+    try {
+      const emojis = await getReactions(id);
+      setEmojiList(emojis);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 
-  // useEffect(() => {
-  //   getEmojiList();
-  //   console.log(emojiItems);
-  // }, []);
+  useEffect(() => {
+    handleEmojiData();
+  }, []);
 
+  const handleIdData = async () => {
+    try {
+      const result = await getRecipient(id);
+      setData(result);
+    } catch (error) {
+      throw new Error('데이터를 불러오지 못했습니다.', error);
+    }
+  };
+
+  useEffect(() => {
+    handleIdData();
+  }, []);
+
+  let profileUrl = [];
+  if (data && data.recentMessages?.length > 0) {
+    profileUrl = data.recentMessages.map((message) => message.profileImageURL);
+  }
+  console.log(emojiList);
   return (
     <StyleSliderCard style={background} onClick={moveToCardDetail}>
       <StyleCardWrap>
         <StyleMessageWrap>
           <StyleCardName>To. {name}</StyleCardName>
           <StyleCardProfilesWrap>
-            <StyleCardProfile style={profileImage} />
-            <StyleCardProfile style={profileImage} />
-            <StyleCardProfile style={profileImage} />
-            <StyleCardProfileCount>+ {messageLength}</StyleCardProfileCount>
+            <Propile profileUrl={profileUrl} peopleNum={messageCount} />
           </StyleCardProfilesWrap>
           <StyleCardMessages>
             <StyleCardMessageCount>{messageCount}</StyleCardMessageCount>
             명이 작성했어요!
           </StyleCardMessages>
         </StyleMessageWrap>
-        <StyleEmojiListWrap>
-          <StyleEmojiList>
-            <StyleEmojiMenu>
-              <StyleEmojiMenuWrap>
-                <StyleEmoji>😊</StyleEmoji>
-                <StyleEmojiCount>5</StyleEmojiCount>
-              </StyleEmojiMenuWrap>
-            </StyleEmojiMenu>
-            <StyleEmojiMenu>
-              <StyleEmojiMenuWrap>
-                <StyleEmoji>😘</StyleEmoji>
-                <StyleEmojiCount>9</StyleEmojiCount>
-              </StyleEmojiMenuWrap>
-            </StyleEmojiMenu>
-            <StyleEmojiMenu>
-              <StyleEmojiMenuWrap>
-                <StyleEmoji>😁</StyleEmoji>
-                <StyleEmojiCount>12</StyleEmojiCount>
-              </StyleEmojiMenuWrap>
-            </StyleEmojiMenu>
-          </StyleEmojiList>
-        </StyleEmojiListWrap>
+        <EmojiButtonList
+          id={id}
+          emojiList={emojiList}
+          setEmojiList={setEmojiList}
+        />
         {!backgroundImageURL && (
           <StyleBackgroundPattern
             src={backgroundPattern}
@@ -222,60 +225,60 @@ const StyleCardMessageCount = styled.span`
   ${bold16}
 `;
 
-const StyleEmojiListWrap = styled.div`
-  width: 227px;
-  height: 53px;
-  display: flex;
-  align-items: flex-end;
-  gap: 16px;
-  border-top: 1px solid #0000001f;
-`;
+// const StyleEmojiListWrap = styled.div`
+//   width: 227px;
+//   height: 53px;
+//   display: flex;
+//   align-items: flex-end;
+//   gap: 16px;
+//   border-top: 1px solid #0000001f;
+// `;
 
-const StyleEmojiList = styled.ul`
-  width: 199px;
-  height: 36px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-`;
+// const StyleEmojiList = styled.ul`
+//   width: 199px;
+//   height: 36px;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   gap: 10px;
+// `;
 
-const StyleEmojiMenu = styled.li`
-  width: 65px;
-  height: 36px;
+// const StyleEmojiMenu = styled.li`
+//   width: 65px;
+//   height: 36px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
 
-  background-color: #0000008a;
-  border-radius: 32px;
-`;
+//   background-color: #0000008a;
+//   border-radius: 32px;
+// `;
 
-const StyleEmojiMenuWrap = styled.div`
-  width: 100%;
-  height: 20px;
+// const StyleEmojiMenuWrap = styled.div`
+//   width: 100%;
+//   height: 20px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2px;
-`;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   gap: 2px;
+// `;
 
-const StyleEmoji = styled.span`
-  font-family: Pretendard;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 21px;
-`;
+// const StyleEmoji = styled.span`
+//   font-family: Pretendard;
+//   font-size: 16px;
+//   font-weight: 400;
+//   line-height: 21px;
+// `;
 
-const StyleEmojiCount = styled.span`
-  font-family: Pretendard;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 21px;
-  color: #fff;
-`;
+// const StyleEmojiCount = styled.span`
+//   font-family: Pretendard;
+//   font-size: 16px;
+//   font-weight: 400;
+//   line-height: 21px;
+//   color: #fff;
+// `;
 
 const StyleBackgroundPattern = styled.img`
   width: 142px;

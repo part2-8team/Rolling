@@ -81,6 +81,14 @@ function PostId() {
   const [data, setData] = useState({});
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!id) {
+      navigate('/not-found');
+    }
+    // ID에 해당하는 포스트를 로드하는 로직을 추가하세요.
+  }, [id, navigate]);
+
+
   const handleIdData = async () => {
     try {
       const result = await getRecipient(id);
@@ -95,7 +103,7 @@ function PostId() {
   }, []);
 
   let profileUrl = [];
-
+  console.log(profileUrl);
   if (data && data.recentMessages?.length > 0) {
     profileUrl = data.recentMessages.map((message) => message.profileImageURL);
   }

@@ -8,7 +8,8 @@ const ProfileContainer = styled.div`
 const ImageBox = styled.div`
   width: 2.8rem;
   height: 2.8rem;
-  margin-right: ${(props) => (props.last ? '0' : '-2.4rem')};
+  gap: 5rem;
+  margin-right: ${(props) => (props.last ? '0' : '-2rem')};
 
   img {
     width: 100%;
@@ -21,6 +22,7 @@ const ImageBox = styled.div`
 `;
 
 const RemainBox = styled.div`
+  display: flex;
   width: 2.8rem;
   height: 2.8rem;
   margin-left: -1.2rem;
@@ -29,6 +31,8 @@ const RemainBox = styled.div`
   border: 0.14rem solid #e3e3e3;
   z-index: 3;
   text-align: center;
+  justify-content: center;
+  align-items: center;
 
   p {
     font-size: 1.2rem;
