@@ -8,7 +8,7 @@ import ToggleButton from './Button/ToggleButton';
 
 //이미지
 import colorToggle from '../assets/colorToggle.svg';
-import ImgToggle from '../assets/imgToggle.svg';
+ import ImgToggle from '../assets/imgToggle.svg';
 
 //스타일
 import styled, { createGlobalStyle } from 'styled-components';
@@ -18,7 +18,6 @@ const MainContainer = styled.main`
   box-sizing: border-box;
   width: 100%;
   height: 100vh;
-  /* border: 1px solid blue; */
 `;
 
 const MainToContainer = styled.div`
@@ -30,13 +29,33 @@ const MainToContainer = styled.div`
   height: 104px;
   margin: 0 auto;
   margin-top: 114px;
-  /* border: 1px solid red; */
+  @media (max-width: 768px) {
+    width: 720px;
+    
+  }
+
+  @media (max-width: 600px) {
+    width: 380px;
+  }
+  
 `;
 
 const ToUser = styled.h1`
   width: 34px;
   height: 42px;
   ${bold24}
+
+  @media (max-width: 768px) {
+    width: 34px;
+    height: 42px;
+    position: relative;
+    left: 35px;
+  }
+
+  @media (max-width: 600px) {
+    width: 34px;
+    height: 42px;
+  }
 `;
 
 const ToInput = styled.input`
@@ -57,8 +76,18 @@ const ToInput = styled.input`
   &::placeholder {
     width: 688px;
     height: 26px;
-    /* border: 1px solid blue; */
     ${regular16}
+  }
+
+  @media (max-width: 768px) {
+    width: 630px;
+    position: relative;
+    left: 35px;
+  }
+
+  @media (max-width: 600px) {
+    width: 350px;
+    font-size: 24px;
   }
 `;
 
@@ -70,6 +99,18 @@ const ErrorMessage = styled.div`
   left: 0;
   ${regular12};
   color: var(--error);
+
+  @media (max-width: 768px) {
+    bottom: 0px;
+    position: relative;
+    left: 35px;
+  }
+
+  @media (max-width: 600px) {
+    bottom: 0px;
+    position: relative;
+    left: 35px;
+  }
 `;
 
 // 배경화면 선택 문구
@@ -77,6 +118,18 @@ const BackgroundChooseContainer = styled.div`
   width: 301px;
   height: 66px;
   margin-top: 50px;
+
+  @media (max-width: 768px) {
+    margin-top: 50px;
+    position: relative;
+    left: 35px;
+  }
+
+  @media (max-width: 600px) {
+    margin-top: 30px;
+    position: relative;
+    left: 35px;
+  }
 `;
 const BackgroundChooseTitleText = styled.h1`
   width: 243px;
@@ -95,6 +148,18 @@ const BackgroundChooseSubText = styled.p`
 const ButtonGroup = styled.div`
   width: 720px;
   height: 56px;
+
+  @media (max-width: 768px) {
+    position: relative;
+    top: 100px;
+    width: 768px;
+  }
+
+  @media (max-width: 600px) {
+    position: relative;
+    top: 10px;
+    left: 10px;
+  }
 `;
 
 const CreateButton = styled.button`
@@ -107,8 +172,19 @@ const CreateButton = styled.button`
   color: #FFFFFF;
   border: none;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+
+  @media (max-width: 768px) {
+    width: 680px;
+    position: relative;
+    left: 20px;
+  }
+
+  @media (max-width: 600px) {
+    width: 320px;
+    position: relative;
+  }
 `;
+
 
 // 함수 컴포넌트
 const Container = () => {
@@ -134,7 +210,7 @@ const Container = () => {
       const data = {
         name: inputValue,
         backgroundColor: selectedImage?.backgroundColor || selectedColor,
-        backgroundImageURL: selectedImage?.backgroundImageURL || selectedBackgroundImageURL
+        backgroundImageURL: selectedImage?.backgroundImageURL || null
       };
   
       const response = await createRecipient(data);
@@ -191,7 +267,7 @@ const Container = () => {
       </MainToContainer>
     </MainContainer>
   );
-};
+}
 
 export default Container;
 

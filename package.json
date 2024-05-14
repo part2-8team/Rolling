@@ -19,6 +19,7 @@
     "picmo": "^5.8.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-parser": "^1.0.0",
     "react-quill": "^2.0.0",
     "react-responsive": "^10.0.0",
     "react-router": "^6.23.1",
