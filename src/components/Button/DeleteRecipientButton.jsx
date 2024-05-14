@@ -4,7 +4,7 @@ import { deleteRecipient } from '../../api/recipientApi';
 import { bold16 } from '../../styles/fontSize';
 
 const Button = styled.button`
-  width: 9.2rem;
+  width: 11.2rem;
   height: 3.9rem;
   margin-top: 6.5rem;
   margin-right: 2rem;
@@ -27,16 +27,18 @@ const Button = styled.button`
   }
 `;
 
-function DeleteRecipientButton() {
+function DeleteRecipientButton({id}) {
   const navigate = useNavigate();
   const { id: recipientID } = useParams();
 
   const handleButtonClick = async () => {
     await deleteRecipient(recipientID);
-    navigate('/list', { replace: true });
+    navigate('/list' , { replace: true });
+
+    // ,
   };
 
-  return <Button onClick={handleButtonClick}>전체삭제</Button>;
+  return <Button onClick={handleButtonClick}>post 삭제</Button>;
 }
 
 export default DeleteRecipientButton;
