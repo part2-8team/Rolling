@@ -16,7 +16,6 @@ import card02 from '../assets/IMG-LENDING2.png';
 import Nav from '../components/PostId/Nav';
 import CreateButton from '../components/Button/CreateButton';
 
-
 function MainPage(props) {
   const nav = useNavigate();
 
@@ -74,7 +73,6 @@ function MainPage(props) {
 }
 
 export default MainPage;
-
 
 const MainPageStyledComponent = styled.div`
   .MainPage {
