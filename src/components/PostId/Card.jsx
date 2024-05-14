@@ -103,31 +103,6 @@ const UserState = styled.div`
   ${regular14}
 `;
 
-// const DeleteButton = styled.button`
-//   display: inline-flex;
-//   padding: 8px;
-//   justify-content: center;
-//   align-items: center;
-//   gap: 10px;
-//   border-radius: 6px;
-//   border: 1px solid var(--grayscale300);
-//   background: var(--white);
-//   cursor: pointer;
-
-//   &:disabled {
-//     background: var(--grayscale300);
-//   }
-//   &:hover {
-//     background: var(--grayscale100);
-//   }
-//   &:active {
-//     background: var(--grayscale100);
-//   }
-//   &:focus {
-//     border: 1px solid var(--grayscale500);
-//   }
-// `;
-
 const CardContentText = styled.div`
   height: 100%;
   width: 100%;
@@ -165,23 +140,7 @@ function Card({
   isEdit,
 }) {
   const [isCardOnClick, setIsCardOnClick] = useState(false);
-  const ref = useRef();
-  const location = useLocation();
-  const isEditRoute = location.pathname.includes('/edit');
-
-  // const onClickOutside = (e) => {
-  //   if (isCardOpen && (!ref.current || !ref.current.contains(e.target))) {
-  //     setIsCardOnClick(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener('click', onClickOutside);
-  //   return () => {
-  //     window.removeEventListener('click', onClickOutside);
-  //   };
-  // }, [isCardOnClick]);
-
+  
   const onClickCard = (e) => {
     e.preventDefault();
     setIsCardOnClick(!isCardOnClick);
