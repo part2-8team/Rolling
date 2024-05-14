@@ -2,9 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { bold18 } from '../../styles/fontSize';
 
-function Button({ type = 'text', text, onClick, width }) {
+function Button({ disabled = false, type = 'text', text, onClick, width }) {
   return (
-    <ButtonStyledComponent type={type} onClick={onClick} width={width}>
+    <ButtonStyledComponent
+      disabled={disabled}
+      type={type}
+      onClick={onClick}
+      width={width}
+    >
       {text}
     </ButtonStyledComponent>
   );
@@ -13,7 +18,8 @@ function Button({ type = 'text', text, onClick, width }) {
 export default Button;
 
 const ButtonStyledComponent = styled.button`
-  background-color: var(--purple600);
+  background-color: ${({ disabled }) =>
+    disabled ? '#cccccc' : 'var(--purple600)'};
   color: var(--white);
   text-align: center;
   cursor: pointer;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useParams } from 'react-router-dom';
-import styled, { isStyledComponent } from 'styled-components';
+import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
 import Header from '../components/Header';
 import SectionTitle from '../components/SectionTitle';
 import Button from '../components/Button/Button';
@@ -25,6 +25,7 @@ function PostIdMessage() {
   const [profileImgArr, setProfileImgArr] = useState([]);
   const isMobile = useMediaQuery({ maxWidth: 360 });
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleSenderChange = (e) => {
     setSender(e.target.value.trim());
@@ -42,7 +43,7 @@ function PostIdMessage() {
     setFont(e.target.innerText);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
     const data = {
       recipientId: id,
       sender: sender,
@@ -51,8 +52,13 @@ function PostIdMessage() {
       content: content,
       font: font,
     };
-    const response = await createMessage(id, data);
-    return response.id;
+    await createMessage(id, data);
+    return id;
+  };
+
+  const handleRedirect = async () => {
+    const id = await handleSubmit();
+    navigate(`/post/${id}`);
   };
 
   useEffect(() => {
@@ -124,10 +130,11 @@ function PostIdMessage() {
         </Section>
 
         <Button
+          disabled={!sender}
           type="submit"
           text="생성하기"
           width="100%"
-          onClick={handleSubmit}
+          onClick={handleRedirect}
         />
       </Container>
     </>
