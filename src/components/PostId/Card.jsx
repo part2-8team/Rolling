@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRef, useEffect, useState } from 'react';
-// import Modal from './Modal';
-// import CardModal from './CardModal';
+import Modal from '../Modal';
+import CardModal from '../CardModal';
 import {
   regular12,
   regular14,
@@ -162,7 +162,7 @@ function Card({
   cardContent = '코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두 조심 또 조심하세요!',
   cardCreatedAt = '2023.07.08',
   onDelete,
-  isEdit
+  isEdit,
 }) {
   const [isCardOnClick, setIsCardOnClick] = useState(false);
   const ref = useRef();
@@ -200,7 +200,7 @@ function Card({
             Form.<UserName>{name}</UserName>
             <UserState $state={userState}>{userState}</UserState>
           </UserNameText>
-          {isEdit && <DeleteButton id={id} onDelete={onDelete}/> }
+          {isEdit && <DeleteButton id={id} onDelete={onDelete} />}
         </UserInfo>
         <CardContentText style={{ fontFamily: mapFont(cardFont) }}>
           {parseContent}

@@ -80,6 +80,7 @@ function ListSlider({
           {cardItems.map((card) => (
             <SliderCard
               key={card.id}
+              profile={card.profile}
               {...card}
               handleCardClick={handleCardClick}
             />

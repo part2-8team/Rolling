@@ -46,7 +46,10 @@ function ListPage() {
     const recipientsAllItems = await getRecipientsAllItems({ limit, offset });
     const sortedRecent = JSON.parse(
       JSON.stringify([...recipientsAllItems]),
-    ).sort((a, b) => new Date(a['createdAt']) - new Date(b['createdAt']));
+    ).sort((a, b) => new Date(b['createdAt']) - new Date(a['createdAt']));
+
+    console.log(sortedRecent);
+
     if (offset === 0) {
       setRecentItems(sortedRecent);
     } else {

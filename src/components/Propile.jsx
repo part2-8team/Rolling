@@ -10,7 +10,7 @@ function Profile({ profileUrl, peopleNum }) {
 
         return (
           <ProfileUser
-            key={userUrl}
+            key={userUrl - index}
             src={userUrl}
             peopleNum={last ? `+${peopleNum - 3}` : null}
             last={last}
