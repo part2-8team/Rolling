@@ -12,7 +12,6 @@ import Propile from './Propile';
 
 function SliderCard({
   id,
-// id,
   backgroundColor,
   backgroundImageURL,
   messageCount,

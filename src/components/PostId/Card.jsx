@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRef, useEffect, useState } from 'react';
-import Modal from '../Modal';
+import { useState } from 'react';
 import CardModal from '../CardModal';
 import {
   regular12,
@@ -12,7 +11,7 @@ import {
 import parse from 'html-react-parser';
 import { mapFont } from '../../utils/mapFont';
 import DeleteButton from '../Button/DeleteButton';
-import { useLocation } from 'react-router';
+import ModalPortal from '../Modal/ModalPortal';
 
 const USER_STATE = Object.freeze({
   가족: { background: 'var(--green100)', color: 'var(--green500)' },
@@ -173,7 +172,7 @@ function Card({
         </CardDate>
       </CardContent>
       {isCardOnClick && (
-        <Modal>
+        <ModalPortal>
           <CardModal
             onClick={(e) => OutsideClick(e)}
             id={id}
@@ -184,7 +183,7 @@ function Card({
             cardContent={cardContent}
             cardCreatedAt={cardCreatedAt}
           />
-        </Modal>
+        </ModalPortal>
       )}
     </CardContentWrapper>
   );
