@@ -19,7 +19,7 @@ const FONT_ARR = ['Noto Sans', 'Pretendard', '나눔명조', '나눔손글씨 �
 function PostIdMessage() {
   const [profileImgArr, setProfileImgArr] = useState([]);
   const [sender, setSender] = useState('');
-  const [profileImageURL, setProfileImageURL] = useState(profileImgArr[0]);
+  const [profileImageURL, setProfileImageURL] = useState('');
   const [relationship, setRelationship] = useState('지인');
   const [content, setContent] = useState('');
   const [font, setFont] = useState('Noto Sans');
@@ -65,9 +65,12 @@ function PostIdMessage() {
     async function fetchItemData() {
       const arr = await getProfileImages();
       setProfileImgArr(arr);
+      setProfileImageURL(arr[0]);
     }
     fetchItemData();
   }, []);
+
+  console;
 
   return (
     <>
@@ -86,10 +89,7 @@ function PostIdMessage() {
           <SectionTitle title="프로필 이미지" />
           <ImgContainer>
             <SelectedImg>
-              <ProfileImage
-                imgUrl={profileImageURL || profileImgArr[0]}
-                size="80"
-              />
+              <ProfileImage imgUrl={profileImageURL} size="80" />
             </SelectedImg>
             <div>
               <SectionDesc>프로필 이미지를 선택해주세요!</SectionDesc>
