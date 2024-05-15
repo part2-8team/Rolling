@@ -10,7 +10,7 @@ import Button from '../components/Button/Button';
 import InputBox from '../components/PostIdMessage/InputBox';
 import SelectBox from '../components/SelectBox';
 import QuillEditor from '../components/PostIdMessage/QuillEditor';
-import ProfileImage from '../components/ProfileImage';
+import ProfileImage from '../components/PostId/Nav/ProfileImage';
 import { regular16 } from '../styles/fontSize';
 
 const RELATIONSHIP_ARR = ['지인', '친구', '동료', '가족'];

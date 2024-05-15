@@ -8,7 +8,7 @@ import {
 import { getReactions, getRecipient } from '../../api/recipientApi';
 import { useEffect, useState } from 'react';
 import EmojiButtonList from '../Emoji/EmojiButtonList';
-import Propile from '../Propile';
+import Propile from '../PostId/Nav/Propile';
 
 function SliderCard({
   id,

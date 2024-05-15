@@ -8,7 +8,7 @@ import {
   regular20,
 } from '../../styles/fontSize';
 import Button from '.././Button/Button';
-import ProfileImage from '.././ProfileImage';
+import ProfileImage from '../PostId/Nav/ProfileImage';
 import { USER_STATE } from '../../utils/USER_SET';
 import parse from 'html-react-parser';
 
