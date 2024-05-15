@@ -34,7 +34,7 @@ const Emoji = styled.span`
 const EmojiGroupInDropDown = styled.div`
   width: 31.2rem;
   display: grid;
-  grid-gap: 0.8rem;
+  grid-gap: 1.5rem;
   grid-template-columns: 6.3rem 6.3rem 6.3rem 6.3rem;
   border: 10px;
 `;
@@ -60,8 +60,9 @@ const DropdownMenu = styled.div`
 
 const EmojiImg = styled.div`
   ${FlexCenter}
+  box-sizing : border-box;
   margin : 0;
-  padding: 0.8rem 1.2rem;
+  padding: 0.6rem 1.2rem;
   width: 6.3rem;
   height: 3.8rem;
   gap: 0.2rem;
@@ -86,6 +87,10 @@ const MarginRight = styled.div`
 `;
 
 const StyledEmojiButtonList = styled.ul`
+  display: flex;
+  gap: 1rem;
+  width: 20.8rem;
+  justify-content: space-between;
   list-style-type: none;
   display: flex;
   margin: 0;
