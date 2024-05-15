@@ -113,7 +113,7 @@ function PostIdEdit() {
       <EditCard>
         <DeleteRecipientButton/>
         <EditButton onClick={() => navigate(`/post/${data.id}/`)}>
-          뒤로가기
+          완료
         </EditButton>
       </EditCard>
       <CardItems data={data} isEdit={true} />

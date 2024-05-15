@@ -27,6 +27,7 @@ function CardModal({
   return (
     <ModalWrapper>
       <ModalContainer>
+      <ModalContentAll>
         <ModalProfile>
           <Profile>
             <ProfileImage size={56} imgUrl={src} />
@@ -42,6 +43,7 @@ function CardModal({
           <ProfileUpdated>{cardCreatedAt}</ProfileUpdated>
         </ModalProfile>
         <ModalContent cardFont={cardFont}>{parseContent}</ModalContent>
+        </ModalContentAll>
         <Button text={'확인'} onClick={onClick} />
       </ModalContainer>
     </ModalWrapper>
@@ -62,6 +64,7 @@ const ModalWrapper = styled.div`
 
 const ModalContainer = styled.div`
   width: 600px;
+  height: 476px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -72,6 +75,7 @@ const ModalContainer = styled.div`
   padding: 40px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 20px;
 
   & button {
@@ -79,8 +83,16 @@ const ModalContainer = styled.div`
     margin: 0 auto;
     width: 120px;
     height: 40px;
+    align-items: end;
     ${regular16}
   }
+
+  @media (max-width: 768px) {
+    margin: 0 auto;;
+  max-width: 480px;
+  max-height: 380px;
+  }
+
 `;
 
 const ModalProfile = styled.div`
@@ -132,3 +144,9 @@ const ModalContent = styled.div.withConfig({
   overflow-y: auto;
   font-family: ${(props) => props.cardFont};
 `;
+
+const ModalContentAll = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap : 1rem
+`  
