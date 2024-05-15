@@ -11,11 +11,13 @@ const FlexCenter = css`
 `;
 
 const DownArrow = styled.button`
+  background-color: var(--white);
   min-width: 2.4rem;
   height: 2.4rem;
   box-sizing: border-box;
   margin: 0.6rem 1.4rem 0.6rem 0.6rem;
   position: relative;
+  border: 0px;
 
   @media (max-width: 470px) {
     margin-right: 0.8rem;
@@ -34,6 +36,7 @@ const EmojiGroupInDropDown = styled.div`
   display: grid;
   grid-gap: 0.8rem;
   grid-template-columns: 6.3rem 6.3rem 6.3rem 6.3rem;
+  border: 10px;
 `;
 
 const DropdownMenu = styled.div`
@@ -104,7 +107,8 @@ function EmojiButtonList({ id, emojiList, setEmojiList, isNav }) {
           </li>
         ))}
       </StyledEmojiButtonList>
-      {isNav && emojiList.length > 0 &&
+      {isNav &&
+        emojiList.length > 0 &&
         (emojiList.length > 3 ? (
           <DownArrow onClick={() => setIsDropDownOpen((prev) => !prev)}>
             <ArrowImage src={ArrowDown} alt="" />
