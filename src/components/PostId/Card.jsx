@@ -57,6 +57,8 @@ const CardContent = styled.div`
 const UserInfo = styled.div`
   display: flex;
   gap: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgb(226, 226, 226);
 `;
 
 const UserImg = styled.img`
@@ -64,7 +66,6 @@ const UserImg = styled.img`
   width: 5.6rem;
   height: 5.6rem;
   align-items: center;
-
   border-radius: 10rem;
   border: 0.1rem solid var(--gray200);
   background: var(--white);
@@ -109,6 +110,7 @@ const CardContentText = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
+  padding-top: 1rem;
   overflow-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -140,7 +142,7 @@ function Card({
   isEdit,
 }) {
   const [isCardOnClick, setIsCardOnClick] = useState(false);
-  
+
   const onClickCard = (e) => {
     e.preventDefault();
     setIsCardOnClick(!isCardOnClick);
