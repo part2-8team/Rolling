@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import CardItems from '../components/PostId/CardItems';
 import { useNavigate, useParams } from 'react-router-dom';
 import { bold16 } from '../styles/fontSize';
+import DeleteRecipientButton from '../components/Button/DeleteRecipientButton';
 
 const BACKGROUND_COLOR = Object.freeze({
   beige: { background: 'var(--orange200)' },
@@ -110,6 +111,7 @@ function PostIdEdit() {
         profileUrl={profileUrl}
       />
       <EditCard>
+        <DeleteRecipientButton/>
         <EditButton onClick={() => navigate(`/post/${data.id}/`)}>
           뒤로가기
         </EditButton>
