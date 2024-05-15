@@ -42,7 +42,7 @@ const EditCard = styled.div`
   display: flex;
   margin: 6.3rem auto 2.5rem;
   max-width: 120rem;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
 
   @media (max-width: 1247px) {
@@ -54,29 +54,6 @@ const EditCard = styled.div`
 `;
 
 const EditButton = styled.button`
-  width: 9.2rem;
-  height: 3.9rem;
-  margin-top: 6.5rem;
-  padding: 0.6rem 1.6rem;
-  border-radius: 0.8rem;
-  ${bold16}
-  background: var(--${({ disabled }) => (disabled ? 'gray300' : 'purple600')});
-  color: var(--white);
-
-  &:hover:enabled {
-    background: var(--purple700);
-  }
-
-  &:active:enabled {
-    background: var(--purple800);
-  }
-
-  &:focus:enabled {
-    background: var(--purple800);
-  }
-`;
-
-const BackButton = styled.button`
   width: 9.2rem;
   height: 3.9rem;
   margin-top: 6.5rem;
@@ -141,7 +118,7 @@ function PostId() {
         profileUrl={profileUrl}
       />
       <EditCard>
-        <BackButton onClick={() => navigate(`/list`)}>뒤로가기</BackButton>
+        {/* <EditButton /> */}
         <EditButton onClick={() => navigate(`/post/${data.id}/edit`)}>
           수정하기
         </EditButton>

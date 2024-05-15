@@ -10,7 +10,6 @@ import {
 import Button from './Button/Button';
 import ProfileImage from './ProfileImage';
 import { USER_STATE } from '../utils/USER_SET';
-import parse from 'html-react-parser';
 
 function CardModal({
   onClick,
@@ -22,8 +21,6 @@ function CardModal({
   cardContent,
   cardCreatedAt,
 }) {
-  const parseContent = parse(cardContent);
-
   return (
     <ModalWrapper>
       <ModalContainer>
@@ -41,7 +38,7 @@ function CardModal({
           </Profile>
           <ProfileUpdated>{cardCreatedAt}</ProfileUpdated>
         </ModalProfile>
-        <ModalContent cardFont={cardFont}>{parseContent}</ModalContent>
+        <ModalContent cardFont={cardFont}>{cardContent}</ModalContent>
         <Button text={'확인'} onClick={onClick} />
       </ModalContainer>
     </ModalWrapper>
