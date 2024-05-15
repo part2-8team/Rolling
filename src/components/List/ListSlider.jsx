@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import SectionTitle from '../components/SectionTitle';
-import SliderButton from '../components/SliderButton';
-import arrowRight from '../assets/arrow-right.svg';
-import arrowLeft from '../assets/arrow-left.svg';
-import { useEffect, useState } from 'react';
+import SectionTitle from '../SectionTitle';
+import SliderButton from './SliderButton';
+import arrowRight from '../../assets/arrow-right.svg';
+import arrowLeft from '../../assets/arrow-left.svg';
 import SliderCard from './SLiderCard';
 import { useNavigate } from 'react-router-dom';
 

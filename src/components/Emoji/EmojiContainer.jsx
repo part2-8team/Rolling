@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { createPicker } from 'picmo';
-import { getReactions } from '../api/recipientApi';
+import { getReactions } from '../../api/recipientApi';
 
 function EmojiContainer({ id, addEmoji, createReaction }) {
   const pickerContainerRef = useRef(null);

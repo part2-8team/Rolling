@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
-import CardModal from '../CardModal';
+import CardModal from '../Modal/CardModal';
 import {
   regular12,
   regular14,
@@ -114,6 +114,7 @@ const CardContentText = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--gray600);
+  font-family: ${({ cardFont }) => mapFont(cardFont)};
 
   ${regular18}
 
@@ -169,9 +170,12 @@ function Card({
           </UserNameText>
           {isEdit && <DeleteButton id={id} onDelete={onDelete} />}
         </UserInfo>
-        <CardContentText style={{ fontFamily: mapFont(cardFont) }}>
-          {parseContent}
-        </CardContentText>
+        <CardContentText
+          style={{ fontFamily: mapFont(cardFont) }}
+          dangerouslySetInnerHTML={{ __html: cardContent }}
+        />
+        {/* {parseContent}
+        </CardContentText> */}
         <CardDate>
           {`${createdDate.getFullYear()}. ${
             createdDate.getMonth() + 1

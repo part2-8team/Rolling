@@ -1,5 +1,5 @@
 import ProfileUser from './ProfileUser';
-// function Profile({ profileUrl, peopleNum }) {
+
 function Profile({ profileUrl, peopleNum }) {
   const urls = profileUrl || [];
 

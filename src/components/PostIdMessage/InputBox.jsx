@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { regular16, regular14 } from '../styles/fontSize';
+import { regular16, regular14 } from '../../styles/fontSize';
 
 function InputBox({
   name,
@@ -19,9 +19,6 @@ function InputBox({
     }
   };
 
-  const handleChange = (e) => {
-    setInputValue(e.target.value);
-  };
 
   return (
     <div>
