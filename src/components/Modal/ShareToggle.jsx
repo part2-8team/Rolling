@@ -14,9 +14,11 @@ const ShareBox = styled.div`
 `;
 
 const ShareButton = styled.button`
-  width: 13.8rem;
+  background-color: var(--white);
+  width: 13.5rem;
   padding: 1.2rem 1.6rem;
-  align-items: center;
+  border: 0px;
+  align-items: left;
   color: var(--gray900);
   ${bold16}
 

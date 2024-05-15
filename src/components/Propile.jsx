@@ -1,5 +1,5 @@
 import ProfileUser from './ProfileUser';
-
+// function Profile({ profileUrl, peopleNum }) {
 function Profile({ profileUrl, peopleNum }) {
   const urls = profileUrl || [];
 
@@ -10,7 +10,7 @@ function Profile({ profileUrl, peopleNum }) {
 
         return (
           <ProfileUser
-            key={userUrl - index}
+            key={index}
             src={userUrl}
             peopleNum={last ? `+${peopleNum - 3}` : null}
             last={last}

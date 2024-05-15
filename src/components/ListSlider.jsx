@@ -15,7 +15,6 @@ function ListSlider({
   clickNext,
   clickPrev,
   value,
-  moveTouchSlider,
   handleOnTouchStart,
   handleOnTouchMove,
   handleOnTouchEnd,
