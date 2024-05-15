@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import CardModal from '../CardModal';
@@ -141,10 +141,17 @@ function Card({
   isEdit,
 }) {
   const [isCardOnClick, setIsCardOnClick] = useState(false);
+  const ref = useRef();
 
   const onClickCard = (e) => {
     e.preventDefault();
     setIsCardOnClick(!isCardOnClick);
+  };
+
+  const OutsideClick = (e) => {
+    if (isCardOpen && (!ref.current || !ref.current.contains(e.target))) {
+      setIsCardOpen(false);
+    }
   };
 
   const createdDate = new Date(cardCreatedAt);
