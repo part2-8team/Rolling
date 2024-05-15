@@ -10,12 +10,12 @@ import { useNavigate } from 'react-router-dom';
 const SLIDE = 295;
 
 function ListSlider({
+  // title,
   title,
   moveSlider,
   clickNext,
   clickPrev,
   value,
-  moveTouchSlider,
   handleOnTouchStart,
   handleOnTouchMove,
   handleOnTouchEnd,
