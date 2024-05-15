@@ -109,7 +109,7 @@ function NotFound() {
     setRotateY(rotateY);
     setFilter(0.8);
     setPosition(backgroundPosition);
-    console.log(x, y);
+
   };
 
   const handleMouseOut = () => {

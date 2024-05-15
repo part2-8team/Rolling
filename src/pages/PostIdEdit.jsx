@@ -58,7 +58,7 @@ const EditButton = styled.button`
   width: 9.2rem;
   height: 3.9rem;
   margin-top: 6.5rem;
-  padding: 0.6rem 1.6rem ;
+  padding: 0.6rem 1.6rem;
   border-radius: 0.8rem;
   ${bold16}
   background: var(--${({ disabled }) => (disabled ? 'gray300' : 'purple600')});
@@ -74,6 +74,34 @@ const EditButton = styled.button`
 
   &:focus:enabled {
     background: var(--purple800);
+  }
+  @media (max-width: 1247px) {
+    display: none;
+  }
+`;
+const MobileEditButton = styled.button`
+  width: 95%;
+  height: 5.6rem;
+  margin: 2.4rem;
+  border-radius: 1.2rem;
+  text-align: center;
+  ${bold16}
+  background: var(--${({ disabled }) => (disabled ? 'gray300' : 'purple600')});
+  color: var(--white);
+
+  &:hover:enabled {
+    background: var(--purple700);
+  }
+
+  &:active:enabled {
+    background: var(--purple800);
+  }
+
+  &:focus:enabled {
+    background: var(--purple800);
+  }
+  @media (min-width: 1247px) {
+    display: none;
   }
 `;
 
@@ -111,12 +139,15 @@ function PostIdEdit() {
         profileUrl={profileUrl}
       />
       <EditCard>
-        <DeleteRecipientButton/>
+        <DeleteRecipientButton />
         <EditButton onClick={() => navigate(`/post/${data.id}/`)}>
           완료
         </EditButton>
       </EditCard>
       <CardItems data={data} isEdit={true} />
+      <MobileEditButton onClick={() => navigate(`/post/${data.id}/`)}>
+        완료
+      </MobileEditButton>
     </PostIdWrapper>
   );
 }

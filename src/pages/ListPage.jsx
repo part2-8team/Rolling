@@ -161,7 +161,7 @@ function ListPage() {
       />
       <StyleContainer>
         <ListSlider
-          title={"인기 롤링 페이퍼 🔥"}
+          title={'인기 롤링 페이퍼 🔥'}
           moveSlider={movePopularSlider}
           clickNext={handleClickNext}
           clickPrev={handleClickPrev}
@@ -173,7 +173,7 @@ function ListPage() {
           cardItems={popularItems}
         />
         <ListSlider
-          title={"최근에 만든 롤링 페이퍼 ⭐️"}
+          title={'최근에 만든 롤링 페이퍼 ⭐️'}
           moveSlider={moveRecentSlider}
           clickNext={handleClickNext}
           clickPrev={handleClickPrev}
@@ -196,7 +196,7 @@ const StyleContainer = styled.div`
   max-width: 1201px;
   height: 100%;
   margin: 114px auto 0 auto;
-
+  padding-left: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;

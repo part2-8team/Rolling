@@ -49,7 +49,7 @@ function ShareToggle({ setIsKakaoOpen, setIsUrlCopy }) {
   };
 
   const location = useLocation();
-  const baseUrl = 'https://sp6-team8-rolling.netlify.app';
+  const baseUrl = 'https://rolling-five.vercel.app';
 
   return (
     <ShareBox>

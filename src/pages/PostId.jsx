@@ -74,6 +74,34 @@ const EditButton = styled.button`
   &:focus:enabled {
     background: var(--purple800);
   }
+@media (max-width: 1247px) {
+    display: none;
+  }  
+`;
+const MobileEditButton = styled.button`
+  width: 95%;
+  height: 5.6rem;
+  margin : 2.4rem;
+  border-radius: 1.2rem;
+  text-align: center;
+  ${bold16}
+  background: var(--${({ disabled }) => (disabled ? 'gray300' : 'purple600')});
+  color: var(--white);
+
+  &:hover:enabled {
+    background: var(--purple700);
+  }
+
+  &:active:enabled {
+    background: var(--purple800);
+  }
+
+  &:focus:enabled {
+    background: var(--purple800);
+  }
+@media (min-width: 1247px) {
+    display: none;
+  }  
 `;
 
 const BackButton = styled.button`
@@ -147,6 +175,7 @@ function PostId() {
         </EditButton>
       </EditCard>
       <CardItems data={data} />
+      <MobileEditButton onClick={() => navigate(`/post/${data.id}/edit`)}>수정하기</MobileEditButton>
     </PostIdWrapper>
   );
 }

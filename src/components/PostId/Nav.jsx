@@ -35,7 +35,6 @@ const NavContainer = styled.div`
     margin: 0 2.4rem;
   }
   @media (max-width: ${DISPLAY_SIZE.MAX_MOBILE}px) {
-    display: block;
     padding: 0;
   }
 `;
@@ -85,9 +84,8 @@ const Written = styled.div`
   }
 `;
 
-
 const Vertical1 = styled.div`
-width: 0.1rem;
+  width: 0.1rem;
   height: 2.8rem;
   background-color: var(--gray200);
   line-height: 27px;
@@ -99,7 +97,7 @@ width: 0.1rem;
 `;
 
 const Vertical2 = styled.div`
-width: 0.1rem;
+  width: 0.1rem;
   height: 2.8rem;
   background-color: var(--gray200);
   line-height: 27px;
@@ -201,7 +199,7 @@ function Nav({ name, peopleNum, profileUrl }) {
             {peopleNum}명이 작성했어요!
           </Written>
           <Vertical1 />
-          <EmojiDropDown isNav={true}/>
+          <EmojiDropDown isNav={true} />
           <Vertical2 />
           <ShareButton ref={ref} onClick={ClickShare}>
             <img src={share24} alt="공유하기버튼" />

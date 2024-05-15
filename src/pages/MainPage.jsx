@@ -142,17 +142,19 @@ const MainPageStyledComponent = styled.div`
       margin: 0 auto;
     }
     @media (max-width: 1200px) {
+      align-items: center;
       & .sections {
+        width: 720px;
         & section {
-          width: 95%;
+          width: 100%;
           flex-direction: column-reverse;
           padding: 0;
           gap: 36px;
-          align-items: center;
+          align-items: left;
 
           & .sectionTitle {
             margin: 40px 40px 0;
-            align-items: center;
+            align-items: left;
 
             & br {
               display: inline-block;
@@ -177,6 +179,8 @@ const MainPageStyledComponent = styled.div`
       padding: 0 20px;
 
       & .sections {
+        width: 100%;
+
         & section {
           width: 100%;
           margin: 0;
@@ -209,7 +213,7 @@ const MainPageStyledComponent = styled.div`
             width: 100%;
             height: auto;
             > img {
-              width: 100%;
+              width: 70%;
               min-width: initial;
             }
           }

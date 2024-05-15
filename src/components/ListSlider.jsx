@@ -114,7 +114,7 @@ const StyleSection = styled.section`
 
   .prev-button {
     top: 50%;
-    left: -20px;
+    left: 20px;
   }
 
   .next-button {
@@ -123,6 +123,7 @@ const StyleSection = styled.section`
   }
 `;
 const StyleSliderWrap = styled.div`
+  margin: 0 auto;
   width: 1160px;
   height: 262px;
 

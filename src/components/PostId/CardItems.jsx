@@ -10,7 +10,7 @@ const CardContainer = styled.div`
   flex-wrap: wrap;
   max-width: 120rem;
   margin: 1rem auto 0rem;
-  padding-bottom: 12.7rem;
+  padding-bottom: 1.27rem;
   gap: 2.4rem 2%;
 
   @media (max-width: 1247px) {
