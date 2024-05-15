@@ -8,7 +8,7 @@ import ToggleButton from './Button/ToggleButton';
 
 //이미지
 import colorToggle from '../assets/colorToggle.svg';
- import ImgToggle from '../assets/imgToggle.svg';
+import ImgToggle from '../assets/imgToggle.svg';
 
 //스타일
 import styled, { createGlobalStyle } from 'styled-components';
@@ -31,13 +31,11 @@ const MainToContainer = styled.div`
   margin-top: 114px;
   @media (max-width: 768px) {
     width: 720px;
-    
   }
 
   @media (max-width: 600px) {
     width: 380px;
   }
-  
 `;
 
 const ToUser = styled.h1`
@@ -132,13 +130,13 @@ const BackgroundChooseContainer = styled.div`
   }
 `;
 const BackgroundChooseTitleText = styled.h1`
-  width: 243px;
+  width: 260px;
   height: 36px;
   margin-bottom: 4px;
   ${bold24};
 `;
 const BackgroundChooseSubText = styled.p`
-  width: 301px;
+  width: 330px;
   height: 26px;
   ${regular16};
 `;
@@ -167,7 +165,10 @@ const CreateButton = styled.button`
   height: 56px;
   margin-top: 69px;
   border-radius: 12px;
-  background-color: ${({ disabled }) => (disabled ? '#cccccc' : 'var(--purple600)')}; /* 비활성화, 활성화 시 생성하기 버튼의 색상 */
+  background-color: ${({ disabled }) =>
+    disabled
+      ? '#cccccc'
+      : 'var(--purple600)'}; /* 비활성화, 활성화 시 생성하기 버튼의 색상 */
   ${bold18}
   color: #FFFFFF;
   border: none;
@@ -185,7 +186,6 @@ const CreateButton = styled.button`
   }
 `;
 
-
 // 함수 컴포넌트
 const Container = () => {
   const [inputValue, setInputValue] = useState('');
@@ -202,23 +202,22 @@ const Container = () => {
       setError(true);
       return null; // 입력값이 없으면 null 반환
     }
-  
+
     try {
       const selectedColor = 'beige';
-      
-  
+
       const data = {
         name: inputValue,
         backgroundColor: selectedImage?.backgroundColor || selectedColor,
-        backgroundImageURL: selectedImage?.backgroundImageURL || null
+        backgroundImageURL: selectedImage?.backgroundImageURL || null,
       };
-  
+
       const response = await createRecipient(data);
-  
+
       console.log('메세지가 생성되었습니다:', data);
-  
+
       setInputValue('');
-  
+
       // 생성된 페이지의 ID 반환
       return response.id;
     } catch (error) {
@@ -234,7 +233,6 @@ const Container = () => {
       navigate(`/post/${id}`); // 생성된 페이지로 이동
     }
   };
-
 
   return (
     <MainContainer>
@@ -258,17 +256,22 @@ const Container = () => {
             컬러를 선택하거나, 이미지를 선택할 수 있습니다.
           </BackgroundChooseSubText>
         </BackgroundChooseContainer>
-        <ToggleButton onSubmit={({ backgroundColor, backgroundImageURL }) => setSelectedImage({ backgroundColor, backgroundImageURL })} />
+        <ToggleButton
+          onSubmit={({ backgroundColor, backgroundImageURL }) =>
+            setSelectedImage({ backgroundColor, backgroundImageURL })
+          }
+        />
         <ButtonGroup>
-          <CreateButton disabled={!inputValue || !selectedImage} onClick={handleCreateRecipient}>
+          <CreateButton
+            disabled={!inputValue || !selectedImage}
+            onClick={handleCreateRecipient}
+          >
             생성하기
           </CreateButton>
         </ButtonGroup>
       </MainToContainer>
     </MainContainer>
   );
-}
+};
 
 export default Container;
-
-
