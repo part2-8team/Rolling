@@ -5,7 +5,6 @@ import { createReaction, getReactions } from '../api/recipientApi';
 import { regular16 } from '../styles/fontSize';
 import EmojiButtonList from './EmojiButtonList';
 import EmojiContainer from './EmojiContainer';
-import add24 from '../assets/add24.svg';
 
 const EmojiAddButton = styled.div`
   position: relative;
@@ -92,7 +91,7 @@ function EmojiDropDown({isNav}) {
         isNav={isNav}
       />
       <EmojiAddButton onClick={handleEmojiPicker}>
-        <img src={add24} alt="" />
+        <img src="/img/emojiAdd.svg" alt="" />
         <span>추가</span>
         {isOpen && (
           <EmojiPickerWrapper onClick={stopPropagation}>

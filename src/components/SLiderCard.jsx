@@ -16,6 +16,7 @@ function SliderCard({
   backgroundImageURL,
   messageCount,
   name,
+  reactionCount,
   handleCardClick,
 }) {
   const [emojiList, setEmojiList] = useState([]);
@@ -31,6 +32,12 @@ function SliderCard({
       : selectBackgroundColor(backgroundColor);
 
   const backgroundPattern = selectBackgroundPattern(backgroundColor);
+
+  const messageLength = messageCount - 3 < 0 ? 0 : messageCount - 3;
+
+  const profileImage = {
+    backgroundImage: `url('https://newsimg.sedaily.com/2023/09/12/29UNLQFQT6_1.jpg')`,
+  };
 
   // 이모지 api
   const handleEmojiData = async () => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import Modal from '../Modal';
 import CardModal from '../CardModal';
 import {
   regular12,
@@ -11,7 +12,7 @@ import {
 import parse from 'html-react-parser';
 import { mapFont } from '../../utils/mapFont';
 import DeleteButton from '../Button/DeleteButton';
-import ModalPortal from '../Modal/ModalPortal';
+import { useLocation } from 'react-router';
 
 const USER_STATE = Object.freeze({
   가족: { background: 'var(--green100)', color: 'var(--green500)' },
@@ -56,8 +57,6 @@ const CardContent = styled.div`
 const UserInfo = styled.div`
   display: flex;
   gap: 1.4rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgb(226, 226, 226);
 `;
 
 const UserImg = styled.img`
@@ -65,6 +64,7 @@ const UserImg = styled.img`
   width: 5.6rem;
   height: 5.6rem;
   align-items: center;
+
   border-radius: 10rem;
   border: 0.1rem solid var(--gray200);
   background: var(--white);
@@ -109,7 +109,6 @@ const CardContentText = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
-  padding-top: 1rem;
   overflow-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -141,7 +140,7 @@ function Card({
   isEdit,
 }) {
   const [isCardOnClick, setIsCardOnClick] = useState(false);
-
+  
   const onClickCard = (e) => {
     e.preventDefault();
     setIsCardOnClick(!isCardOnClick);
@@ -172,7 +171,7 @@ function Card({
         </CardDate>
       </CardContent>
       {isCardOnClick && (
-        <ModalPortal>
+        <Modal>
           <CardModal
             onClick={(e) => OutsideClick(e)}
             id={id}
@@ -183,7 +182,7 @@ function Card({
             cardContent={cardContent}
             cardCreatedAt={cardCreatedAt}
           />
-        </ModalPortal>
+        </Modal>
       )}
     </CardContentWrapper>
   );

@@ -7,6 +7,7 @@ function InputBox({
   value,
   onChange,
   placeholder,
+  onBlur,
   isError = false,
 }) {
   const [error, setError] = useState(isError);
