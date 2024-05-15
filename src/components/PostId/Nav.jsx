@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { toast, ToastContainer } from 'react-toastify';
 import { regular16, bold18, bold28 } from '../../styles/fontSize';
 import { DISPLAY_SIZE } from '../../utils/PAGE_SIZE';
-import Propile from '../Propile';
+import Propile from './Nav/Propile';
 import share24 from '../../assets/share24.svg';
 import Toast from '../Modal/Toast';
 import ShareToggle from '../Modal/ShareToggle';
 import ModalPortal from '../Modal/ModalPortal';
-import EmojiDropDown from '../EmojiDropDown';
+import EmojiDropDown from '../Emoji/EmojiDropDown';
 
 const NavWapper = styled.div`
   width: 100%;

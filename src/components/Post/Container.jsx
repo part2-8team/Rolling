@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { createRecipient } from '../api/recipientApi';
-import { bold18 } from '../styles/fontSize';
+import { createRecipient } from '../../api/recipientApi';
+import { bold18 } from '../../styles/fontSize';
 import { useNavigate } from 'react-router-dom'; // URL 이동
 
 //컴포넌트
-import ToggleButton from './Button/ToggleButton';
+import ToggleButton from '../Button/ToggleButton';
 
 //이미지
-import colorToggle from '../assets/colorToggle.svg';
-import ImgToggle from '../assets/imgToggle.svg';
+
 
 //스타일
 import styled, { createGlobalStyle } from 'styled-components';
-import { regular16, regular12, bold24 } from '../styles/fontSize';
+import { regular16, regular12, bold24 } from '../../styles/fontSize';
 
 const MainContainer = styled.main`
   box-sizing: border-box;

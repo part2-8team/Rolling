@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { createReaction, getReactions } from '../api/recipientApi';
-import { regular16 } from '../styles/fontSize';
+import { createReaction, getReactions } from '../../api/recipientApi';
+import { regular16 } from '../../styles/fontSize';
 import EmojiButtonList from './EmojiButtonList';
 import EmojiContainer from './EmojiContainer';
-import add24 from '../assets/add24.svg';
+import add24 from '../../assets/add24.svg';
 
 const EmojiAddButton = styled.div`
   position: relative;

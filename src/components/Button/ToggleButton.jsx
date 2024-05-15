@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getBackgroundImages } from '../../api/etcApi'; 
+import { getBackgroundImages } from '../../api/etcApi';
 import { createRecipient } from '../../api/recipientApi';
 
 //이미지
@@ -7,7 +7,7 @@ import colorToggle from '../../assets/colorToggle.svg';
 import ImgToggle from '../../assets/imgToggle.svg';
 import switchImgToggle from '../../assets/switchImgToggle.svg';
 import switchColorToggle from '../../assets/switchcolorToggle.svg';
-import checkIcon from '../../assets/checkIcon.svg'; 
+import checkIcon from '../../assets/checkIcon.svg';
 import beige from '../../assets/beige.png';
 import purple from '../../assets/purple.png';
 import blue from '../../assets/blue.png';
@@ -27,7 +27,6 @@ const ChooseImgGroup = styled.div`
     position: relative;
     left: 25px;
   }
-
 `;
 
 const ToggleImgButton = styled.button`
@@ -52,7 +51,7 @@ const ColorCardGroup = styled.div`
     position: relative;
     left: 30px;
   }
-  
+
   @media (max-width: 600px) {
     width: 375px;
     height: 320px;
@@ -60,7 +59,6 @@ const ColorCardGroup = styled.div`
     left: 30px;
     /* border: 1px solid red; */
   }
-
 `;
 
 const ColorCard = styled.div`
@@ -91,9 +89,11 @@ const CheckIcon = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-
-
-  const ToggleButton = ({ onSubmit, defaultColor = 'beige', defaultImage = null }) => {
+const ToggleButton = ({
+  onSubmit,
+  defaultColor = 'beige',
+  defaultImage = null,
+}) => {
   const [isColorActive, setIsColorActive] = useState(true);
   const [isImageActive, setIsImageActive] = useState(false);
   const [selectedColor, setSelectedColor] = useState(defaultColor);
@@ -108,7 +108,10 @@ const CheckIcon = styled.img`
 
         if (images.length > 0) {
           setSelectedImage(images[0]);
-          onSubmit({ backgroundColor: selectedColor, backgroundImageURL: images[0] });
+          onSubmit({
+            backgroundColor: selectedColor,
+            backgroundImageURL: images[0],
+          });
         }
       } catch (error) {
         console.error('배경 이미지를 가져오는 중 오류 발생:', error);
@@ -175,7 +178,9 @@ const CheckIcon = styled.img`
               onClick={() => handleColorSelect(color.color)}
               style={{ borderRadius: '20px' }}
             >
-              {selectedColor === color.color && <CheckIcon src={checkIcon} alt="선택됨" />}
+              {selectedColor === color.color && (
+                <CheckIcon src={checkIcon} alt="선택됨" />
+              )}
             </ColorCard>
           ))}
         </ColorCardGroup>
@@ -197,21 +202,24 @@ const CheckIcon = styled.img`
           ))}
         </ColorCardGroup>
       )}
-      {!isColorActive && !isImageActive && ( // 색상 선택만 가능할 때 배경 이미지 적용
-        <ColorCardGroup>
-          {colors.map((color) => (
-            <ColorCard
-              key={color.color}
-              src={color.image}
-              alt={`${color.color} 배경화면`}
-              onClick={() => handleColorSelect(color.color)}
-              style={{ borderRadius: '20px' }}
-            >
-              {selectedColor === color.color && <CheckIcon src={checkIcon} alt="선택됨" />}
-            </ColorCard>
-          ))}
-        </ColorCardGroup>
-      )}
+      {!isColorActive &&
+        !isImageActive && ( // 색상 선택만 가능할 때 배경 이미지 적용
+          <ColorCardGroup>
+            {colors.map((color) => (
+              <ColorCard
+                key={color.color}
+                src={color.image}
+                alt={`${color.color} 배경화면`}
+                onClick={() => handleColorSelect(color.color)}
+                style={{ borderRadius: '20px' }}
+              >
+                {selectedColor === color.color && (
+                  <CheckIcon src={checkIcon} alt="선택됨" />
+                )}
+              </ColorCard>
+            ))}
+          </ColorCardGroup>
+        )}
     </>
   );
 };

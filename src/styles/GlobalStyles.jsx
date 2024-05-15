@@ -1,10 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from './reset';
 import NanumMyeongjo from '../assets/font/NanumMyeongjo.ttf';
-import NanumPenScript from '../assets/font/NanumPenScript.ttf';
+import NanumPen from '../assets/font/NanumPen.ttf';
 import NotoSansKR from '../assets/font/NotoSansKR.ttf';
-
-
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -60,11 +58,12 @@ ${reset}
 
   body {
     font-size: 62.5%;
-    font-family: 'Pretendard';
+
   }
+*{
 
   @font-face {
-    font-family: 'NanumMyeongjo';
+    font-family:'NanumMyeongjo';
     src: url(${NanumMyeongjo}) format('truetype');
     font-weight: normal;
     font-style: normal;
@@ -72,8 +71,8 @@ ${reset}
   }
 
   @font-face {
-    font-family: 'NanumPenScript';
-    src: url(${NanumPenScript}) format('truetype');
+    font-family:'NanumPenScript';
+    src: url(${NanumPen}) format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -85,6 +84,7 @@ ${reset}
     font-weight: normal;
     font-style: normal;
   }
+}
 
 
   

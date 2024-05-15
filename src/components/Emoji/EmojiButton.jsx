@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { regular16 } from '../styles/fontSize';
-import { createReaction, getReactions } from '../api/recipientApi';
+import { regular16 } from '../../styles/fontSize';
+import { createReaction, getReactions } from '../../api/recipientApi';
 
 function EmojiButton({ emoji, setEmojiList, id }) {
   const emojiImage = emoji.emoji;

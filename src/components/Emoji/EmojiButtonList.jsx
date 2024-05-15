@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import EmojiButton from './EmojiButton';
-import { regular16 } from '../styles/fontSize';
-import ArrowDown from '../assets/arrow-down.svg';
+import { regular16 } from '../../styles/fontSize';
+import ArrowDown from '../../assets/arrow-down.svg';
 
 const FlexCenter = css`
   display: flex;

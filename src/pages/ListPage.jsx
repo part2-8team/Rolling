@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getRecipientsAll, getRecipientsCount } from '../api/recipientApi';
+import { getRecipientsAll } from '../api/recipientApi';
 import styled from 'styled-components';
 import Button from '../components/Button/Button';
-import ListSlider from '../components/ListSlider';
+import ListSlider from '../components/List/ListSlider';
 import Header from '../components/Header';
 import CreateButton from '../components/Button/CreateButton';
 // 슬라이더 클릭 한번당 움직일 px

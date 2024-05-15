@@ -1,5 +1,5 @@
-export const mapFont = (fontName) => {
-  switch (fontName) {
+export const mapFont = (cardFont) => {
+  switch (cardFont) {
     case 'Noto Sans':
       return 'Noto Sans';
     case 'Pretendard':

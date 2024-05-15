@@ -7,10 +7,10 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import SectionTitle from '../components/SectionTitle';
 import Button from '../components/Button/Button';
-import InputBox from '../components/InputBox';
+import InputBox from '../components/PostIdMessage/InputBox';
 import SelectBox from '../components/SelectBox';
-import QuillEditor from '../components/QuillEditor';
-import ProfileImage from '../components/ProfileImage';
+import QuillEditor from '../components/PostIdMessage/QuillEditor';
+import ProfileImage from '../components/PostId/Nav/ProfileImage';
 import { regular16 } from '../styles/fontSize';
 
 const RELATIONSHIP_ARR = ['지인', '친구', '동료', '가족'];
@@ -19,11 +19,11 @@ const FONT_ARR = ['Noto Sans', 'Pretendard', '나눔명조', '나눔손글씨 �
 function PostIdMessage() {
   const [profileImgArr, setProfileImgArr] = useState([]);
   const [sender, setSender] = useState('');
-  const [profileImageURL, setProfileImageURL] = useState(profileImgArr[0]);
+  const [profileImageURL, setProfileImageURL] = useState('');
   const [relationship, setRelationship] = useState('지인');
   const [content, setContent] = useState('');
   const [font, setFont] = useState('Noto Sans');
-  const isMobile = useMediaQuery({ maxWidth: 360 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -65,9 +65,12 @@ function PostIdMessage() {
     async function fetchItemData() {
       const arr = await getProfileImages();
       setProfileImgArr(arr);
+      setProfileImageURL(arr[0]);
     }
     fetchItemData();
   }, []);
+
+  console;
 
   return (
     <>
@@ -86,10 +89,7 @@ function PostIdMessage() {
           <SectionTitle title="프로필 이미지" />
           <ImgContainer>
             <SelectedImg>
-              <ProfileImage
-                imgUrl={profileImageURL || profileImgArr[0]}
-                size="80"
-              />
+              <ProfileImage imgUrl={profileImageURL} size="80" />
             </SelectedImg>
             <div>
               <SectionDesc>프로필 이미지를 선택해주세요!</SectionDesc>
@@ -99,7 +99,7 @@ function PostIdMessage() {
                     <li key={i}>
                       <ProfileImage
                         imgUrl={url}
-                        size={isMobile ? '40' : '55'}
+                        size={isMobile ? '40' : '53'}
                       />
                     </li>
                   );

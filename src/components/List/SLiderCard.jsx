@@ -1,14 +1,14 @@
 import styled from 'styled-components';
-import { bold24, bold16, regular16, regular12 } from '../styles/fontSize';
+import { bold24, bold16, regular16, regular12 } from '../../styles/fontSize';
 import {
   selectBackgroundPattern,
   selectBackground,
   selectBackgroundColor,
-} from '../utils/SELECT_BACKGROUND';
-import { getReactions, getRecipient } from '../api/recipientApi';
+} from '../../utils/SELECT_BACKGROUND';
+import { getReactions, getRecipient } from '../../api/recipientApi';
 import { useEffect, useState } from 'react';
-import EmojiButtonList from './EmojiButtonList';
-import Propile from './Propile';
+import EmojiButtonList from '../Emoji/EmojiButtonList';
+import Propile from '../PostId/Nav/Propile';
 
 function SliderCard({
   id,
